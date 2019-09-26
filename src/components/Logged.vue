@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>Logged</p>
+        <p class="qw">Logged</p>
         <button type="submit" @click="handleSubmit">
             Login
         </button>
@@ -16,6 +16,7 @@
             handleSubmit(e) {
                 console.log(this.$store.getters.USER);
             }
+
         }
     }
 </script>
