@@ -45,79 +45,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="postBlocks">
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-desktop" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Требуется программист на C#</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Пишу приложение для мамы, там надо цифры считать, а я вообще не в курсе че там как, цифры какие-то. Плачу триллион рублей долларов с евро. Работа должна быть сделана срочно!
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
+                    <div class="postBlocks" v-html="rawHtml">
 
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-comments" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Ищу с кем поболтать</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Недавно научился говорить, необходимо срочно тренировать полученный навык. Отдам 3 рубля за каждое ваше слово. Ну пожалуйста(
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-globe" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Переведите пожалуйста</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Помогите перевести «あなたは一番賢いですか？». Я даже не знаю, что это за язык такой странный. Заплачу десять по пять десятин в шести кубах на литр
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Спасите на физике</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Дед - пожарник заваливает вопросами на экамене. Помогите на них ответить. СРОЧНА!!!
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -194,15 +123,53 @@
 <script>
     import router from "@/router";
     import store from '@/main';
+    import axios from 'axios';
     export default {
         name: "Logged",
-        methods: {
-            handleSubmit(e) {
-                console.log(this.$store.getters.USER);
-            }
+        data() {
+            return {
+            rawHtml : {}
+            };
+        },
+        mounted() {
+            console.log(this.$store.getters.ACCESSTOKEN);
+            axios({
+                headers: {
+                    'Authorization': "bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImEwYTI4YTI3LTY0YjMtNDI1OS1hZWUzLWM2MjAyNzI0NzJlZiIsImlhdCI6MTU3Mzg5NDk5MiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE1NzM4OTQ5OTEsImlzcyI6Ik15U2VydmVyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyJ9.2fCM4_u12rbR71OGd77mxyvWDVENaUkaqV6YXZZh6VI',
+                },
+                method: 'get',
+                url: 'https://dev.studo.rtuitlab.ru/api/ad',
+                data: {}
+            })
+                .then(({data}) => {
+                    console.log(data)
+                    for (var i = 0; i < data.length-1; i++)
+                    {
+                        this.rawHtml +=
+                            `<div class="postBlock">
+                        <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                        <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">` + data[i].name + `</div>
+                        </div>
+                        <div class="postDownBlock">
+                        <div class="textblockForPost">
+                        ` + data[i].shortDescription + `
+                    </div>
+                    <div class="postdate">
+                        25.12.2012
+                    </div>
+                    </div>
+                    </div>
+                    </div>`
+                    }
+                    console.log(this.rawHtml)
+                    });
 
+
+                },
         }
-    }
 </script>
 
 <style scoped>
