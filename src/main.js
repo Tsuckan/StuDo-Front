@@ -3,19 +3,20 @@ import App from './App.vue'
 import router from "@/router";
 import VueRouter from 'vue-router'
 import axios from 'axios';
+import VueCookies from 'vue-cookies';
 import Vuex from 'vuex';
 
 Vue.use(VueRouter)
 Vue.use(axios)
 Vue.use(Vuex)
+Vue.use(VueCookies);
 
 Vue.config.productionTip = false
 
 const store = new Vuex.Store({
   state: {
     user:{},
-    accesstoken:""
-  },
+    accesstoken:"" },
     getters:
         {
           USER: state => {

@@ -132,10 +132,9 @@
             };
         },
         mounted() {
-            console.log(this.$store.getters.ACCESSTOKEN);
             axios({
                 headers: {
-                    'Authorization': "bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImEwYTI4YTI3LTY0YjMtNDI1OS1hZWUzLWM2MjAyNzI0NzJlZiIsImlhdCI6MTU3Mzg5NDk5MiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE1NzM4OTQ5OTEsImlzcyI6Ik15U2VydmVyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyJ9.2fCM4_u12rbR71OGd77mxyvWDVENaUkaqV6YXZZh6VI',
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
                 url: 'https://dev.studo.rtuitlab.ru/api/ad',
@@ -143,10 +142,10 @@
             })
                 .then(({data}) => {
                     console.log(data)
-                    for (var i = 0; i < data.length-1; i++)
                     {
-                        this.rawHtml +=
-                            `<div class="postBlock">
+                        for (var i = 0; i < data.length - 1; i++) {
+                            this.rawHtml +=
+                                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -163,9 +162,12 @@
                     </div>
                     </div>
                     </div>`
+                        }
+                        console.log(this.rawHtml)
                     }
-                    console.log(this.rawHtml)
-                    });
+                    }).catch(error => {
+                        router.push("/Login");
+            });
 
 
                 },

@@ -7,7 +7,7 @@ import Logged from "@/components/Logged";
 export default new VueRouter({
     routes: [
         {
-            path: '',
+            path: '/Login',
             component: HelloWorld,
         },
         {
