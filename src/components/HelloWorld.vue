@@ -1,7 +1,125 @@
-<template>
+        <template>
     <div class="main">
 
     <div class="blur_test">
+
+        <header>
+            <div class="logoBlock d-flex">
+                <div class="logo d-flex">
+                    <div class="imgLogo">
+                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
+                    <div class="nameLogo">
+                        StuDo
+                    </div>
+                </div>
+
+
+
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="menuBar">
+                        <div class="menuBarBut">Создать объявление</div>
+                        <div class="btnsMenu">
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnActiv"></div>
+                                <div class="textBtns">Все объявления</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Мои объявления</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Отслеживаемые</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Вкладка 4</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Вкладка 5</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="postBlocks" v-html="rawHtml">
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="topMenu d-flex">
+                        <div class="topMenuItems active">
+                            Объявления
+                        </div>
+                        <div class="topMenuItems">
+                            Резюме
+                        </div>
+                        <div class="topMenuItems">
+                            Профиль
+                        </div>
+                    </div>
+
+                    <div class="rightBlock">
+                        <div class="rightBlock_firstBlock">
+                            <div class="searchform d-flex">
+                                <input type="text" class="searchInput">
+                                <div class="rightBlock_firstBlock_searchLogo">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="sortBlock">
+                                Сортировка
+                                <div class="sortItems">
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Категории
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rightBlock_secondBlock">
+                            <div class="catBlock">
+                                Категории
+                                <div class="sortItems">
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>Программирование
+                                        <div class="countCat">15</div>
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Дизайн
+                                        <div class="countCat">12</div>
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Категории
+                                        <div class="countCat">22</div>
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Общение
+                                        <div class="countCat">33</div>
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Учеба
+                                        <div class="countCat">111</div>
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Еще категории
+                                        <div class="countCat">132</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
         <div class="Auth">
             <div>
@@ -78,7 +196,6 @@ methods : {
      left: 0;
     width: 100vw;
     height: 100vh;
-    background:no-repeat url("https://cs8.pikabu.ru/post_img/big/2017/12/27/6/1514367381163844367.jpg");
     background-size: 100%;
     margin: 0;
 }

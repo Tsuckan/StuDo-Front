@@ -128,7 +128,7 @@
         name: "Logged",
         data() {
             return {
-            rawHtml : {}
+                rawHtml : {}
             };
         },
         mounted() {
@@ -165,13 +165,13 @@
                         }
                         console.log(this.rawHtml)
                     }
-                    }).catch(error => {
-                        router.push("/Login");
+                }).catch(error => {
+                router.push("/Login");
             });
 
 
-                },
-        }
+        },
+    }
 </script>
 
 <style scoped>
