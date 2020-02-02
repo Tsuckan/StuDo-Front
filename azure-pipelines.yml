@@ -23,7 +23,7 @@ steps:
     customCommand: 'run build'
 
 - task: PublishBuildArtifacts@1
-  displayName: publish build artifact stu-do-front-build
+  displayName: publish build artifact studo-front-build
   inputs:
     PathtoPublish: 'dist'
-    ArtifactName: 'stu-do-front-build'
+    ArtifactName: 'studo-front-build'
