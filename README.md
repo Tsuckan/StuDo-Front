@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # stu-do-front
 qwewqweqweweqweqwe
 =======
@@ -30,3 +31,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+>>>>>>> init

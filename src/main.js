@@ -16,15 +16,19 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
   state: {
     user:{},
+    add:'',
     accesstoken:"" },
     getters:
         {
           USER: state => {
             return state.user;
           },
-          ACCESSTOKEN: state => {
-            return state.accesstoken;
-          }
+            ACCESSTOKEN: state => {
+                return state.accesstoken;
+            },
+            ADD: state => {
+                return state.add;
+            }
         },
     mutations:
         {
@@ -32,10 +36,14 @@ const store = new Vuex.Store({
       {
         state.user = content;
       },
-      SET_ACCESSTOKEN(state, content)
-      {
-        state.accesstoken = content;
-      }
+            SET_ACCESSTOKEN(state, content)
+            {
+                state.accesstoken = content;
+            },
+            SET_ADD(state, content)
+            {
+                state.add = content;
+            }
     }
   }
 )
