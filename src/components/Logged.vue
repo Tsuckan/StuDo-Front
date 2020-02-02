@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
     <div class="box">
         <header>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="postBlocks" v-html="rawHtml">
+                    <div class="postBlocks" v-html="rawHtml.slice(15)">
 
                     </div>
                 </div>
@@ -58,7 +59,10 @@
                             Резюме
                         </div>
                         <div class="topMenuItems">
-                            Профиль
+                            <button @click="
+ handleSubmit">
+                                Профиль
+                            </button>
                         </div>
                     </div>
 
@@ -82,37 +86,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="rightBlock_secondBlock">
-                            <div class="catBlock">
-                                Категории
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>Программирование
-                                        <div class="countCat">15</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Дизайн
-                                        <div class="countCat">12</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
-                                        <div class="countCat">22</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Общение
-                                        <div class="countCat">33</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Учеба
-                                        <div class="countCat">111</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Еще категории
-                                        <div class="countCat">132</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -127,30 +100,35 @@
     export default {
         name: "Logged",
         data() {
+            showMobileMenu: false
             return {
-            rawHtml : {}
+                rawHtml: {}
             };
-        },
-        mounted() {
-            axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
-                method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad',
-                data: {}
-            })
-                .then(({data}) => {
-                    console.log(data)
-                    {
-                        for (var i = 0; i < data.length - 1; i++) {
-                            this.rawHtml +=
-                                `<div class="postBlock">
+        },methods : {
+            handleSubmit() {
+                router.push("/Profile")
+            }
+            },
+            mounted() {
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'get',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad',
+                    data: {}
+                })
+                    .then(({data}) => {
+                        console.log(data)
+                        {
+                            for (var i = 0; i < data.length - 1; i++)
+                                this.rawHtml +=
+                                    `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">` + data[i].name + `</div>
+                        <div class="titleForPost">  </div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
@@ -161,16 +139,13 @@
                     </div>
                     </div>
                     </div>
-                    </div>`
-                        }
-                        console.log(this.rawHtml)
-                    }
+                    </div>`}
                     }).catch(error => {
-                        router.push("/Login");
-            });
+                    router.push("/Login");
+                });
 
 
-                },
+            }
         }
 </script>
 

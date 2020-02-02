@@ -59,7 +59,9 @@ methods : {
             this.$store.commit("SET_USER", data.user);
             this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
             this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+            this.$cookies.set('USER', this.$store.getters.USER, '1m');
             this.$store.getters.USER;
+            console.log(data.user.id)
             router.push("/Logged");
         }
     });
