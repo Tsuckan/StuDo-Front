@@ -26,4 +26,4 @@ steps:
   displayName: publish build artifact studo-front-build
   inputs:
     PathtoPublish: 'dist'
-    ArtifactName: 'studo-front-build'
+    ArtifactName: 'stu-do-front-build'
