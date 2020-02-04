@@ -6,18 +6,18 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Авторизация</h1>
+                <h1>Регистрация</h1>
                 <label for="Email">Email</label><br>
                 <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
                 <label for="Password">Пароль</label><br>
                 <input placeholder="" id="Password" v-model="Password" name="Password" type="password"> <br>
                 <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/Register">Регистрация</router-link>
+                    <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
                     <router-link class="Forgoten" to="/PassForgot">Забыл пароль</router-link>
 
                     <button class="Login_BTN" @click="handleSubmit">
-                        Login
+                        Register
                     </button>
                 </div>
             </div>
@@ -32,11 +32,6 @@
         data(){
             return {
                 Email : "",
-                Password : "",
-                FirstName : "",
-                Surname : "",
-                StudentCard : "",
-                PasswordConfirm: ""
             }
         },
         methods : {

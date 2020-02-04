@@ -5,7 +5,7 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Авторизация</h1>
+                <h1>Создание Резюме</h1>
                 <label for="name">Название</label><br>
                 <input placeholder="" id="name" v-model="name" name="name" type="text"> <br>
                 <label for="description">Описание</label><br>

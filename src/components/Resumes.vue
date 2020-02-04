@@ -54,17 +54,17 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="topMenu d-flex">
-                        <div class="topMenuItems active">
-                            Объявления
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link  to="/Resumes">Резюме</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <button @click="
- handleSubmit">
-                                Профиль
-                            </button>
+                        <div class="topMenu d-flex">
+                            <div class="topMenuItems">
+
+                                <router-link  to="/Logged">Объявления</router-link>
+                            </div>
+                            <div class="topMenuItems active">
+                                <router-link  to="/Resumes">Резюме</router-link>
+                            </div>
+                            <div class="topMenuItems">
+                                <router-link  to="/Profile">Профиль</router-link>
+                            </div>
                         </div>
                     </div>
 
@@ -263,7 +263,7 @@
         position: fixed;
         top:25px;
         display: flex;
-        margin-left: 40px;
+        margin-left: 20px;
         justify-content: space-around;
         text-transform: uppercase;
     }

@@ -20,9 +20,9 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <br>
-                            <router-link class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <div class="textBtns">Все объявления</div>
@@ -55,16 +55,14 @@
                 <div class="col-lg-4">
                     <div class="topMenu d-flex">
                         <div class="topMenuItems active">
-                            Объявления
+
+                            <router-link  to="/Logged">Объявления</router-link>
                         </div>
                         <div class="topMenuItems">
                             <router-link  to="/Resumes">Резюме</router-link>
                         </div>
                         <div class="topMenuItems">
-                            <button @click="
- handleSubmit">
-                                Профиль
-                            </button>
+                            <router-link  to="/Profile">Профиль</router-link>
                         </div>
                     </div>
 
