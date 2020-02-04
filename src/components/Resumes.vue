@@ -20,9 +20,9 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <br>
-                            <router-link class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <div class="textBtns">Все объявления</div>
@@ -111,33 +111,33 @@
                 router.push("/Profile")
             },
             Create() {
-                router.push("/Resumes")
+                router.push("/Create")
             }
-            },
-            mounted() {
-                axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
-                    method: 'get',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad',
-                    data: {}
-                })
-                    .then(({data}) => {
-                        console.log(data)
-                        {
-                            for (var i = 0; i < data.length - 1; i++)
-                                this.rawHtml +=
-                                    `<div class="postBlock">
+        },
+        mounted() {
+            axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
+                method: 'get',
+                url: 'https://dev.studo.rtuitlab.ru/api/resumes',
+                data: {}
+            })
+                .then(({data}) => {
+                    console.log(data)
+                    {
+                        for (var i = 0; i < data.length - 1; i++)
+                            this.rawHtml +=
+                                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">` + data[i].name + ` </div>
+                        <div class="titleForPost">`+ data[i].name +`</div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` + data[i].shortDescription + `
+                        ` + data[i].description + `
                     </div>
                     <div class="postdate">
                         25.12.2012
@@ -145,13 +145,13 @@
                     </div>
                     </div>
                     </div>`}
-                    }).catch(error => {
-                    router.push("/Login");
-                });
+                }).catch(error => {
+                router.push("/Login");
+            });
 
 
-            }
         }
+    }
 </script>
 
 <style scoped>
@@ -395,6 +395,7 @@
         color: #ACACAC;
         font-size: 16px;
     }
+
     .catBlock{
         width: 290px;
 

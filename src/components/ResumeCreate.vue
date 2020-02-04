@@ -1,5 +1,4 @@
 <template>
-
     <div class="main">
 
         <div class="blur_test">
@@ -7,58 +6,61 @@
         <div class="Auth">
             <div>
                 <h1>Авторизация</h1>
-                <label for="Email">Email</label><br>
-                <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
-                <label for="Password">Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="Password" type="password"> <br>
+                <label for="name">Название</label><br>
+                <input placeholder="" id="name" v-model="name" name="name" type="text"> <br>
+                <label for="description">Описание</label><br>
+                <textarea cols="103" placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
                 <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/Register">Регистрация</router-link>
-                    <router-link class="Forgoten" to="/PassForgot">Забыл пароль</router-link>
+                    <router-link class="Registerbtn" to="/Resumes">Назад</router-link>
 
                     <button class="Login_BTN" @click="handleSubmit">
-                        Login
+                        Создать
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
+    import router from "@/router";
+    import store from '@/main';
     import axios from 'axios';
     export default {
-        name: 'Register',
+        name: 'HelloWorld',
         data(){
             return {
-                Email : "",
-                Password : "",
-                FirstName : "",
-                Surname : "",
-                StudentCard : "",
-                PasswordConfirm: ""
+                "id": "",
+                "name": "",
+                "description": "",
             }
+        },
+        mounted()
+        {
         },
         methods : {
             handleSubmit(e){
                 e.preventDefault()
                 axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
+                    url: 'https://dev.studo.rtuitlab.ru/api/resumes',
                     data: {
-                        email: this.Email,
-                    }
-                })
-                    .then(({ data }) => {
-                        console.log(data)
-                    })
+                        "id": "",
+                        "name": this.name,
+                        "description": this.description,
+                        "userId": this.$cookies.get("USER").id,
+                        "user": this.$cookies.get("USER")
+                    }})
             }
         }
     }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
     .blur_test
     {
         filter: blur(20px);
@@ -97,6 +99,16 @@
         background-color: rgb(36,35,37);
         border-radius: 15px;
     }
+    textarea
+    {
+        width: 480px;
+        background-color: rgb(54,55,54);
+        border: none;
+        border-radius: 15px;
+        height: 35px;
+        resize: none;
+        margin-left: 30px;
+    }
     .Auth > div label
     {
         color: rgb(85,84,85);
@@ -121,7 +133,7 @@
     {
         border-radius: 15px;
         width: 540px;
-        height: 410px;
+        height: 700px;
         background-color: rgb(46,45,46);
     }
     .buttons

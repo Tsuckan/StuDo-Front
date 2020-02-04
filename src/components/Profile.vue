@@ -18,7 +18,9 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
-                        <div class="menuBarBut">Создать объявление</div>
+                        <router-link class="menuBarBut" to="/Create">Создать объявление</router-link>
+                        <br>
+                        <router-link class="menuBarBut" to="/Resumes">Создать Резюме</router-link>
                         <div class="btnsMenu">
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
