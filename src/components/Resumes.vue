@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
     <div class="box">
         <header>
@@ -18,10 +19,10 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
-                        <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                        <br>
-                        <router-link style="position: relative" class="menuBarBut" to="/Resumes">Создать Резюме</router-link>
                         <div class="btnsMenu">
+                            <router-link style="position: relative;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <br>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <div class="textBtns">Все объявления</div>
@@ -58,16 +59,36 @@
 
                                 <router-link  to="/Logged">Объявления</router-link>
                             </div>
-                            <div class="topMenuItems ">
+                            <div class="topMenuItems active">
                                 <router-link  to="/Resumes">Резюме</router-link>
                             </div>
-                            <div class="topMenuItems active">
+                            <div class="topMenuItems">
                                 <router-link  to="/Profile">Профиль</router-link>
                             </div>
                         </div>
                     </div>
 
-
+                    <div class="rightBlock">
+                        <div class="rightBlock_firstBlock">
+                            <div class="searchform d-flex">
+                                <input type="text" class="searchInput">
+                                <div class="rightBlock_firstBlock_searchLogo">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="sortBlock">
+                                Сортировка
+                                <div class="sortItems">
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Категории
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,7 +108,10 @@
             };
         },methods : {
             handleSubmit() {
-                router.push("/Logged")
+                router.push("/Profile")
+            },
+            Create() {
+                router.push("/Create")
             }
         },
         mounted() {
@@ -96,33 +120,31 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad',
+                url: 'https://dev.studo.rtuitlab.ru/api/resumes',
                 data: {}
             })
                 .then(({data}) => {
                     console.log(data)
                     {
-                        for (var i = 0; i < 1; i++)
-                        this.rawHtml +=
-                            `<div class="postBlock">
+                        for (var i = 0; i < data.length - 1; i++)
+                            this.rawHtml +=
+                                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">` +  this.$cookies.get("USER").id  + `</div>
+                        <div class="titleForPost">`+ data[i].name +`</div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` + "Имя: " +this.$cookies.get("USER").surname +"   Фамилия: "+this.$cookies.get("USER").firstname +"   Почта: "+this.$cookies.get("USER").email + "  Номер студенческого: "+this.$cookies.get("USER").studentCardNumber +`
+                        ` + data[i].description + `
                     </div>
                     <div class="postdate">
                         25.12.2012
                     </div>
                     </div>
                     </div>
-                    </div>`
-                        console.log(this.$store.getters.USER)
-                    }
+                    </div>`}
                 }).catch(error => {
                 router.push("/Login");
             });
@@ -133,7 +155,6 @@
 </script>
 
 <style scoped>
-
     .qq{
         border: 1px solid black;
     }

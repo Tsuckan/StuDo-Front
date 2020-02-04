@@ -19,8 +19,10 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
-                        <div class="menuBarBut">Создать объявление</div>
                         <div class="btnsMenu">
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <br>
+                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <div class="textBtns">Все объявления</div>
@@ -53,16 +55,14 @@
                 <div class="col-lg-4">
                     <div class="topMenu d-flex">
                         <div class="topMenuItems active">
-                            Объявления
+
+                            <router-link  to="/Logged">Объявления</router-link>
                         </div>
                         <div class="topMenuItems">
-                            Резюме
+                            <router-link  to="/Resumes">Резюме</router-link>
                         </div>
                         <div class="topMenuItems">
-                            <button @click="
- handleSubmit">
-                                Профиль
-                            </button>
+                            <router-link  to="/Profile">Профиль</router-link>
                         </div>
                     </div>
 
@@ -107,6 +107,9 @@
         },methods : {
             handleSubmit() {
                 router.push("/Profile")
+            },
+            Create() {
+                router.push("/Resumes")
             }
             },
             mounted() {
@@ -128,7 +131,7 @@
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">  </div>
+                        <div class="titleForPost">` + data[i].name + ` </div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
