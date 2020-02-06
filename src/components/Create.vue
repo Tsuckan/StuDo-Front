@@ -65,6 +65,7 @@
                         "organizationId": this.organizationId
                     }
                 })
+                router.push('/Logged')
             }
         }
     }

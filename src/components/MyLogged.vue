@@ -11,6 +11,8 @@
                     </div>
                 </div>
 
+
+
             </div>
         </header>
         <div class="container">
@@ -18,16 +20,16 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
-                            <router-link style="position: relative;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <br>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/Resumes">Все Резюме</router-link>
-                            </div>
+                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                <router-link style="position: relative; color: white;" class="menuBarBut" to="/Logged">Все объявления</router-link>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnActiv"></div>
+                                <router-link style="position: relative; color: white;" class="menuBarBut" to="/MyLogged">Мои объявления</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -52,17 +54,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="topMenu d-flex">
-                        <div class="topMenu d-flex">
-                            <div class="topMenuItems">
+                        <div class="topMenuItems active">
 
-                                <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                            </div>
-                            <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                            </div>
-                            <div class="topMenuItems">
-                                <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                            </div>
+                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@
     import store from '@/main';
     import axios from 'axios';
     export default {
-        name: "Logged",
+        name: "MyLogged",
         data() {
             showMobileMenu: false
             return {
@@ -109,7 +109,7 @@
                 router.push("/Profile")
             },
             Create() {
-                router.push("/Create")
+                router.push("/Resumes")
             }
         },
         mounted() {
@@ -118,7 +118,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/resumes',
+                url: 'https://dev.studo.rtuitlab.ru/api/ad/user/'+this.$cookies.get("USER").id,
                 data: {}
             })
                 .then(({data}) => {
@@ -131,11 +131,11 @@
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">`+ data[i].name +`</div>
+                        <div class="titleForPost">` + data[i].name + ` </div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` + data[i].description + `
+                        ` + data[i].shortDescription + `
                     </div>
                     <div class="postdate">
                         25.12.2012
@@ -143,9 +143,7 @@
                     </div>
                     </div>
                     </div>`}
-                }).catch(error => {
-                router.push("/Login");
-            });
+                });
 
 
         }
@@ -261,7 +259,7 @@
         position: fixed;
         top:25px;
         display: flex;
-        margin-left: 20px;
+        margin-left: 40px;
         justify-content: space-around;
         text-transform: uppercase;
     }
@@ -393,7 +391,6 @@
         color: #ACACAC;
         font-size: 16px;
     }
-
     .catBlock{
         width: 290px;
 
