@@ -54,6 +54,7 @@
                         "userId": this.$cookies.get("USER").id,
                         "user": this.$cookies.get("USER")
                     }})
+                router.push('/Resumes')
             }
         }
     }

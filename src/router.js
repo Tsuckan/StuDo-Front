@@ -8,6 +8,8 @@ import Profile from "./components/Profile";
 import Create from "./components/Create";
 import Resumes from "./components/Resumes";
 import ResumeCreate from "./components/ResumeCreate";
+import MyLogged from "./components/MyLogged";
+import MyResume from "./components/MyResume";
 
 export default new VueRouter({
     routes: [
@@ -22,6 +24,10 @@ export default new VueRouter({
         {
             path: '/Create',
             component: Create,
+        },
+        {
+            path: '/MyLogged',
+            component: MyLogged,
         },
         {
             path: '/Profile',
@@ -42,6 +48,10 @@ export default new VueRouter({
         {
             path: '/Ad',
             component: OneElem,
+        },
+        {
+            path: '/MyResume',
+            component: MyResume,
         },
         {
             path: '/ResumeCreate',

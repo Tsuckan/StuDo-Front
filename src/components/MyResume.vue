@@ -21,14 +21,14 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
-                            <router-link style="position: relative;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <br>
                             <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
+                                <div class="btnPassiv"></div>
                                 <router-link style="position: relative; color: white;"  to="/Resumes">Все Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
+                                <div class="btnActiv"></div>
                                 <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
@@ -120,7 +120,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/resumes',
+                url: 'https://dev.studo.rtuitlab.ru/api/resumes/user/'+this.$cookies.get('USER').id,
                 data: {}
             })
                 .then(({data}) => {
@@ -155,6 +155,12 @@
 </script>
 
 <style scoped>
+    a {
+        text-decoration: none;
+    }
+    {
+        color: white;
+    }
     .qq{
         border: 1px solid black;
     }
@@ -434,5 +440,9 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    .btnMenuItems > rou
+    {
+        color: white;
     }
 </style>

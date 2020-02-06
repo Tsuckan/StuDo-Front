@@ -20,16 +20,15 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <br>
-                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <div class="textBtns">Все объявления</div>
+                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <div class="textBtns">Мои объявления</div>
+                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -56,13 +55,13 @@
                     <div class="topMenu d-flex">
                         <div class="topMenuItems active">
 
-                            <router-link  to="/Logged">Объявления</router-link>
+                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                         </div>
                         <div class="topMenuItems">
-                            <router-link  to="/Resumes">Резюме</router-link>
+                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                         </div>
                         <div class="topMenuItems">
-                            <router-link  to="/Profile">Профиль</router-link>
+                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
                         </div>
                     </div>
 

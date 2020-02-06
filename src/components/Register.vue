@@ -1,8 +1,96 @@
 <template>
 
     <div class="main">
+        <header>
+        <div class="logoBlock d-flex">
+            <div class="logo d-flex">
+                <div class="imgLogo">
+                    <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
+                <div class="nameLogo">
+                    StuDo
+                </div>
+            </div>
 
-        <div class="blur_test">
+
+
+        </div>
+    </header>
+
+        <div class="blur_test"><div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="menuBar">
+                        <div class="btnsMenu">
+                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <br>
+                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnActiv"></div>
+                                <router-link style="position: relative" to="/Logged">Все объявления</router-link>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <router-link style="position: relative"  to="/MyLogged">Мои объявления</router-link>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Отслеживаемые</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Вкладка 4</div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="textBtns">Вкладка 5</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="postBlocks">
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="topMenu d-flex">
+                        <div class="topMenuItems active">
+
+                            <router-link  to="/Logged">Объявления</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link  to="/Resumes">Резюме</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link  to="/Profile">Профиль</router-link>
+                        </div>
+                    </div>
+
+                    <div class="rightBlock">
+                        <div class="rightBlock_firstBlock">
+                            <div class="searchform d-flex">
+                                <input type="text" class="searchInput">
+                                <div class="rightBlock_firstBlock_searchLogo">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="sortBlock">
+                                Сортировка
+                                <div class="sortItems">
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
+                                    </div>
+                                    <div class="sortItem d-flex">
+                                        <div class="sortItemsStatus"></div>Категории
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
         <div class="Auth">
             <div>
@@ -10,7 +98,15 @@
                 <label for="Email">Email</label><br>
                 <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
                 <label for="Password">Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="Password" type="password"> <br>
+                <input placeholder="" id="Password" v-model="Password" name="password" type="password"> <br>
+                <label for="passwordConfirm">Повтор Пароля</label><br>
+                <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" name="passwordConfirm" type="password"> <br>
+                <label for="firstname">Имя</label><br>
+                <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
+                <label for="surname">Фамилия</label><br>
+                <input placeholder="" id="surname" v-model="surname" name="surname" type="password"> <br>
+                <label for="studentCardNumber">Номер Студенческого</label><br>
+                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="password"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
@@ -41,7 +137,12 @@
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
                     data: {
-                        email: this.Email,
+                        "firstname": this.firstname,
+                        "surname": this.surname,
+                        "email": this.email,
+                        "studentCardNumber": this.studentCardNumber,
+                        "password": this.password,
+                        "passwordConfirm": this.passwordConfirm
                     }
                 })
                     .then(({ data }) => {
@@ -62,7 +163,6 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background:no-repeat url("https://cs8.pikabu.ru/post_img/big/2017/12/27/6/1514367381163844367.jpg");
         background-size: 100%;
         margin: 0;
     }
@@ -116,7 +216,7 @@
     {
         border-radius: 15px;
         width: 540px;
-        height: 410px;
+        height: 750px;
         background-color: rgb(46,45,46);
     }
     .buttons
