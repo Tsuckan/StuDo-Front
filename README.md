@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # stu-do-front
 qwewqweqweweqweqwe
 =======
