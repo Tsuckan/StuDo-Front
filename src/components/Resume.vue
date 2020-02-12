@@ -47,23 +47,18 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-<<<<<<< HEAD
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
-
-=======
-                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                    <div class="postBlocks">
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
-                                <div class="titleForPost"><router-link :to="{name: 'Ad', params: {id: post.id}, props: {id: post.id}}"
-                                >{{post.name}}</router-link>
+                                <div class="titleForPost">{{posts.data.name}}
                                 </div>
                             </div>
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
-                                    {{post.shortDescription}}
+                                    {{posts.data.description}}
                                 </div>
                                 <div class="postdate">
                                     25.12.2012
@@ -71,45 +66,23 @@
                             </div>
                         </div>
                     </div>
->>>>>>> develop
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="topMenu d-flex">
+                    <div class="topMenuItems active">
+
+                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                    </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                    </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="topMenu d-flex">
-                        <div class="topMenuItems active">
 
-                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                        </div>
-                    </div>
 
-                    <div class="rightBlock">
-                        <div class="rightBlock_firstBlock">
-                            <div class="searchform d-flex">
-                                <input type="text" class="searchInput">
-                                <div class="rightBlock_firstBlock_searchLogo">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="sortBlock">
-                                Сортировка
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -120,73 +93,41 @@
     import store from '@/main';
     import axios from 'axios';
     export default {
-        name: "Logged",
+        name: "Ad",
+        props: ['Resumeid'],
         data() {
-            showMobileMenu: false
             return {
-<<<<<<< HEAD
-                rawHtml: {}
-            };
-        },methods : {
-            handleSubmit() {
-                router.push("/Profile")
-=======
                 rawHtml: {},
-                posts: []
+                posts: [],
+                ids: this.$router.currentRoute.params['Resumeid']
             };
         },methods : {
             handleSubmit(Idval) {
                 router.push({ path: '/Ad', query: { Id: Idval } })
->>>>>>> develop
             },
             Create() {
                 router.push("/Resumes")
             }
-            },
-            mounted() {
-                axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
-                    method: 'get',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad',
-                    data: {}
-                })
-<<<<<<< HEAD
-                    .then(({data}) => {
-                        console.log(data)
-                        {
-                            for (var i = 0; i < data.length - 1; i++)
-                                this.rawHtml +=
-                                    `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">` + data[i].name + ` </div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + data[i].shortDescription + `
-                    </div>
-                    <div class="postdate">
-                        25.12.2012
-                    </div>
-                    </div>
-                    </div>
-                    </div>`}
-=======
-                    .then(data => {
-                        console.log(data)
-                        this.posts=data.data;
->>>>>>> develop
-                    }).catch(error => {
-                    router.push("/Login");
-                });
+        },
+        mounted() {
+            axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
+                method: 'get',
+                url: 'https://dev.studo.rtuitlab.ru/api/resumes/' + this.ids,
+                data: {}
+            })
+                .then(data => {
+                    console.log(data)
+                    this.posts=data;
+                }).catch(error => {
+                router.push("/Login");
+            });
 
 
-            }
         }
+    }
 </script>
 
 <style scoped>
