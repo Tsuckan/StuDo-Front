@@ -12,9 +12,9 @@ pool:
 
 steps:
 - task: Npm@1
-  displayName: npm i
+  displayName: npm install
   inputs:
-    command: 'i'
+    command: 'install'
 
 - task: Npm@1
   displayName: npm run build
