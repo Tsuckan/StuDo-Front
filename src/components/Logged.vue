@@ -1,16 +1,11 @@
 /* eslint-disable */
 <template>
     <div class="box">
-
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
                     <div class="imgLogo">
-<<<<<<< .merge_file_a01032
                         <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
-=======
-                        <img src="../../img/logo.png" height="50px" width="50px"/></div>
->>>>>>> .merge_file_a15084
                     <div class="nameLogo">
                         StuDo
                     </div>
@@ -24,7 +19,6 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
-<<<<<<< .merge_file_a01032
                         <div class="btnsMenu">
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
@@ -35,17 +29,6 @@
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
                                 <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
-=======
-                        <div class="menuBarBut">Создать объявление</div>
-                        <div class="btnsMenu">
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
-                                <div class="textBtns">Все объявления</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Мои объявления</div>
->>>>>>> .merge_file_a15084
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -64,9 +47,26 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-<<<<<<< .merge_file_a01032
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
-
+                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                        <div class="postBlock">
+                            <div class="postTopBlock">
+                                <div class="blockTopForLogo">
+                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
+                                </div>
+                                <div class="titleForPost"><router-link :to="{name: 'Ad', params: {id: post.id}, props: {id: post.id}}"
+                                >{{post.name}}</router-link>
+                                </div>
+                            </div>
+                            <div class="postDownBlock">
+                                <div class="textblockForPost">
+                                    {{post.shortDescription}}
+                                </div>
+                                <div class="postdate">
+                                    25.12.2012
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -83,96 +83,6 @@
                         </div>
                     </div>
 
-=======
-                    <div class="postBlocks">
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-desktop" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Требуется программист на C#</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Пишу приложение для мамы, там надо цифры считать, а я вообще не в курсе че там как, цифры какие-то. Плачу триллион рублей долларов с евро. Работа должна быть сделана срочно!
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-comments" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Ищу с кем поболтать</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Недавно научился говорить, необходимо срочно тренировать полученный навык. Отдам 3 рубля за каждое ваше слово. Ну пожалуйста(
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-globe" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Переведите пожалуйста</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Помогите перевести «あなたは一番賢いですか？». Я даже не знаю, что это за язык такой странный. Заплачу десять по пять десятин в шести кубах на литр
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">Спасите на физике</div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    Дед - пожарник заваливает вопросами на экамене. Помогите на них ответить. СРОЧНА!!!
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="topMenu d-flex">
-                        <div class="topMenuItems active">
-                            Объявления
-                        </div>
-                        <div class="topMenuItems">
-                            Резюме
-                        </div>
-                        <div class="topMenuItems">
-                            Профиль
-                        </div>
-                    </div>
-
->>>>>>> .merge_file_a15084
                     <div class="rightBlock">
                         <div class="rightBlock_firstBlock">
                             <div class="searchform d-flex">
@@ -193,40 +103,6 @@
                                 </div>
                             </div>
                         </div>
-<<<<<<< .merge_file_a01032
-=======
-                        <div class="rightBlock_secondBlock">
-                            <div class="catBlock">
-                                Категории
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>Программирование
-                                        <div class="countCat">15</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Дизайн
-                                        <div class="countCat">12</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
-                                        <div class="countCat">22</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Общение
-                                        <div class="countCat">33</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Учеба
-                                        <div class="countCat">111</div>
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Еще категории
-                                        <div class="countCat">132</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
->>>>>>> .merge_file_a15084
                     </div>
                 </div>
             </div>
@@ -241,13 +117,13 @@
     export default {
         name: "Logged",
         data() {
-            showMobileMenu: false
             return {
-                rawHtml: {}
+                rawHtml: {},
+                posts: []
             };
         },methods : {
-            handleSubmit() {
-                router.push("/Profile")
+            handleSubmit(Idval) {
+                router.push({ path: '/Ad', query: { Id: Idval } })
             },
             Create() {
                 router.push("/Resumes")
@@ -262,28 +138,9 @@
                     url: 'https://dev.studo.rtuitlab.ru/api/ad',
                     data: {}
                 })
-                    .then(({data}) => {
+                    .then(data => {
                         console.log(data)
-                        {
-                            for (var i = 0; i < data.length - 1; i++)
-                                this.rawHtml +=
-                                    `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">` + data[i].name + ` </div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + data[i].shortDescription + `
-                    </div>
-                    <div class="postdate">
-                        25.12.2012
-                    </div>
-                    </div>
-                    </div>
-                    </div>`}
+                        this.posts=data.data;
                     }).catch(error => {
                     router.push("/Login");
                 });
@@ -294,7 +151,6 @@
 </script>
 
 <style scoped>
-<<<<<<< .merge_file_a01032
     .qq{
         border: 1px solid black;
     }
@@ -574,7 +430,4 @@
         font-size: 18px;
         color: #ACACAC;
     }
-=======
-
->>>>>>> .merge_file_a15084
 </style>
