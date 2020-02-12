@@ -58,7 +58,7 @@
                             </div>
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
-                                    {{posts.data.shortDescription}}
+                                    {{posts.data.description}}
                                 </div>
                                 <div class="postdate">
                                     25.12.2012
@@ -94,12 +94,12 @@
     import axios from 'axios';
     export default {
         name: "Ad",
-        props: ['id'],
+        props: ['Resumeid'],
         data() {
             return {
                 rawHtml: {},
                 posts: [],
-                postid: this.$router.currentRoute.params['id']
+                ids: this.$router.currentRoute.params['Resumeid']
             };
         },methods : {
             handleSubmit(Idval) {
@@ -115,7 +115,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad/' + this.postid,
+                url: 'https://dev.studo.rtuitlab.ru/api/resumes/' + this.ids,
                 data: {}
             })
                 .then(data => {

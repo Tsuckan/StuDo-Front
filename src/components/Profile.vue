@@ -18,32 +18,9 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
-                        <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                        <br>
-                        <router-link style="position: relative" class="menuBarBut" to="/Resumes">Создать Резюме</router-link>
-                        <div class="btnsMenu">
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
-                                <div class="textBtns">Все объявления</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Мои объявления</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
-                            </div>
+                        <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                        <router-link style="position: relative; color: white;"  class="menuBarBut" to="/Resumes">Создать Резюме</router-link>
 
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -56,13 +33,13 @@
                         <div class="topMenu d-flex">
                             <div class="topMenuItems">
 
-                                <router-link  to="/Logged">Объявления</router-link>
+                                <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                             </div>
                             <div class="topMenuItems ">
-                                <router-link  to="/Resumes">Резюме</router-link>
+                                <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                             </div>
                             <div class="topMenuItems active">
-                                <router-link  to="/Profile">Профиль</router-link>
+                                <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
                             </div>
                         </div>
                     </div>
@@ -102,22 +79,63 @@
                 .then(({data}) => {
                     console.log(data)
                     {
-                        for (var i = 0; i < 1; i++)
                         this.rawHtml +=
                             `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
                         </div>
-                        <div class="titleForPost">` +  this.$cookies.get("USER").id  + `</div>
+                        <div class="titleForPost">Id</div>
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` + "Имя: " +this.$cookies.get("USER").surname +"   Фамилия: "+this.$cookies.get("USER").firstname +"   Почта: "+this.$cookies.get("USER").email + "  Номер студенческого: "+this.$cookies.get("USER").studentCardNumber +`
+                        ` +this.$cookies.get('USER').id +`
+                       </div>
                     </div>
-                    <div class="postdate">
-                        25.12.2012
                     </div>
+                    </div>`
+                        this.rawHtml +=
+                            `<div class="postBlock">
+                        <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                        <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">Имя и Фамилия</div>
+                        </div>
+                        <div class="postDownBlock">
+                        <div class="textblockForPost">
+                        ` +this.$cookies.get('USER').firstname+  " "+ this.$cookies.get('USER').surname+`
+                       </div>
+                    </div>
+                    </div>
+                    </div>`
+                        this.rawHtml +=
+                        `<div class="postBlock">
+                        <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                        <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">Student Card</div>
+                        </div>
+                        <div class="postDownBlock">
+                        <div class="textblockForPost">
+                        ` +this.$cookies.get('USER').studentCardNumber+`
+                       </div>
+                    </div>
+                    </div>
+                    </div>`
+                        this.rawHtml +=
+                        `<div class="postBlock">
+                        <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                        <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">Email</div>
+                        </div>
+                        <div class="postDownBlock">
+                        <div class="textblockForPost">
+                        ` +this.$cookies.get('USER').email+`
+                       </div>
                     </div>
                     </div>
                     </div>`
