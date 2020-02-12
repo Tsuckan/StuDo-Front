@@ -47,10 +47,6 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-<<<<<<< HEAD
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
-
-=======
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
@@ -71,7 +67,6 @@
                             </div>
                         </div>
                     </div>
->>>>>>> develop
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -112,32 +107,21 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: "Logged",
         data() {
-            showMobileMenu: false
             return {
-<<<<<<< HEAD
-                rawHtml: {}
-            };
-        },methods : {
-            handleSubmit() {
-                router.push("/Profile")
-=======
                 rawHtml: {},
                 posts: []
             };
         },methods : {
             handleSubmit(Idval) {
                 router.push({ path: '/Ad', query: { Id: Idval } })
->>>>>>> develop
             },
             Create() {
                 router.push("/Resumes")
@@ -152,35 +136,10 @@
                     url: 'https://dev.studo.rtuitlab.ru/api/ad',
                     data: {}
                 })
-<<<<<<< HEAD
-                    .then(({data}) => {
-                        console.log(data)
-                        {
-                            for (var i = 0; i < data.length - 1; i++)
-                                this.rawHtml +=
-                                    `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">` + data[i].name + ` </div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + data[i].shortDescription + `
-                    </div>
-                    <div class="postdate">
-                        25.12.2012
-                    </div>
-                    </div>
-                    </div>
-                    </div>`}
-=======
                     .then(data => {
-                        console.log(data)
                         this.posts=data.data;
->>>>>>> develop
                     }).catch(error => {
+                        if(error)
                     router.push("/Login");
                 });
 

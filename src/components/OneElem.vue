@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-<template>
-    
-</template>
 
-<script>
-    export default {
-        name: "OneElem"
-    }
-</script>
-
-<style scoped>
-
-=======
 /* eslint-disable */
 <template>
     <div class="box">
@@ -104,7 +91,6 @@
 
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: "Ad",
@@ -133,9 +119,9 @@
                 data: {}
             })
                 .then(data => {
-                    console.log(data)
                     this.posts=data;
                 }).catch(error => {
+                if(error)
                 router.push("/Login");
             });
 
@@ -424,5 +410,4 @@
         font-size: 18px;
         color: #ACACAC;
     }
->>>>>>> develop
 </style>
