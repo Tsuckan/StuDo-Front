@@ -1,3 +1,4 @@
+
 import VueRouter from "vue-router";
 import HelloWorld from './components/HelloWorld'
 import PassForogot from "@/components/PassForogot";

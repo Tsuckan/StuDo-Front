@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 <template>
     <div class="box">
@@ -71,11 +72,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
+                    <div class="topMenuItems ">
 
                         <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                     </div>
-                    <div class="topMenuItems">
+                    <div class="topMenuItems active">
                         <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                     </div>
                     <div class="topMenuItems">
@@ -107,12 +108,10 @@
             </div>
         </div>
     </div>
-    </div>
 </template>
 
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: "Logged",
@@ -139,9 +138,9 @@
                 data: {}
             })
                 .then(data => {
-                    console.log(data)
                     this.posts=data.data;
                 }).catch(error => {
+                    if(error)
                 router.push("/Login");
             });
 

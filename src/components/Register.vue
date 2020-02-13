@@ -1,3 +1,4 @@
+
 <template>
 
     <div class="main">
@@ -145,9 +146,6 @@
                         "passwordConfirm": this.passwordConfirm
                     }
                 })
-                    .then(({ data }) => {
-                        console.log(data)
-                    })
             }
         }
     }

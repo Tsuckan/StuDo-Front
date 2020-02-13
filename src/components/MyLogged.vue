@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 <template>
     <div class="box">
@@ -95,12 +96,10 @@
 
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: "MyLogged",
         data() {
-            showMobileMenu: false
             return {
                 rawHtml: {}
             };
@@ -122,7 +121,6 @@
                 data: {}
             })
                 .then(({data}) => {
-                    console.log(data)
                     {
                         for (var i = 0; i < data.length - 1; i++)
                             this.rawHtml +=

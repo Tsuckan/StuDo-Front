@@ -1,3 +1,4 @@
+
 <template>
     <div class="box">
         <header>
@@ -53,34 +54,20 @@
 
 <script>
     import router from "@/router";
-    import store from '@/main';
-    import axios from 'axios';
     export default {
         name: "Logged",
         data() {
-            showMobileMenu: false
             return {
                 rawHtml: {}
             };
-        },methods : {
+        }, methods: {
             handleSubmit() {
                 router.push("/Logged")
             }
         },
         mounted() {
-            axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
-                method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad',
-                data: {}
-            })
-                .then(({data}) => {
-                    console.log(data)
-                    {
-                        this.rawHtml +=
-                            `<div class="postBlock">
+            this.rawHtml +=
+                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -89,13 +76,13 @@
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` +this.$cookies.get('USER').id +`
+                        ` + this.$cookies.get('USER').id + `
                        </div>
                     </div>
                     </div>
                     </div>`
-                        this.rawHtml +=
-                            `<div class="postBlock">
+            this.rawHtml +=
+                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -104,13 +91,13 @@
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` +this.$cookies.get('USER').firstname+  " "+ this.$cookies.get('USER').surname+`
+                        ` + this.$cookies.get('USER').firstname + " " + this.$cookies.get('USER').surname + `
                        </div>
                     </div>
                     </div>
                     </div>`
-                        this.rawHtml +=
-                        `<div class="postBlock">
+            this.rawHtml +=
+                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -119,13 +106,13 @@
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` +this.$cookies.get('USER').studentCardNumber+`
+                        ` + this.$cookies.get('USER').studentCardNumber + `
                        </div>
                     </div>
                     </div>
                     </div>`
-                        this.rawHtml +=
-                        `<div class="postBlock">
+            this.rawHtml +=
+                `<div class="postBlock">
                         <div class="postTopBlock">
                         <div class="blockTopForLogo">
                         <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -134,18 +121,11 @@
                         </div>
                         <div class="postDownBlock">
                         <div class="textblockForPost">
-                        ` +this.$cookies.get('USER').email+`
+                        ` + this.$cookies.get('USER').email + `
                        </div>
                     </div>
                     </div>
                     </div>`
-                        console.log(this.$store.getters.USER)
-                    }
-                }).catch(error => {
-                router.push("/Login");
-            });
-
-
         }
     }
 </script>

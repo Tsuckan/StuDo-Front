@@ -107,12 +107,10 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: "Logged",
@@ -139,9 +137,9 @@
                     data: {}
                 })
                     .then(data => {
-                        console.log(data)
                         this.posts=data.data;
                     }).catch(error => {
+                        if(error)
                     router.push("/Login");
                 });
 

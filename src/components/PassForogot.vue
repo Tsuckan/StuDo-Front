@@ -1,3 +1,4 @@
+
 <template>
         <div class="main">
             <header>
@@ -129,9 +130,6 @@
                         email: this.Email
                     }
                 })
-                    .then(({ data }) => {
-                        console.log(data)
-                    })
             }
         }
     }

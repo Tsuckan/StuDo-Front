@@ -1,3 +1,4 @@
+
 <template>
     <div class="main">
         <header>
@@ -113,7 +114,6 @@
 </template>
 <script>
     import router from "@/router";
-    import store from '@/main';
   import axios from 'axios';
   export default {
     name: 'HelloWorld',
@@ -149,7 +149,6 @@ methods : {
             this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
             this.$cookies.set('USER', this.$store.getters.USER, '1m');
             this.$store.getters.USER;
-            console.log(data.user.id)
             router.push("/Logged");
         }
     });

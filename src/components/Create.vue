@@ -1,3 +1,4 @@
+
 <template>
     <div class="main">
 
@@ -30,7 +31,6 @@
 </template>
 <script>
     import router from "@/router";
-    import store from '@/main';
     import axios from 'axios';
     export default {
         name: 'HelloWorld',
