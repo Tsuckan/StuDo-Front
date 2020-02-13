@@ -1,5 +1,4 @@
 # stu-do-front
-=======
 # labproject
 
 ## Project setup
