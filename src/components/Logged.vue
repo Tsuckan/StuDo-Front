@@ -62,7 +62,7 @@
                                     {{post.shortDescription}}
                                 </div>
                                 <div class="postdate">
-                                    25.12.2012
+                                    {{formatDate(new Date(post.beginTime))}} - {{formatDate(new Date(post.endTime))}}
                                 </div>
                             </div>
                         </div>
@@ -120,6 +120,19 @@
                 posts: []
             };
         },methods : {
+             formatDate(date) {
+
+        var dd = date.getDate();
+        if (dd < 10) dd = '0' + dd;
+
+        var mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        var yy = date.getFullYear();
+        if (yy < 10) yy = '0' + yy;
+
+        return dd + '.' + mm + '.' + yy;
+    },
             handleSubmit(Idval) {
                 router.push({ path: '/Ad', query: { Id: Idval } })
             },
@@ -324,17 +337,6 @@
         padding-top: 35px;
         padding-bottom: 47px;
 
-    }
-    .postdate{
-        height: 25px;
-        width: 90px;
-        color: white;
-        border-radius: 13px;
-        background: #3B3B3B;
-        margin-left: 270px;
-        font-size: 14px;
-        text-align: center;
-        padding-top: 3px;
     }
     .rightBlock_firstBlock{
         padding-top: 15px;

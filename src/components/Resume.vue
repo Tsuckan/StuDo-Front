@@ -24,11 +24,11 @@
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -58,10 +58,7 @@
                             </div>
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
-                                    {{posts.data.description}}
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
+                                {{posts.data.description}}
                                 </div>
                             </div>
                         </div>

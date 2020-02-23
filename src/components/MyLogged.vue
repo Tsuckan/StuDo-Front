@@ -22,15 +22,14 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <br>
                             <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;" class="menuBarBut" to="/Logged">Все объявления</router-link>
+                                <router-link style="position: relative; color: white;"  to="/Logged">Все объявления</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" class="menuBarBut" to="/MyLogged">Мои объявления</router-link>
+                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -49,8 +48,25 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
-
+                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                        <div class="postBlock">
+                            <div class="postTopBlock">
+                                <div class="blockTopForLogo">
+                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
+                                </div>
+                                <div class="titleForPost"><router-link :to="{name: 'Ad', params: {id: post.id}, props: {id: post.id}}"
+                                >{{post.name}}</router-link>
+                                </div>
+                            </div>
+                            <div class="postDownBlock">
+                                <div class="textblockForPost">
+                                    {{post.shortDescription}}
+                                </div>
+                                <div class="postdate">
+                                    {{formatDate(new Date(post.beginTime))}} - {{formatDate(new Date(post.endTime))}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -101,9 +117,22 @@
         name: "MyLogged",
         data() {
             return {
-                rawHtml: {}
+                rawHtml: {},
+                posts: []
             };
-        },methods : {
+        },methods : { formatDate(date) {
+
+                var dd = date.getDate();
+                if (dd < 10) dd = '0' + dd;
+
+                var mm = date.getMonth() + 1;
+                if (mm < 10) mm = '0' + mm;
+
+                var yy = date.getFullYear();
+                if (yy < 10) yy = '0' + yy;
+
+                return dd + '.' + mm + '.' + yy;
+            },
             handleSubmit() {
                 router.push("/Profile")
             },
@@ -120,28 +149,12 @@
                 url: 'https://dev.studo.rtuitlab.ru/api/ad/user/'+this.$cookies.get("USER").id,
                 data: {}
             })
-                .then(({data}) => {
-                    {
-                        for (var i = 0; i < data.length - 1; i++)
-                            this.rawHtml +=
-                                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">` + data[i].name + ` </div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + data[i].shortDescription + `
-                    </div>
-                    <div class="postdate">
-                        25.12.2012
-                    </div>
-                    </div>
-                    </div>
-                    </div>`}
-                });
+                .then(data => {
+                    this.posts=data.data;
+                }).catch(error => {
+                if(error)
+                    router.push("/Login");
+            });
 
 
         }
@@ -324,17 +337,6 @@
         padding-top: 35px;
         padding-bottom: 47px;
 
-    }
-    .postdate{
-        height: 25px;
-        width: 90px;
-        color: white;
-        border-radius: 13px;
-        background: #3B3B3B;
-        margin-left: 270px;
-        font-size: 14px;
-        text-align: center;
-        padding-top: 3px;
     }
     .rightBlock_firstBlock{
         padding-top: 15px;
