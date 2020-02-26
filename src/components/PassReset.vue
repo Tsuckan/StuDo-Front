@@ -95,10 +95,10 @@
         <div class="Auth">
             <div>
                 <h1>Восстановление пароля</h1>
-                <label for="Email">Пароль</label><br>
-                <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
-                <label for="Password">Ещё раз Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="Password" type="password"> <br>
+                <label for="Password">Пароль</label><br>
+                <input placeholder="" id="Password" v-model="Password" name="Password" type="text"> <br>
+                <label for="PasswordAgain">Ещё раз Пароль</label><br>
+                <input placeholder="" id="PasswordAgain" v-model="PasswordAgain" name="PasswordAgain" type="password"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Register">Регистрация</router-link>
@@ -141,8 +141,8 @@ import router from "@/router";
                     data: {
                         "userId": $_GET("userId"),
                         "token": $_GET("token"),
-                        "newPassword": this.Email,
-                        "newPasswordConfirm": this.Password
+                        "newPassword": this.Password,
+                        "newPasswordConfirm": this.PasswordAgain
                     }
                 })
                     .then(({ data }) => {
