@@ -8,7 +8,7 @@ trigger:
 - develop
 
 pool:
-  name: Default
+  vmImage: "ubuntu-latest"
 
 steps:
 - task: Npm@1
