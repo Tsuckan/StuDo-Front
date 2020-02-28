@@ -1,9 +1,9 @@
 
 import VueRouter from "vue-router";
 import HelloWorld from './components/HelloWorld'
-import PassForogot from "@/components/PassForogot";
+import PassForogot from "./components/PassForogot";
 import Register from "./components/Register";
-import Logged from "@/components/Logged";
+import Logged from "./components/Logged";
 import OneElem from "./components/OneElem";
 import Profile from "./components/Profile";
 import Create from "./components/Create";
@@ -12,16 +12,20 @@ import ResumeCreate from "./components/ResumeCreate";
 import MyLogged from "./components/MyLogged";
 import MyResume from "./components/MyResume";
 import Resume from "./components/Resume";
-import passchange from "./components/passchange";
-import emailchange from "./components/emailchange";
 import EmailAccept from "./components/EmailAccept";
 import PassReset from "./components/PassReset";
-
+import PassChange from "./components/PassChange";
+import EmailChange from "./components/EmailChange";
+import EmailTest from "./components/EmailTest";
 export default new VueRouter({
     routes: [
         {
             path: '/Login',
             component: HelloWorld,
+        },
+        {
+            path: '/Test',
+            component: EmailTest,
         },
         {
             path: '/Resumes',
@@ -42,7 +46,7 @@ export default new VueRouter({
             component: PassReset,
         },
         {
-            path: '/EmailAccept',
+            path: '/Acceptation',
             component: EmailAccept,
         },
         {
@@ -54,12 +58,12 @@ export default new VueRouter({
             component: Register,
         },
         {
-            path: '/passchange',
-            component: passchange,
+            path: '/Passchange',
+            component: PassChange,
         },
         {
-            path: '/emailchange',
-            component: emailchange,
+            path: '/Emailchange',
+            component: EmailChange,
         },
         {
             path: '/PassForgot',
@@ -86,13 +90,13 @@ export default new VueRouter({
         {
             path: '/MyResume',
             component: MyResume,
-            name: 'Resume',
+            name: 'MyResume',
             props: true
         },
         {
             path: '/ResumeCreate',
             component: ResumeCreate,
         }
-    ],
-    mode:'history'
+    ]
+
 })

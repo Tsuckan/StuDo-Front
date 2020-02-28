@@ -113,6 +113,7 @@
 
 <script>
     import axios from 'axios';
+    import router from "../router";
     export default {
         name: 'PassForgot',
         data(){
@@ -129,7 +130,13 @@
                     data: {
                         email: this.Email
                     }
-                })
+                }).then(({ data }) => {
+                    router.push("/Login");
+                    if (data)
+                    {
+                        data=0;
+                    }
+                });
             }
         }
     }

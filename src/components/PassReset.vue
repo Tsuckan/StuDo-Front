@@ -113,13 +113,21 @@
     </div>
 </template>
 <script>
-    function $_GET(key) {
-    var s = window.location.search;
-    s = s.match(new RegExp(key + '=([^&=]+)'));
-    return s ? s[1] : false;
-}
+    function $_GET(kavo,key) {
+        var s = decodeURIComponent(kavo);
+        s = s.match(new RegExp(key + '=([^&=]+)'));
+        // eslint-disable-next-line no-console
+        return s ? s[1] : false;
+    }
+    function $_GETT(kavo,key) {
+        var s = decodeURIComponent(kavo);
+        s = s.match(new RegExp(key + '=([^]+)'));
+        // eslint-disable-next-line no-console
+        return s ? s[1] : false;
+    }
 
-import router from "@/router";
+
+    import router from "@/router";
     import axios from 'axios';
     export default {
         name: 'HelloWorld',
@@ -134,21 +142,24 @@ import router from "@/router";
         },
         methods : {
             handleSubmit(e){
+                var kav=$_GETT(this.$route.fullPath,"token");
+                var rdy=kav.split(' ').join('+');
                 e.preventDefault()
                 axios({
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/account/manage/resetPassword',
                     data: {
-                        "userId": $_GET("userId"),
-                        "token": $_GET("token"),
+                        "userId": $_GET(this.$route.fullPath,"userId"),
+                        "token":rdy,
                         "newPassword": this.Password,
                         "newPasswordConfirm": this.PasswordAgain
                     }
                 })
                     .then(({ data }) => {
+                        router.push("/Login");
                         if (data)
                         {
-                            router.push("/Login");
+                            data=0;
                         }
                     });
             }

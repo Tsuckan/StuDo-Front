@@ -105,9 +105,9 @@
                 <label for="firstname">Имя</label><br>
                 <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
                 <label for="surname">Фамилия</label><br>
-                <input placeholder="" id="surname" v-model="surname" name="surname" type="password"> <br>
+                <input placeholder="" id="surname" v-model="surname" name="surname" type="text"> <br>
                 <label for="studentCardNumber">Номер Студенческого</label><br>
-                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="password"> <br>
+                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
@@ -140,9 +140,9 @@
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,
-                        "email": this.email,
+                        "email": this.Email,
                         "studentCardNumber": this.studentCardNumber,
-                        "password": this.password,
+                        "password": this.Password,
                         "passwordConfirm": this.passwordConfirm
                     }
                 })

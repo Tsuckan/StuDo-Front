@@ -95,25 +95,23 @@
         <div class="Auth">
             <div>
                 <h1>Подтверждение почты</h1>
-                <label for="Email">Email</label><br>
-                <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
-                <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/Register">Регистрация</router-link>
-                    <router-link class="Forgoten" to="/Login">Войти</router-link>
-
-                    <button class="Login_BTN" @click="handleSubmit">
-                        Login
-                    </button>
+                <h1>Произошла ошибка</h1>
                 </div>
             </div>
         </div>
-    </div>
 </template>
 <script>
-    function $_GET(key) {
-        var s = window.location.search;
+    function $_GET(kavo,key) {
+        var s = decodeURIComponent(kavo);
         s = s.match(new RegExp(key + '=([^&=]+)'));
+        // eslint-disable-next-line no-console
+        return s ? s[1] : false;
+    }
+    function $_GETT(kavo,key) {
+        var s = decodeURIComponent(kavo);
+        s = s.match(new RegExp(key + '=([^]+)'));
+        // eslint-disable-next-line no-console
         return s ? s[1] : false;
     }
 
@@ -129,26 +127,29 @@
         },
         mounted()
         {
-        },
-        methods : {
-            handleSubmit(e){
-                e.preventDefault()
-                axios({
-                    method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/account/manage/confirmEmail',
-                    data: {
-                        "userId": $_GET("userId"),
-                        "token": $_GET("token"),
-                        "newEmail": this.Email,
+            var kav=$_GETT(this.$route.fullPath,"token");
+            var rdy=kav.split(' ').join('+');
+            axios({
+                method: 'post',
+                url: 'https://dev.studo.rtuitlab.ru/api/account/manage/confirmEmail',
+                data: {
+                    "userId": $_GET(this.$route.fullPath,"userId"),
+                    "token":rdy
+                }
+            })
+                .then(({ data }) => {
+                    if (data)
+                    {
+                        data=0;
                     }
-                })
-                    .then(({ data }) => {
-                        if (data)
-                        {
-                            router.push("/Logged");
-                        }
-                    });
-            }
+                        alert('Успешно');
+                        router.push("/Logged");
+                }).catch(error => {
+                if(error)
+                {
+                    alert('Error')
+                }
+            });
         }
     }
 </script>
