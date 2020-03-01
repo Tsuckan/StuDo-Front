@@ -136,6 +136,9 @@
                     {
                         data=0;
                     }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
                 });
             }
         }

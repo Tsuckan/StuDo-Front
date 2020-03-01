@@ -1,6 +1,6 @@
-
 <template>
     <div class="main">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -115,12 +115,17 @@
 <script>
   import router from "@/router";
   import axios from 'axios';
+  // eslint-disable-next-line no-unused-vars
+  import CiaoVuePopup from 'ciao-vue-popup'
+
   export default {
+
     name: 'HelloWorld',
+
     data(){
       return {
         Email : "",
-        Password : ""
+        Password : "",
       }
     },
       mounted()
@@ -151,7 +156,10 @@ methods : {
             this.$store.getters.USER;
             router.push("/Logged");
         }
-    });
+    }).catch(error => {
+          if(error)
+              this.$popup('append', 'Проверьте пару логин и пароль');
+      });
   }
 }
 }
@@ -159,6 +167,7 @@ methods : {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .blur_test
 {
     filter: blur(20px);

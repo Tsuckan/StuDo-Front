@@ -16,7 +16,7 @@ export default {
     },
 }
 </script>
-
+<style src="ciao-vue-popup/dist/ciao-vue-popup.css"></style>
 <style>
     .postdate{
         height: 25px;

@@ -142,7 +142,10 @@
                         {
                             router.push("/Logged");
                         }
-                    });
+                    }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }

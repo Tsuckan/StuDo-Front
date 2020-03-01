@@ -64,8 +64,18 @@
                         "endTime": this.endTime,
                         "organizationId": this.organizationId
                     }
-                })
-                router.push('/Logged')
+                }).then(({ data }) => {
+                    this.$popup('append', 'Объявление успешно создано');
+                    router.push('/Logged')
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
+
             }
         }
     }

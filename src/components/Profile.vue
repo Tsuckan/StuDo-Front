@@ -119,8 +119,8 @@
                         firstname: this.firstname,
                         surname: this.surname
                 }
-                })
-                    .then(data => {
+                }).then(data => {
+                    this.$popup('append', 'Данные изменены');
                         if(data)
                         router.push('/Logged')
                     }).catch(error => {

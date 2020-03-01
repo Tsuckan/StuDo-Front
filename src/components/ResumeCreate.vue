@@ -53,8 +53,17 @@
                         "description": this.description,
                         "userId": this.$cookies.get("USER").id,
                         "user": this.$cookies.get("USER")
-                    }})
-                router.push('/Resumes')
+                    }}).then(({ data }) => {
+                    this.$popup('append', 'Резюме успешно создано');
+                    router.push('/Resumes')
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }

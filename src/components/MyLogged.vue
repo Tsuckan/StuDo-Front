@@ -152,9 +152,9 @@
                 .then(data => {
                     this.posts=data.data;
                 }).catch(error => {
-                if(error)
-                    router.push("/Login");
-            });
+        if(error)
+            router.push("/Login");
+    });
 
 
         }

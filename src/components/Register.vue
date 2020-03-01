@@ -95,20 +95,19 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Регистрация</h1>
+                <h1>Регистрация</h1><label for="firstname">Имя</label><br>
+                <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
+                <label for="surname">Фамилия</label><br>
+                <input placeholder="" id="surname" v-model="surname" name="surname" type="text"> <br>
+                <label for="studentCardNumber">Номер Студенческого</label><br>
+                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
                 <label for="Email">Email</label><br>
                 <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
                 <label for="Password">Пароль</label><br>
                 <input placeholder="" id="Password" v-model="Password" name="password" type="password"> <br>
                 <label for="passwordConfirm">Повтор Пароля</label><br>
                 <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" name="passwordConfirm" type="password"> <br>
-                <label for="firstname">Имя</label><br>
-                <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
-                <label for="surname">Фамилия</label><br>
-                <input placeholder="" id="surname" v-model="surname" name="surname" type="text"> <br>
-                <label for="studentCardNumber">Номер Студенческого</label><br>
-                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
-                <div class="buttons">
+                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
                     <router-link class="Forgoten" to="/PassForgot">Забыл пароль</router-link>
@@ -124,6 +123,7 @@
 
 <script>
     import axios from 'axios';
+    import router from "../router";
     export default {
         name: 'Register',
         data(){
@@ -145,7 +145,17 @@
                         "password": this.Password,
                         "passwordConfirm": this.passwordConfirm
                     }
-                })
+                }).then(({ data }) => {
+                    this.$popup('append', 'Подтвердите вашу почту по ссылке');
+                    router.push('/Login')
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }
