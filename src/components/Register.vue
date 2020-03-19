@@ -96,17 +96,17 @@
         <div class="Auth">
             <div>
                 <h1>Регистрация</h1><label for="firstname">Имя</label><br>
-                <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
+                <input placeholder="" id="firstname" v-model="firstname" name="firstname" required type="text"> <br>
                 <label for="surname">Фамилия</label><br>
-                <input placeholder="" id="surname" v-model="surname" name="surname" type="text"> <br>
+                <input placeholder="" id="surname" v-model="surname" name="surname" required type="text"> <br>
                 <label for="studentCardNumber">Номер Студенческого</label><br>
-                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
+                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" required name="studentCardNumber" type="text"> <br>
                 <label for="Email">Email</label><br>
-                <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
+                <input placeholder="" id="Email" v-model="Email" name="Email" required type="text"> <br>
                 <label for="Password">Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="password" type="password"> <br>
+                <input placeholder="" id="Password" v-model="Password" name="password" required type="password"> <br>
                 <label for="passwordConfirm">Повтор Пароля</label><br>
-                <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" name="passwordConfirm" type="password"> <br>
+                <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" required name="passwordConfirm" type="password"> <br>
                  <div class="buttons">
 
                     <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>

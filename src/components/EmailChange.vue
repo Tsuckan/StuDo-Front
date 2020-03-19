@@ -96,9 +96,9 @@
             <div>
                 <h1>Смена почты</h1>
                 <label for="oldEmail">Старая почта</label><br>
-                <input placeholder="" id="oldEmail" v-model="oldEmail" name="oldEmail" type="text"> <br>
+                <input placeholder="" required id="oldEmail" v-model="oldEmail" name="oldEmail" type="text"> <br>
                 <label for="newEmail">Новая почта</label><br>
-                <input placeholder="" id="newEmail" v-model="newEmail" name="newEmail" type="text"> <br>
+                <input placeholder="" required id="newEmail" v-model="newEmail" name="newEmail" type="text"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Logged">Назад</router-link>

@@ -96,7 +96,7 @@
                 <div>
                     <h1>Восстановление пароля</h1>
                     <label for="Email">Email</label><br>
-                    <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
+                    <input placeholder="" required id="Email" v-model="Email" name="Email" type="text"> <br>
                     <div class="buttons">
 
                         <router-link class="Registerbtn" to="/Login">Войти</router-link>

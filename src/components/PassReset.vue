@@ -96,9 +96,9 @@
             <div>
                 <h1>Восстановление пароля</h1>
                 <label for="Password">Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="Password" type="text"> <br>
+                <input placeholder="" required id="Password" v-model="Password" name="Password" type="text"> <br>
                 <label for="PasswordAgain">Ещё раз Пароль</label><br>
-                <input placeholder="" id="PasswordAgain" v-model="PasswordAgain" name="PasswordAgain" type="password"> <br>
+                <input placeholder="" required id="PasswordAgain" v-model="PasswordAgain" name="PasswordAgain" type="password"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Register">Регистрация</router-link>

@@ -177,6 +177,10 @@
 
 
     }
+    .postdate
+    {
+        margin-left: 40%;
+    }
     .logoBlock{
         width: 213px;
         background: #2F2F2F;

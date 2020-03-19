@@ -430,4 +430,8 @@
         font-size: 18px;
         color: #ACACAC;
     }
+    .postdate
+    {
+        margin-left: 40%;
+    }
 </style>

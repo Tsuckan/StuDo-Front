@@ -8,15 +8,15 @@
             <div>
                 <h1>Создание объявления</h1>
                 <label for="name">Название</label><br>
-                <input placeholder="" id="name" v-model="name" name="name" type="text"> <br>
+                <input placeholder="" required id="name" v-model="name" name="name" type="text"> <br>
                 <label for="description">Описание</label><br>
-                <textarea cols="103" placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
+                <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
                 <label for="shortDescription">Краткое описание</label><br>
-                <input placeholder="" id="shortDescription" v-model="shortDescription" name="shortDescription" type="text"> <br>
+                <input placeholder="" required id="shortDescription" v-model="shortDescription" name="shortDescription" type="text"> <br>
                 <label for="beginTime">Начало</label><br>
-                <input placeholder="" id="beginTime" v-model="beginTime" name="beginTime" type="date"> <br>
+                <input placeholder="" required id="beginTime" v-model="beginTime" name="beginTime" type="date"> <br>
                 <label for="endTime">Конец</label><br>
-                <input placeholder="" id="endTime" v-model="endTime" name="endTime" type="date"> <br>
+                <input placeholder="" required id="endTime" v-model="endTime" name="endTime" type="date"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Logged">Назад</router-link>

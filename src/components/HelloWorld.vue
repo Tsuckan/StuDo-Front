@@ -96,9 +96,9 @@
             <div>
             <h1>Авторизация</h1>
             <label for="Email">Email</label><br>
-            <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
+            <input placeholder="" id="Email" required v-model="Email" name="Email" type="text"> <br>
             <label for="Password">Пароль</label><br>
-            <input placeholder="" id="Password" v-model="Password" name="Password" type="password"> <br>
+            <input placeholder="" id="Password" required v-model="Password" name="Password" type="password"> <br>
                 <div class="buttons">
 
             <router-link class="Registerbtn" to="/Register">Регистрация</router-link>

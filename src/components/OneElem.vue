@@ -340,6 +340,10 @@
         border-radius: 13px;
         padding-top: 1px;
     }
+    .postdate
+    {
+        margin-left: 40%;
+    }
     .searchform{
         background: #3B3B3B;
         border-radius: 36px;

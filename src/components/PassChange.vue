@@ -96,9 +96,9 @@
             <div>
                 <h1>Смена пароля</h1>
                 <label for="oldPassword">Старый пароль</label><br>
-                <input placeholder="" id="oldPassword" v-model="oldPassword" name="oldPassword" type="password"> <br>
+                <input placeholder="" required id="oldPassword" v-model="oldPassword" name="oldPassword" type="password"> <br>
                 <label for="newPassword">Новый пароль</label><br>
-                <input placeholder="" id="newPassword" v-model="newPassword" name="newPassword" type="password"> <br>
+                <input placeholder="" required id="newPassword" v-model="newPassword" name="newPassword" type="password"> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Logged">Назад</router-link>

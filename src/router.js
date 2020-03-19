@@ -96,6 +96,11 @@ export default new VueRouter({
         {
             path: '/ResumeCreate',
             component: ResumeCreate,
+        },
+        {
+            path: '/Acceptation',
+            component: EmailAccept,
+
         }
     ]
 

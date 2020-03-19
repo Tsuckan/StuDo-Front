@@ -177,7 +177,7 @@ body{
 .postdate{
     height: 25px;
     width: 90px;
-    color: white;
+    color: black;
     border-radius: 13px;
     background: #3B3B3B;
     margin-left: 270px;
@@ -280,9 +280,12 @@ body{
 input
 {
     color:honeydew;
-    padding:18px;
+    padding-left:18px;
+    padding-top: 6px;
 }
 textarea
 {
     color:honeydew;
+    padding-left:18px;
+    padding-top: 6px;
 }
