@@ -53,6 +53,9 @@
                                 <div class="textblockForPost">
                                     {{posts.data.shortDescription}}
                                 </div>
+                                <div class="postdate postdate_post">
+                                  {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
+                                </div>
                             </div>
                         </div>
                         <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
@@ -438,5 +441,9 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    .postdate_post
+    {
+        width: 200px;
     }
 </style>
