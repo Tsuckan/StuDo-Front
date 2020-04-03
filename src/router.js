@@ -112,7 +112,9 @@ export default new VueRouter({
         {
             path: '/Acceptation',
             component: EmailAccept,
+
         }
-    ]
+
+    ],
 
 })

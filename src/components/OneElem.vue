@@ -53,8 +53,6 @@
                                 <div class="textblockForPost">
                                     {{posts.data.shortDescription}}
                                 </div>
-                                <div class="postdate">
-                                </div>
                             </div>
                         </div>
                         <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"

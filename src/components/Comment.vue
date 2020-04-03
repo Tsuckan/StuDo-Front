@@ -86,7 +86,7 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Смена пароля</h1>
+                <h1>Создание комментария</h1>
                 <label for="description">Текст Комментария</label><br>
                 <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
                 <router-link class="Registerbtn" to="/Logged">Назад</router-link>

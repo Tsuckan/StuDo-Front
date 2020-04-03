@@ -136,7 +136,7 @@
                     .then(({ data }) => {
                         // eslint-disable-next-line no-console
                         console.log('status: ', data.status);
-                            router.push("/Logged");
+                            router.push("/Profile");
                     }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console

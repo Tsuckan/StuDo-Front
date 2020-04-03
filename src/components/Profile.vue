@@ -122,7 +122,7 @@
                 }).then(data => {
                     if(data)
                     this.$cookies.set('USER', data.data)
-                    router.push('/Logged')
+                    router.push('/Profile')
                     }).catch(error => {
                     if(error)
                         router.push("/Login");
