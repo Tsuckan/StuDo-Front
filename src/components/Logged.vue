@@ -64,7 +64,7 @@
                                 Автор: {{getter(post.lastComment,false)}}
                             </div>
                             <div  v-if="getter(post.lastComment,false)" class="CommentblockForPost">
-                                {{getter(post.lastComment,true)}}
+                                {{getter(post.lastComment,true)}}...
                             </div>
                         </div>
                     </div>
