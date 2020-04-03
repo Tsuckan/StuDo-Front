@@ -21,76 +21,56 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
-                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <br>
+                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/Resumes">Все Резюме</router-link>
+                                <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                             </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
-                            </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
 
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="topMenu d-flex">
-                        <div class="topMenu d-flex">
-                            <div class="topMenuItems">
-
-                                <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                            </div>
-                            <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                            </div>
-                            <div class="topMenuItems">
-                                <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="rightBlock">
-                        <div class="rightBlock_firstBlock">
-                            <div class="searchform d-flex">
-                                <input type="text" class="searchInput">
-                                <div class="rightBlock_firstBlock_searchLogo">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                        <div class="postBlock">
+                            <div class="postTopBlock">
+                                <div class="blockTopForLogo">
+                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
+                                </div>
+                                <div class="titleForPost"><router-link :to="{name: 'Resume', params: {Resumeid: post.id}, props: {Resumeid: post.id}}"
+                                >{{post.name}}</router-link>
                                 </div>
                             </div>
-                            <div class="sortBlock">
-                                Сортировка
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
-                                    </div>
+                            <div class="postDownBlock">
+                                <div class="textblockForPost">
+                                    {{post.description}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="topMenu d-flex">
+                    <div class="topMenuItems active">
+
+                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                    </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                    </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -100,17 +80,32 @@
     import router from "@/router";
     import axios from 'axios';
     export default {
-        name: "Logged",
+        name: "Ad",
+        props: ['Resumeid'],
         data() {
             return {
-                rawHtml: {}
+                rawHtml: {},
+                posts: [],
+                ids: this.$router.currentRoute.params['Resumeid']
             };
-        },methods : {
-            handleSubmit() {
-                router.push("/Profile")
+        },methods : { formatDate(date) {
+
+        var dd = date.getDate();
+        if (dd < 10) dd = '0' + dd;
+
+        var mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        var yy = date.getFullYear();
+        if (yy < 10) yy = '0' + yy;
+
+        return dd + '.' + mm + '.' + yy;
+    },
+            handleSubmit(Idval) {
+                router.push({ path: '/Ad', query: { Id: Idval } })
             },
             Create() {
-                router.push("/Create")
+                router.push("/Resumes")
             }
         },
         mounted() {
@@ -122,30 +117,11 @@
                 url: 'https://dev.studo.rtuitlab.ru/api/resumes/user/'+this.$cookies.get('USER').id,
                 data: {}
             })
-                .then(({data}) => {
-                    {
-                        for (var i = 0; i < data.length - 1; i++)
-                            this.rawHtml +=
-                                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">`+ data[i].name +`</div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + data[i].description + `
-                    </div>
-                    <div class="postdate">
-                        25.12.2012
-                    </div>
-                    </div>
-                    </div>
-                    </div>`}
+                .then(data => {
+                    this.posts=data.data;
                 }).catch(error => {
                 if(error)
-                router.push("/Login");
+                    router.push("/Login");
             });
 
 
@@ -154,12 +130,6 @@
 </script>
 
 <style scoped>
-    a {
-        text-decoration: none;
-    }
-    {
-        color: white;
-    }
     .qq{
         border: 1px solid black;
     }
@@ -268,7 +238,7 @@
         position: fixed;
         top:25px;
         display: flex;
-        margin-left: 20px;
+        margin-left: 40px;
         justify-content: space-around;
         text-transform: uppercase;
     }
@@ -400,7 +370,6 @@
         color: #ACACAC;
         font-size: 16px;
     }
-
     .catBlock{
         width: 290px;
 
@@ -439,9 +408,5 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
-    }
-    .btnMenuItems > rou
-    {
-        color: white;
     }
 </style>

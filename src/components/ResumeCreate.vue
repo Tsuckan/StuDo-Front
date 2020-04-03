@@ -8,9 +8,9 @@
             <div>
                 <h1>Создание Резюме</h1>
                 <label for="name">Название</label><br>
-                <input placeholder="" id="name" v-model="name" name="name" type="text"> <br>
+                <input placeholder="" required id="name" v-model="name" name="name" type="text"> <br>
                 <label for="description">Описание</label><br>
-                <textarea cols="103" placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
+                <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
                 <div class="buttons">
 
                     <router-link class="Registerbtn" to="/Resumes">Назад</router-link>
@@ -53,8 +53,17 @@
                         "description": this.description,
                         "userId": this.$cookies.get("USER").id,
                         "user": this.$cookies.get("USER")
-                    }})
-                router.push('/Resumes')
+                    }}).then(({ data }) => {
+                    this.$popup('append', 'Резюме успешно создано');
+                    router.push('/Resumes')
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }

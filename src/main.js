@@ -1,4 +1,5 @@
 
+import CiaoVuePopup from 'ciao-vue-popup'
 import Vue from 'vue'
 import App from './App.vue'
 import router from "@/router";
@@ -11,6 +12,7 @@ Vue.use(VueRouter)
 Vue.use(axios)
 Vue.use(Vuex)
 Vue.use(VueCookies);
+Vue.use(CiaoVuePopup)
 
 Vue.config.productionTip = false
 

@@ -34,15 +34,7 @@
                                     </div>
                                     <div class="btnMenuItems d-flex">
                                         <div class="btnPassiv"></div>
-                                        <div class="textBtns">Отслеживаемые</div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="textBtns">Вкладка 4</div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="textBtns">Вкладка 5</div>
+                                        <div class="textBtns">Закладки</div>
                                     </div>
 
                                 </div>
@@ -96,7 +88,7 @@
                 <div>
                     <h1>Восстановление пароля</h1>
                     <label for="Email">Email</label><br>
-                    <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
+                    <input placeholder="" required id="Email" v-model="Email" name="Email" type="text"> <br>
                     <div class="buttons">
 
                         <router-link class="Registerbtn" to="/Login">Войти</router-link>
@@ -113,6 +105,7 @@
 
 <script>
     import axios from 'axios';
+    import router from "../router";
     export default {
         name: 'PassForgot',
         data(){
@@ -129,7 +122,16 @@
                     data: {
                         email: this.Email
                     }
-                })
+                }).then(({ data }) => {
+                    router.push("/Login");
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }

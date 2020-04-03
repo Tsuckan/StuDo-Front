@@ -25,23 +25,11 @@
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                             </div>
 
                         </div>
@@ -61,9 +49,6 @@
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
                                     {{post.description}}
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
                                 </div>
                             </div>
                         </div>

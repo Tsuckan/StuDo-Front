@@ -25,8 +25,38 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="postBlocks" v-html="rawHtml.slice(15)">
+                    <div class="postBlocks">
+                        <div class="postBlock">
+                            <div class="postTopBlock">
+                                <div class="blockTopForLogo">
+                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
+                                </div>
+                                <div class="titleForPost">Данные профиля</div>
+                            </div>
+                            <div class="postDownBlock">
+                                <div class="textblockForPost">
+                                    <label for="firstname">Имя</label><br>
+                                    <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
+                                    <label for="surname">Фамилия</label><br>
+                                    <input placeholder="" id="surname" v-model="surname" name="surname" type="text"> <br>
+                                    <label for="studentCardNumber">Номер студенческого</label><br>
+                                    <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
 
+                                    <button class="ChangePassBtn" @click="changepass">
+                                        ChangePass
+                                    </button>
+                                    <button class="ChangeEmailBtn" @click="changeemail">
+                                        ChangeEmail
+                                    </button>
+                                </div>
+                                <button class="ExitBtn" @click="exit">
+                                    Exit
+                                </button>
+                                <button class="AcceptBtn" @click="accept">
+                                    Accept
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -54,84 +84,91 @@
 
 <script>
     import router from "@/router";
+    import axios from "axios";
     export default {
         name: "Logged",
         data() {
             return {
+                firstname:this.$cookies.get("USER").firstname,
+                surname:this.$cookies.get("USER").surname,
+                studentCardNumber:this.$cookies.get("USER").studentCardNumber,
                 rawHtml: {}
             };
         }, methods: {
-            handleSubmit() {
-                router.push("/Logged")
+            exit() {
+                this.$cookies.remove("ACCESSTOKEN");
+                this.$cookies.remove("USER");
+                router.push("/Login")
+            },
+            changepass() {
+                router.push("/passchange")
+            },
+            changeemail() {
+                router.push("/emailchange")
+            },
+            accept() {
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'post',
+                    url: 'https://dev.studo.rtuitlab.ru/api/user/change/info',
+                    data: {
+                        id: this.$cookies.get("USER").id,
+                        studentCardNumber: this.studentCardNumber,
+                        firstname: this.firstname,
+                        surname: this.surname
+                }
+                }).then(data => {
+                    if(data)
+                    this.$cookies.set('USER', data.data)
+                    router.push('/Logged')
+                    }).catch(error => {
+                    if(error)
+                        router.push("/Login");
+                });
             }
         },
         mounted() {
-            this.rawHtml +=
-                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">Id</div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + this.$cookies.get('USER').id + `
-                       </div>
-                    </div>
-                    </div>
-                    </div>`
-            this.rawHtml +=
-                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">Имя и Фамилия</div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + this.$cookies.get('USER').firstname + " " + this.$cookies.get('USER').surname + `
-                       </div>
-                    </div>
-                    </div>
-                    </div>`
-            this.rawHtml +=
-                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">Student Card</div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + this.$cookies.get('USER').studentCardNumber + `
-                       </div>
-                    </div>
-                    </div>
-                    </div>`
-            this.rawHtml +=
-                `<div class="postBlock">
-                        <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                        <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">Email</div>
-                        </div>
-                        <div class="postDownBlock">
-                        <div class="textblockForPost">
-                        ` + this.$cookies.get('USER').email + `
-                       </div>
-                    </div>
-                    </div>
-                    </div>`
         }
     }
 </script>
 
 <style scoped>
 
+    .ExitBtn, .AcceptBtn
+    {
+        background: transparent;
+        color: honeydew;
+        border: none;
+    }
+    .ExitBtn
+    {
+        margin-top:10px;
+        float: right;
+    }
+    .ChangeEmailBtn
+    {
+        float: right;
+        border-radius: 30px;
+        background-color: rgb(102,49,179);
+        border: none;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        height: 46px;
+    }
+    .ChangePassBtn
+    {
+        float: left;
+        border-radius: 30px;
+        background-color: rgb(102,49,179);
+        border: none;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        height: 46px;
+    }
     .qq{
         border: 1px solid black;
     }
@@ -146,6 +183,22 @@
         font-family: Roboto;
 
 
+    }
+    .Login_BTN
+    {
+        float: right;
+        border-radius: 30px;
+        background-color: rgb(102,49,179);
+        border: none;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        height: 46px;
+    }
+    .Login_BTN:last-child
+    {
+        float: left;
+        margin-left: 130px;
     }
     .logoBlock{
         width: 213px;
@@ -257,7 +310,7 @@
     .postBlock{
         width: 100%;
         margin: 0 auto;
-        height: auto;
+        height: 360px;
         margin-top: 50px;
         background: #3B3B3B;
         padding-left: 0px;
@@ -297,7 +350,7 @@
     }
     .textblockForPost{
         width: 90%;
-        height: auto;
+        height: 280px;
         margin-left: 25px;
         padding-top: 19px;
         font-size: 16px;
@@ -411,5 +464,15 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    input
+    {
+
+        width: 280px;
+        background-color: rgb(54,55,54);
+        border: none;
+        border-radius: 15px;
+        height: 35px;
+        margin-left: 30px;
     }
 </style>

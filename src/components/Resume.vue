@@ -24,23 +24,11 @@
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                             </div>
 
                         </div>
@@ -58,10 +46,7 @@
                             </div>
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
-                                    {{posts.data.description}}
-                                </div>
-                                <div class="postdate">
-                                    25.12.2012
+                                {{posts.data.description}}
                                 </div>
                             </div>
                         </div>
@@ -70,11 +55,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
+                    <div class="topMenuItems">
 
                         <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                     </div>
-                    <div class="topMenuItems">
+                    <div class="topMenuItems active">
                         <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                     </div>
                     <div class="topMenuItems">

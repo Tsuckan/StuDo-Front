@@ -95,22 +95,21 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Регистрация</h1>
-                <label for="Email">Email</label><br>
-                <input placeholder="" id="Email" v-model="Email" name="Email" type="text"> <br>
-                <label for="Password">Пароль</label><br>
-                <input placeholder="" id="Password" v-model="Password" name="password" type="password"> <br>
-                <label for="passwordConfirm">Повтор Пароля</label><br>
-                <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" name="passwordConfirm" type="password"> <br>
-                <label for="firstname">Имя</label><br>
-                <input placeholder="" id="firstname" v-model="firstname" name="firstname" type="text"> <br>
+                <h1>Регистрация</h1><label for="firstname">Имя</label><br>
+                <input placeholder="" id="firstname" v-model="firstname" name="firstname" required type="text"> <br>
                 <label for="surname">Фамилия</label><br>
-                <input placeholder="" id="surname" v-model="surname" name="surname" type="password"> <br>
+                <input placeholder="" id="surname" v-model="surname" name="surname" required type="text"> <br>
                 <label for="studentCardNumber">Номер Студенческого</label><br>
-                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="password"> <br>
-                <div class="buttons">
+                <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" required name="studentCardNumber" type="text"> <br>
+                <label for="Email">Email</label><br>
+                <input placeholder="" id="Email" v-model="Email" name="Email" required type="text"> <br>
+                <label for="Password">Пароль</label><br>
+                <input placeholder="" id="Password" v-model="Password" name="password" required type="password"> <br>
+                <label for="passwordConfirm">Повтор Пароля</label><br>
+                <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" required name="passwordConfirm" type="password"> <br>
+                 <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
+                    <router-link class="Registerbtn" to="/Login">Авторизация</router-link>
                     <router-link class="Forgoten" to="/PassForgot">Забыл пароль</router-link>
 
                     <button class="Login_BTN" @click="handleSubmit">
@@ -124,6 +123,7 @@
 
 <script>
     import axios from 'axios';
+    import router from "../router";
     export default {
         name: 'Register',
         data(){
@@ -135,17 +135,30 @@
             handleSubmit(e){
                 e.preventDefault()
                 axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,
-                        "email": this.email,
+                        "email": this.Email,
                         "studentCardNumber": this.studentCardNumber,
-                        "password": this.password,
+                        "password": this.Password,
                         "passwordConfirm": this.passwordConfirm
                     }
-                })
+                }).then(({ data }) => {
+                    this.$popup('append', 'Подтвердите вашу почту по ссылке');
+                    router.push('/Login')
+                    if (data)
+                    {
+                        data=0;
+                    }
+                }).catch(error => {
+                    if(error)
+                        this.$popup('append', 'Произошла ошибка');
+                });
             }
         }
     }

@@ -33,15 +33,7 @@
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
                             </div>
 
                         </div>
@@ -62,12 +54,34 @@
                                     {{posts.data.shortDescription}}
                                 </div>
                                 <div class="postdate">
-                                    25.12.2012
                                 </div>
                             </div>
                         </div>
+                        <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
+                        >Оставить комментарий</router-link></div>
+                    </div>
+                    <div class="postBlocks" v-for="post in posts.data.comments" :key="post.id">
+                        <div class="postBlock">
+                        <div class="postTopBlock">
+                            <div class="blockTopForLogo">
+                                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                            </div>
+                            <div class="titleForPost">{{post.author}}
+                            </div>
+                        </div>
+                        <div class="postDownBlock">
+                            <div class="textblockForPost">
+                                {{post.text}}
+                            </div>
+                            <div class="postdate">
+                                {{formatDate(new Date(post.commentTime))}}
+                            </div>
+                        </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
             <div class="col-lg-4">
                 <div class="topMenu d-flex">
@@ -102,6 +116,15 @@
                 postid: this.$router.currentRoute.params['id']
             };
         },methods : {
+            formatDate(date) {
+                var dd = date.getDate();
+                if (dd < 10) dd = '0' + dd;
+                var mm = date.getMonth() + 1;
+                if (mm < 10) mm = '0' + mm;
+                var yy = date.getFullYear();
+                if (yy < 10) yy = '0' + yy;
+                return dd + '.' + mm + '.' + yy;
+            },
             handleSubmit(Idval) {
                 router.push({ path: '/Ad', query: { Id: Idval } })
             },
@@ -120,6 +143,10 @@
             })
                 .then(data => {
                     this.posts=data;
+                    // eslint-disable-next-line no-console
+                    console.log(this.posts)
+                    // eslint-disable-next-line no-console
+                    console.log(this.posts.data.comments[0].commentTime)
                 }).catch(error => {
                 if(error)
                 router.push("/Login");
@@ -339,6 +366,10 @@
         background: #222222;
         border-radius: 13px;
         padding-top: 1px;
+    }
+    .postdate
+    {
+        margin-left: 40%;
     }
     .searchform{
         background: #3B3B3B;
