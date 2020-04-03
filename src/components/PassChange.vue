@@ -34,15 +34,7 @@
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
-                                    <div class="textBtns">Отслеживаемые</div>
-                                </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
-                                    <div class="textBtns">Вкладка 4</div>
-                                </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
-                                    <div class="textBtns">Вкладка 5</div>
+                                    <div class="textBtns">Закладки</div>
                                 </div>
 
                             </div>
@@ -129,6 +121,9 @@
             handleSubmit(e){
                 e.preventDefault()
                 axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/user/password/change',
                     data: {
@@ -137,13 +132,15 @@
                         newPassword: this.newPassword
                     }
                 })
+                    // eslint-disable-next-line no-unused-vars
                     .then(({ data }) => {
-                        if (data)
-                        {
+                        // eslint-disable-next-line no-console
+                        console.log('status: ', data.status);
                             router.push("/Logged");
-                        }
                     }).catch(error => {
                     if(error)
+                        // eslint-disable-next-line no-console
+                        console.log('status: ', error.code);
                         this.$popup('append', 'Произошла ошибка');
                 });
             }

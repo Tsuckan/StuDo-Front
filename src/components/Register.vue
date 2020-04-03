@@ -109,7 +109,7 @@
                 <input placeholder="" id="passwordConfirm" v-model="passwordConfirm" required name="passwordConfirm" type="password"> <br>
                  <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/HelloWorld">Авторизация</router-link>
+                    <router-link class="Registerbtn" to="/Login">Авторизация</router-link>
                     <router-link class="Forgoten" to="/PassForgot">Забыл пароль</router-link>
 
                     <button class="Login_BTN" @click="handleSubmit">
@@ -135,6 +135,9 @@
             handleSubmit(e){
                 e.preventDefault()
                 axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
                     data: {

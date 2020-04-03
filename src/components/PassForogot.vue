@@ -34,15 +34,7 @@
                                     </div>
                                     <div class="btnMenuItems d-flex">
                                         <div class="btnPassiv"></div>
-                                        <div class="textBtns">Отслеживаемые</div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="textBtns">Вкладка 4</div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="textBtns">Вкладка 5</div>
+                                        <div class="textBtns">Закладки</div>
                                     </div>
 
                                 </div>

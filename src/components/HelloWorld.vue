@@ -34,15 +34,7 @@
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <div class="textBtns">"Закладки"</div>
                             </div>
 
                         </div>
@@ -113,11 +105,10 @@
     </div>
 </template>
 <script>
-  import router from "@/router";
+    import router from "@/router";
   import axios from 'axios';
   // eslint-disable-next-line no-unused-vars
   import CiaoVuePopup from 'ciao-vue-popup'
-
   export default {
 
     name: 'HelloWorld',
@@ -163,6 +154,18 @@ methods : {
   }
 }
 }
+
+    document.onkeyup = function (e) {
+        e = e || window.event;
+        if (e.keyCode === 13) {
+            var elems = document.getElementsByClassName("Login_BTN");
+            elems[0].click();
+
+        }
+        // Отменяем действие браузера
+        return false;
+    }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -241,6 +244,7 @@ methods : {
     }
     .Login_BTN
     {
+        margin-right: 30px;
         float: right;
         border-radius: 30px;
         background-color: rgb(102,49,179);

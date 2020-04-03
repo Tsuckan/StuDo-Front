@@ -17,6 +17,8 @@ import PassReset from "./components/PassReset";
 import PassChange from "./components/PassChange";
 import EmailChange from "./components/EmailChange";
 import EmailTest from "./components/EmailTest";
+import Favorited from "./components/Favorited";
+import Comment from "./components/Comment";
 export default new VueRouter({
     routes: [
         {
@@ -36,6 +38,10 @@ export default new VueRouter({
         {
             path: '/Create',
             component: Create,
+        },
+        {
+            path: '/Favorited',
+            component: Favorited,
         },
         {
             path: '/MyLogged',
@@ -82,6 +88,12 @@ export default new VueRouter({
             props: true
         },
         {
+            path: '/Comment',
+            component: Comment,
+            name: 'Comment',
+            props: true
+        },
+        {
             path: '/Resume',
             component: Resume,
             name: 'Resume',
@@ -100,7 +112,6 @@ export default new VueRouter({
         {
             path: '/Acceptation',
             component: EmailAccept,
-
         }
     ]
 

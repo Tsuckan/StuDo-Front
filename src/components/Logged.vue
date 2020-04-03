@@ -1,6 +1,7 @@
 /* eslint-disable */
 <template>
     <div class="box">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -32,15 +33,7 @@
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
                             </div>
 
                         </div>
@@ -50,6 +43,8 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
+                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
@@ -64,6 +59,12 @@
                                 <div class="postdate">
                                     {{formatDate(new Date(post.beginTime))}} - {{formatDate(new Date(post.endTime))}}
                                 </div>
+                            </div>
+                            <div style="color: honeydew" v-if="getter(post.lastComment,false)" class="CommentAuthorForPost">
+                                Автор: {{getter(post.lastComment,false)}}
+                            </div>
+                            <div  v-if="getter(post.lastComment,false)" class="CommentblockForPost">
+                                {{getter(post.lastComment,true)}}
                             </div>
                         </div>
                     </div>
@@ -112,34 +113,61 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
+    // eslint-disable-next-line no-unused-vars
+    import CiaoVuePopup from 'ciao-vue-popup'
     export default {
         name: "Logged",
         data() {
             return {
                 rawHtml: {},
-                posts: []
+                posts: [],
+                comments: []
             };
         },methods : {
-             formatDate(date) {
+            getter(data, isText)
+            {
+                try {
+                    if(isText)
+                    {
+                        return data.text
+                    }
+                    else
+                    {
+                        return data.author
+                    }
+                } catch (err) {
 
-        var dd = date.getDate();
-        if (dd < 10) dd = '0' + dd;
+                    return false;
 
-        var mm = date.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-
-        var yy = date.getFullYear();
-        if (yy < 10) yy = '0' + yy;
-
-        return dd + '.' + mm + '.' + yy;
-    },
+                }
+            },
+            formatDate(date) {
+                var dd = date.getDate();
+                if (dd < 10) dd = '0' + dd;
+                var mm = date.getMonth() + 1;
+                if (mm < 10) mm = '0' + mm;
+                var yy = date.getFullYear();
+                if (yy < 10) yy = '0' + yy;
+                return dd + '.' + mm + '.' + yy;
+            },
+            Bookmark(a) {
+                this.$popup('append', 'Пост добавлен в закладки');
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'post',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    data: {}
+                })
+            },
             handleSubmit(Idval) {
-                router.push({ path: '/Ad', query: { Id: Idval } })
+                router.push({path: '/Ad', query: {Id: Idval}})
             },
             Create() {
                 router.push("/Resumes")
-            }
             },
+        },
             mounted() {
                 axios({
                     headers: {
@@ -151,19 +179,37 @@
                 })
                     .then(data => {
                         this.posts=data.data;
+                        for (let i = 0; i < this.posts.length; i++)
+                        {
+                            this.comments.push(this.posts[i].lastComment)
+                        }
                     }).catch(error => {
                         if(error)
                     router.push("/Login");
                 });
-
-
-            }
-        }
+            }}
 </script>
 
 <style scoped>
-    .qq{
-        border: 1px solid black;
+    .CommentblockForPost
+    {
+        padding-bottom:20px;
+        width: 90%;
+        height: auto;
+        margin-left: 25px;
+        padding-top: 19px;
+        font-size: 16px;
+        color: #ACACAC;
+    }
+    .CommentAuthorForPost
+    {
+        float: right;
+    }
+    .BookmarkBtn
+    {
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
     }
 
     header{
@@ -239,8 +285,6 @@
     }
     .btnsMenu{
         margin-top: 37px;
-
-
     }
     .btnActiv{
 
@@ -258,9 +302,6 @@
         margin-right: 20px;
 
 
-    }
-    .textBtns{
-        padding-top: 7px;
     }
     .topMenu{
         width: 319px;

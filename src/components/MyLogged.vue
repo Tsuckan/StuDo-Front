@@ -2,6 +2,7 @@
 /* eslint-disable */
 <template>
     <div class="box">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -33,15 +34,7 @@
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
-                                <div class="textBtns">Отслеживаемые</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 4</div>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <div class="textBtns">Вкладка 5</div>
+                                <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
                             </div>
 
                         </div>
@@ -51,6 +44,8 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
+                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
@@ -113,6 +108,8 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
+    // eslint-disable-next-line no-unused-vars
+    import CiaoVuePopup from 'ciao-vue-popup'
     export default {
         name: "MyLogged",
         data() {
@@ -132,6 +129,17 @@
                 if (yy < 10) yy = '0' + yy;
 
                 return dd + '.' + mm + '.' + yy;
+            },
+            Bookmark(a) {
+                this.$popup('append', 'Пост добавлен в закладки');
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'post',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    data: {}
+                })
             },
             handleSubmit() {
                 router.push("/Profile")
@@ -166,6 +174,12 @@
         border: 1px solid black;
     }
 
+    .BookmarkBtn
+    {
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+    }
     header{
         height: 50px;
         background: #222222;

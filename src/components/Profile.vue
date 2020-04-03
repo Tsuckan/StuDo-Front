@@ -42,17 +42,17 @@
                                     <label for="studentCardNumber">Номер студенческого</label><br>
                                     <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" name="studentCardNumber" type="text"> <br>
 
+                                    <button class="ChangePassBtn" @click="changepass">
+                                        ChangePass
+                                    </button>
+                                    <button class="ChangeEmailBtn" @click="changeemail">
+                                        ChangeEmail
+                                    </button>
                                 </div>
-                                <button class="Login_BTN" @click="exit">
+                                <button class="ExitBtn" @click="exit">
                                     Exit
                                 </button>
-                                <button class="Login_BTN" @click="changepass">
-                                    ChangePass
-                                </button>
-                                <button class="Login_BTN" @click="changeemail">
-                                    ChangeEmail
-                                </button>
-                                <button class="Login_BTN" @click="accept">
+                                <button class="AcceptBtn" @click="accept">
                                     Accept
                                 </button>
                             </div>
@@ -120,9 +120,9 @@
                         surname: this.surname
                 }
                 }).then(data => {
-                    this.$popup('append', 'Данные изменены');
-                        if(data)
-                        router.push('/Logged')
+                    if(data)
+                    this.$cookies.set('USER', data.data)
+                    router.push('/Logged')
                     }).catch(error => {
                     if(error)
                         router.push("/Login");
@@ -136,6 +136,39 @@
 
 <style scoped>
 
+    .ExitBtn, .AcceptBtn
+    {
+        background: transparent;
+        color: honeydew;
+        border: none;
+    }
+    .ExitBtn
+    {
+        margin-top:10px;
+        float: right;
+    }
+    .ChangeEmailBtn
+    {
+        float: right;
+        border-radius: 30px;
+        background-color: rgb(102,49,179);
+        border: none;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        height: 46px;
+    }
+    .ChangePassBtn
+    {
+        float: left;
+        border-radius: 30px;
+        background-color: rgb(102,49,179);
+        border: none;
+        color: white;
+        width: 120px;
+        margin-top: 20px;
+        height: 46px;
+    }
     .qq{
         border: 1px solid black;
     }
@@ -277,7 +310,7 @@
     .postBlock{
         width: 100%;
         margin: 0 auto;
-        height: auto;
+        height: 360px;
         margin-top: 50px;
         background: #3B3B3B;
         padding-left: 0px;
@@ -317,7 +350,7 @@
     }
     .textblockForPost{
         width: 90%;
-        height: auto;
+        height: 280px;
         margin-left: 25px;
         padding-top: 19px;
         font-size: 16px;
