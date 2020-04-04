@@ -1,6 +1,7 @@
 
 <template>
     <div class="main">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">

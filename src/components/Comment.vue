@@ -215,7 +215,7 @@
     {
         border-radius: 15px;
         width: 540px;
-        height: 410px;
+        height: 270px;
         background-color: rgb(46,45,46);
     }
     .buttons

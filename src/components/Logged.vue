@@ -176,8 +176,7 @@
                     method: 'get',
                     url: 'https://dev.studo.rtuitlab.ru/api/ad',
                     data: {}
-                })
-                    .then(data => {
+                }).then(data => {
                         this.posts=data.data;
                         for (let i = 0; i < this.posts.length; i++)
                         {

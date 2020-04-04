@@ -138,14 +138,20 @@
 
     .ExitBtn, .AcceptBtn
     {
+        margin-top:40px;
         background: transparent;
         color: honeydew;
         border: none;
     }
     .ExitBtn
     {
-        margin-top:10px;
+        margin-top:40px;
+        margin-right: -100px;
         float: right;
+    }
+    .AcceptBtn
+    {
+        margin-left: -120px;
     }
     .ChangeEmailBtn
     {

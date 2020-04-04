@@ -2,6 +2,7 @@
 /* eslint-disable */
 <template>
     <div class="box">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -61,9 +62,11 @@
                         <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
                         >Оставить комментарий</router-link></div>
                     </div>
-                    <div class="postBlocks" v-for="post in posts.data.comments" :key="post.id">
-                        <div class="postBlock">
-                        <div class="postTopBlock">
+                    <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
+                        <div :id='post.id' class="postBlock">
+                        <div  class="postTopBlock">
+                            <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
+                            </button>
                             <div class="blockTopForLogo">
                                 <i class="fa fa-ambulance" aria-hidden="true"></i>
                             </div>
@@ -117,6 +120,24 @@
                 postid: this.$router.currentRoute.params['id']
             };
         },methods : {
+            checker(comid)
+            {
+              return comid===this.$cookies.get("USER").id
+            },
+            Bookmark(a) {
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'delete',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid + '/' + a,
+                    data: {}
+                }).then(data => {
+                    if(data)
+                    document.getElementById(a).remove();
+                    this.$popup('append', 'Комментарий удалён');
+                })
+            },
             formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
@@ -307,6 +328,12 @@
         margin: 0 auto;
         padding-top: 15px;
         padding-left: 90px;
+    }
+    .BookmarkBtn
+    {
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
     }
     .blockTopForLogo{
         width: 48px;
