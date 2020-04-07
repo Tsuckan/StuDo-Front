@@ -1,5 +1,3 @@
-
-/* eslint-disable */
 <template>
     <div class="box">
         <VuePopupPlugin :config="popupDefaultConfig"/>
@@ -12,11 +10,9 @@
                         StuDo
                     </div>
                 </div>
-
-
-
             </div>
         </header>
+        <div v-on:click="back()" class="blur_test">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -40,51 +36,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="postBlocks">
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">{{posts.data.name}}
-                                </div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    {{posts.data.shortDescription}}
-                                </div>
-                                <div class="postdate postdate_post">
-                                  {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
-                                </div>
-                            </div>
-                        </div>
-                        <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
-                        >Оставить комментарий</router-link></div>
-                    </div>
-                    <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
-                        <div :id='post.id' class="postBlock">
-                        <div  class="postTopBlock">
-                            <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
-                            </button>
-                            <div class="blockTopForLogo">
-                                <i class="fa fa-ambulance" aria-hidden="true"></i>
-                            </div>
-                            <div class="titleForPost">{{post.author}}
-                            </div>
-                        </div>
-                        <div class="postDownBlock">
-                            <div class="textblockForPost">
-                                {{post.text}}
-                            </div>
-                            <div class="postdate">
-                                {{formatDate(new Date(post.commentTime))}}
-                            </div>
-                        </div>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
             <div class="col-lg-4">
@@ -104,6 +55,53 @@
 
             </div>
         </div>
+        </div>
+
+        <div style="margin: auto;" class="aaa col-lg-4">
+            <div class="postBlocks">
+                <div class="postBlock">
+                    <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                            <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">{{posts.data.name}}
+                        </div>
+                    </div>
+                    <div class="postDownBlock">
+                        <div class="textblockForPost">
+                            {{posts.data.shortDescription}}
+                        </div>
+                        <div class="postdate postdate_post">
+                            {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
+                        </div>
+                    </div>
+                </div>
+                <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
+                >Оставить комментарий</router-link></div>
+            </div>
+            <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
+                <div :id='post.id' class="postBlock">
+                    <div  class="postTopBlock">
+                        <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
+                        </button>
+                        <div class="blockTopForLogo">
+                            <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">{{post.author}}
+                        </div>
+                    </div>
+                    <div class="postDownBlock">
+                        <div class="textblockForPost">
+                            {{post.text}}
+                        </div>
+                        <div class="postdate">
+                            {{formatDate(new Date(post.commentTime))}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>
 
@@ -120,9 +118,13 @@
                 postid: this.$router.currentRoute.params['id']
             };
         },methods : {
+            back()
+            {
+              router.push('/Logged')
+            },
             checker(comid)
             {
-              return comid===this.$cookies.get("USER").id
+                return comid===this.$cookies.get("USER").id
             },
             Bookmark(a) {
                 axios({
@@ -134,7 +136,7 @@
                     data: {}
                 }).then(data => {
                     if(data)
-                    document.getElementById(a).remove();
+                        document.getElementById(a).remove();
                     this.$popup('append', 'Комментарий удалён');
                 })
             },
@@ -171,7 +173,7 @@
                     console.log(this.posts.data.comments[0].commentTime)
                 }).catch(error => {
                 if(error)
-                router.push("/Login");
+                    router.push("/Login");
             });
 
 
@@ -182,6 +184,18 @@
 <style scoped>
     .qq{
         border: 1px solid black;
+    }
+
+    .blur_test
+    {
+        filter: blur(20px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: 100%;
+        margin: 0;
     }
 
     header{

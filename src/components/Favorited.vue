@@ -44,6 +44,7 @@
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                    &#9733;
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -146,10 +147,16 @@
         border: 1px solid black;
     }
     .BookmarkBtn
+     {
+         background: transparent;
+         border:none;
+         float: right;
+         padding-bottom: 20px;
+         margin-right: 10px;
+     }
+    .BookmarkBtn:hover
     {
-        float: right;
-        padding-bottom: 20px;
-        margin-right: 10px;
+        color: blue;
     }
 
     header{

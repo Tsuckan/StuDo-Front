@@ -155,7 +155,11 @@
                         }
                     }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Произошла ошибка',
+                            text: 'Проверьте поля заполнения'
+                        });
                 });
             }
         }

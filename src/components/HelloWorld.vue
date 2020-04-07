@@ -1,6 +1,5 @@
 <template>
     <div class="main">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -149,7 +148,11 @@ methods : {
         }
     }).catch(error => {
           if(error)
-              this.$popup('append', 'Проверьте пару логин и пароль');
+              this.$notify({
+                  group: 'foo',
+                  title: 'Ошибка',
+                  text: 'Проверьте пару логин и пароль'
+              });
       });
   }
 }
@@ -170,18 +173,17 @@ methods : {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.blur_test
-{
-    filter: blur(20px);
-     position: fixed;
-     top: 0;
-     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: 100%;
-    margin: 0;
-}
+    .blur_test
+    {
+        filter: blur(20px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: 100%;
+        margin: 0;
+    }
 .Auth
 {
     display: flex;

@@ -129,12 +129,21 @@
                     .then(({ data }) => {
                         // eslint-disable-next-line no-console
                         console.log('status: ', data.status);
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Успешно',
+                            text: 'Комментарий успешно отправлен'
+                        });
                         router.push("/Logged");
                     }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console
                         console.log('status: ', error.code);
-                    this.$popup('append', 'Произошла ошибка');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
             }
         }

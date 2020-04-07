@@ -123,6 +123,7 @@
                         email: this.Email
                     }
                 }).then(({ data }) => {
+                    alert('kavo?')
                     router.push("/Login");
                     if (data)
                     {
@@ -130,7 +131,11 @@
                     }
                 }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
             }
         }

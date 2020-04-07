@@ -1,5 +1,4 @@
 
-import CiaoVuePopup from 'ciao-vue-popup'
 import Vue from 'vue'
 import App from './App.vue'
 import router from "@/router";
@@ -7,12 +6,13 @@ import VueRouter from 'vue-router'
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import Vuex from 'vuex';
+import Notifications from 'vue-notification'
 
 Vue.use(VueRouter)
 Vue.use(axios)
 Vue.use(Vuex)
 Vue.use(VueCookies);
-Vue.use(CiaoVuePopup)
+Vue.use(Notifications)
 
 Vue.config.productionTip = false
 

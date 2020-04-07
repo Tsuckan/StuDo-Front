@@ -54,7 +54,11 @@
                         "userId": this.$cookies.get("USER").id,
                         "user": this.$cookies.get("USER")
                     }}).then(({ data }) => {
-                    this.$popup('append', 'Резюме успешно создано');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Успешно',
+                        text: 'Резюме создано'
+                    });
                     router.push('/Resumes')
                     if (data)
                     {
@@ -62,7 +66,11 @@
                     }
                 }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Ошибка',
+                            text: 'Проверьте поля заполнения'
+                        });
                 });
             }
         }

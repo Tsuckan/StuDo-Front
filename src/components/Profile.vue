@@ -122,6 +122,11 @@
                 }).then(data => {
                     if(data)
                     this.$cookies.set('USER', data.data)
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Успешно',
+                        text: 'Данные успешно изменены'
+                    });
                     router.push('/Profile')
                     }).catch(error => {
                     if(error)

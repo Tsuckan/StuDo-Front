@@ -1,6 +1,7 @@
 
 <template>
   <div class="container">
+      <notifications classes="my-style" group="foo" />
       <router-view></router-view>
   </div>
 
@@ -16,8 +17,15 @@ export default {
     },
 }
 </script>
-<style src="ciao-vue-popup/dist/ciao-vue-popup.css"></style>
 <style>
+    .my-style {
+         padding: 10px;
+         margin: 0 5px 5px;
+         font-size: 12px;
+         color: #ffffff;
+         border-left: 5px solid rgb(102,62,179);
+         background: rgb(102,49,179) !important;
+     }
     .postdate{
         height: 25px;
         width: 180px;

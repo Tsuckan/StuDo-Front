@@ -20,6 +20,7 @@ import EmailTest from "./components/EmailTest";
 import Favorited from "./components/Favorited";
 import Comment from "./components/Comment";
 export default new VueRouter({
+    mode: 'history',
     routes: [
         {
             path: '/Login',
