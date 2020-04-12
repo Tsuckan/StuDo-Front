@@ -22,7 +22,6 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
                                 <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
@@ -41,10 +40,9 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
-                        <div class="postBlock">
+                        <div :id="post.id" class="postBlock">
                             <div class="postTopBlock">
                                 <button class="BookmarkBtn" @click="Bookmark(post.id)">
-                                    &#9733;
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -104,7 +102,10 @@
                 return dd + '.' + mm + '.' + yy;
             },
             Bookmark(a) {
-                this.$popup('append', 'Пост удалён из закладок');
+                this.$notify({
+                    group: 'foo',
+                    title: 'Пост удалён из закладок'
+                });
                 axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
@@ -113,7 +114,8 @@
                     url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
                     data: {}
                 })
-                window.location.reload();
+                var leftSection = document.getElementById(a);
+                leftSection.parentNode.removeChild(leftSection);
             },
             handleSubmit(Idval) {
                 router.push({path: '/Ad', query: {Id: Idval}})
@@ -148,11 +150,14 @@
     }
     .BookmarkBtn
      {
-         background: transparent;
-         border:none;
-         float: right;
-         padding-bottom: 20px;
-         margin-right: 10px;
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
      }
     .BookmarkBtn:hover
     {

@@ -21,7 +21,6 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>

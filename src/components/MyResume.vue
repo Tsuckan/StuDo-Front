@@ -21,7 +21,6 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
@@ -58,11 +57,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
+                    <div class="topMenuItems">
 
                         <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                     </div>
-                    <div class="topMenuItems">
+                    <div class="topMenuItems active">
                         <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                     </div>
                     <div class="topMenuItems">

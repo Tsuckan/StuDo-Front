@@ -23,7 +23,6 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
                                 <router-link style="position: relative; color: white;"  to="/Logged">Все объявления</router-link>
@@ -45,7 +44,6 @@
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <button class="BookmarkBtn" @click="Bookmark(post.id)">
-                                    &#9733;
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -178,6 +176,10 @@
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+        background-size: auto;
     }
     .BookmarkBtn:hover
     {

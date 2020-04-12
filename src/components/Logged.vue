@@ -1,7 +1,6 @@
 /* eslint-disable */
 <template>
     <div class="box">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -22,7 +21,6 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
@@ -43,8 +41,7 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
-                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
-                                    &#9733;
+                                <button :id="post.id" class="BookmarkBtn" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -152,7 +149,10 @@
                 return dd + '.' + mm + '.' + yy;
             },
             Bookmark(a) {
-                this.$popup('append', 'Пост добавлен в закладки');
+                this.$notify({
+                group: 'foo',
+                title: 'Пост добавлен в закладки'
+            });
                 axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
@@ -160,7 +160,17 @@
                     method: 'post',
                     url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
                     data: {}
-                })
+                }).then(data => {
+                    if(data)
+                    var leftSection = document.getElementById(a);
+                    leftSection.parentNode.removeChild(leftSection);
+                    }).catch(error => {
+                    if(error)
+                        this.$notify({
+                        group: 'foo',
+                        title: 'Пост уже был добавлен в закладки'
+                    });
+                });
             },
             handleSubmit(Idval) {
                 router.push({path: '/Ad', query: {Id: Idval}})
@@ -212,6 +222,9 @@
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
+        background-image: url("../assets/star_check_OFF.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
     }
     .BookmarkBtn:hover
     {

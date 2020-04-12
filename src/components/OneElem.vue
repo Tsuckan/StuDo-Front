@@ -1,6 +1,5 @@
 <template>
     <div class="box">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -19,7 +18,6 @@
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
@@ -80,7 +78,7 @@
                 >Оставить комментарий</router-link></div>
             </div>
             <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
-                <div :id='post.id' class="postBlock">
+                <div v-if="posts.data.comments.length!=0" :id='post.id' class="postBlock">
                     <div  class="postTopBlock">
                         <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
                         </button>
@@ -170,7 +168,7 @@
                     // eslint-disable-next-line no-console
                     console.log(this.posts)
                     // eslint-disable-next-line no-console
-                    console.log(this.posts.data.comments[0].commentTime)
+                    console.log(this.posts.data.comments.length)
                 }).catch(error => {
                 if(error)
                     router.push("/Login");
@@ -345,9 +343,14 @@
     }
     .BookmarkBtn
     {
+        background: transparent;
+        border:none;
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
     }
     .blockTopForLogo{
         width: 48px;
@@ -486,5 +489,10 @@
     .postdate_post
     {
         width: 200px;
+    }
+    .topMenu, .menuBar
+    {
+        pointer-events: none;
+
     }
 </style>
