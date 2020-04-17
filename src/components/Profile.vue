@@ -17,13 +17,25 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="menuBar">
-                        <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                        <router-link style="position: relative; color: white;"  class="menuBarBut" to="/Resumes">Создать Резюме</router-link>
+                    <div class="col-lg-4">
+                        <div class="menuBar">
+                            <div class="btnsMenu">
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnPassiv"></div>
+                                    <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnActiv"></div>
+                                    <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnPassiv"></div>
+                                    <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                </div>
 
+                            </div>
+                        </div>
                     </div>
-                </div>
                 <div class="col-lg-4">
                     <div class="postBlocks">
                         <div class="postBlock">
@@ -32,6 +44,13 @@
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
                                 <div class="titleForPost">Данные профиля</div>
+
+                                <button class="ExitBtn" @click="exit">
+                                    Exit
+                                </button>
+                                <button class="AcceptBtn" @click="accept">
+                                    Accept
+                                </button>
                             </div>
                             <div class="postDownBlock">
                                 <div class="textblockForPost">
@@ -49,12 +68,6 @@
                                         ChangeEmail
                                     </button>
                                 </div>
-                                <button class="ExitBtn" @click="exit">
-                                    Exit
-                                </button>
-                                <button class="AcceptBtn" @click="accept">
-                                    Accept
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -143,14 +156,17 @@
 
     .ExitBtn, .AcceptBtn
     {
-        margin-top:40px;
         background: transparent;
         color: honeydew;
         border: none;
+        margin-top: 370px;
+        position: absolute;
+        top:90px;
+        left:150px;
     }
     .ExitBtn
     {
-        margin-top:40px;
+        margin-left: 160px;
         margin-right: -100px;
         float: right;
     }
@@ -180,9 +196,6 @@
         margin-top: 20px;
         height: 46px;
     }
-    .qq{
-        border: 1px solid black;
-    }
 
     header{
         height: 50px;
@@ -194,22 +207,6 @@
         font-family: Roboto;
 
 
-    }
-    .Login_BTN
-    {
-        float: right;
-        border-radius: 30px;
-        background-color: rgb(102,49,179);
-        border: none;
-        color: white;
-        width: 120px;
-        margin-top: 20px;
-        height: 46px;
-    }
-    .Login_BTN:last-child
-    {
-        float: left;
-        margin-left: 130px;
     }
     .logoBlock{
         width: 213px;
@@ -233,68 +230,6 @@
     }
     .logo{
         margin: 5px auto;
-    }
-    .menuBar{
-        width: 319px;
-
-        position: fixed;
-        margin-left: 20px;
-
-    }
-    .menuBarBut{
-        width: 319px;
-
-        height: 51px;
-        border-radius: 13px;
-        border-bottom: 3px solid #673AB7;
-        background: #2F2F2F;
-        margin-top: 37px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        padding-top: 10px;
-
-
-    }
-    .btnMenuItems{
-        margin-top: 37px;
-    }
-    .btnMenuItems{
-        width: 319px;
-
-        height: 40px;
-        border-radius: 8px;
-        background: #222222;
-        margin-top: 5px;
-        color: white;
-        font-size: 18px;
-
-        padding-left: 20px;
-    }
-    .btnsMenu{
-        margin-top: 37px;
-
-
-    }
-    .btnActiv{
-
-        width: 6px;
-        height: 40px;
-        background: #673AB7;
-        margin-right: 20px;
-
-
-    }
-    .btnPassiv{
-        width: 6px;
-        height: 40px;
-        background: #2F2F2F;
-        margin-right: 20px;
-
-
-    }
-    .textBtns{
-        padding-top: 7px;
     }
     .topMenu{
         width: 319px;
@@ -321,7 +256,7 @@
     .postBlock{
         width: 100%;
         margin: 0 auto;
-        height: 360px;
+        height: 400px;
         margin-top: 50px;
         background: #3B3B3B;
         padding-left: 0px;
@@ -371,110 +306,6 @@
         padding-top: 35px;
         padding-bottom: 47px;
 
-    }
-    .postdate{
-        height: 25px;
-        width: 90px;
-        color: white;
-        border-radius: 13px;
-        background: #3B3B3B;
-        margin-left: 270px;
-        font-size: 14px;
-        text-align: center;
-        padding-top: 3px;
-    }
-    .rightBlock_firstBlock{
-        padding-top: 15px;
-        height: 204px;
-        background: #222222;
-        border-radius: 13px;
-
-
-    }
-    .rightBlock{
-        width: 319px;
-        margin-top: 59px;
-        position: fixed;
-
-        margin-left: 40px;
-    }
-    .rightBlock_secondBlock{
-        margin-top: 39.2px;
-        height: 285px;
-        background: #222222;
-        border-radius: 13px;
-        padding-top: 1px;
-    }
-    .searchform{
-        background: #3B3B3B;
-        border-radius: 36px;
-        color: white;
-        border: 1px solid #3B3B3B;
-        width: 279px;
-        margin-left: 19px;
-        padding-top: 1px;
-
-
-    }
-    .searchInput{
-        background: #3B3B3B;
-        border-radius: 36px 0 0 36px;
-        color: white;
-        border: 1px solid #3B3B3B;
-        width: 245px;
-        margin-right: 5px;
-        padding-left: 5px;
-
-
-    }
-    .sortBlock{
-        width: 290px;
-        height: 100px;
-
-        margin-left: 19px;
-        margin-top: 27.4px;
-        color: #ACACAC;
-        font-size: 16px;
-    }
-
-    .catBlock{
-        width: 290px;
-
-
-        margin-left: 19px;
-        margin-top: 14px;
-        color: #ACACAC;
-        font-size: 16px;
-    }
-    .sortItems{
-        color: white;
-    }
-    .sortItemsStatus {
-        margin-top: 6px;
-        margin-right: 14px;
-        background: #3B3B3B;
-        border-radius: 50%;
-        height: 10px;
-        width: 10px;
-    }
-    .sortItem{
-        margin-top: 15px;
-
-    }
-    .sortItemsStatusActiv{
-
-        background:  #673AB7;
-
-    }
-    .catBlock .sortItemsStatus{
-        border-radius: 0;
-    }
-    .countCat{
-        text-align: right;
-        position: absolute;
-        right: 22px;
-        font-size: 18px;
-        color: #ACACAC;
     }
     input
     {

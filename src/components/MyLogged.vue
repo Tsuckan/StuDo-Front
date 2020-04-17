@@ -43,7 +43,9 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
-                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
+                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -107,8 +109,6 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
-    // eslint-disable-next-line no-unused-vars
-    import CiaoVuePopup from 'ciao-vue-popup'
     export default {
         name: "MyLogged",
         data() {
@@ -181,6 +181,18 @@
         margin-top: 10px;
         background-size: auto;
     }
+    .BookmarkBtnIs
+     {
+         background: transparent;
+         border:none;
+         float: right;
+         padding-bottom: 20px;
+         margin-right: 10px;
+         background-image: url("../assets/star_check_ON.svg");
+         background-repeat: no-repeat;
+         margin-top: 10px;
+         background-size: auto;
+     }
     .BookmarkBtn:hover
     {
         color: blue;

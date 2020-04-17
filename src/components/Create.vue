@@ -134,7 +134,7 @@
         background-color: rgb(54,55,54);
         border: none;
         border-radius: 15px;
-        height: 35px;
+        height: 75px;
         resize: none;
         margin-left: 30px;
     }

@@ -226,9 +226,6 @@
 
 
     }
-    .textBtns{
-        padding-top: 7px;
-    }
     .topMenu{
         width: 319px;
         height: 46px;
@@ -236,6 +233,7 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
         margin-left: 40px;
         justify-content: space-around;

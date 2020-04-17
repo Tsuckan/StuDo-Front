@@ -41,7 +41,9 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
-                                <button :id="post.id" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
+                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -68,19 +70,19 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="topMenu d-flex">
-                        <div class="topMenuItems active">
+            <div class="col-lg-4">
+                <div class="topMenu d-flex">
+                    <div class="topMenuItems active">
 
-                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                        </div>
+                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                     </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                    </div>
+                    <div class="topMenuItems">
+                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                    </div>
+                </div>
 
                     <div class="rightBlock">
                         <div class="rightBlock_firstBlock">
@@ -149,10 +151,6 @@
                 return dd + '.' + mm + '.' + yy;
             },
             Bookmark(a) {
-                this.$notify({
-                group: 'foo',
-                title: 'Пост добавлен в закладки'
-            });
                 axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
@@ -164,6 +162,10 @@
                     if(data)
                     var leftSection = document.getElementById(a);
                     leftSection.parentNode.removeChild(leftSection);
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Пост добавлен в закладки'
+                    });
                     }).catch(error => {
                     if(error)
                         this.$notify({
@@ -222,6 +224,17 @@
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
+    .BookmarkBtnIs
+    {
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
         background-image: url("../assets/star_check_OFF.svg");
         background-repeat: no-repeat;
         margin-top: 10px;
@@ -266,20 +279,18 @@
     }
     .menuBar{
         width: 319px;
-
         position: fixed;
         margin-left: 20px;
 
     }
     .menuBarBut{
         width: 319px;
-
-        height: 51px;
+        height: 151px;
         border-radius: 13px;
         border-bottom: 3px solid #673AB7;
         background: #2F2F2F;
         margin-top: 37px;
-        color: white;
+        color: black;
         font-size: 18px;
         text-align: center;
         padding-top: 10px;
@@ -328,6 +339,7 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
         margin-left: 40px;
         justify-content: space-around;

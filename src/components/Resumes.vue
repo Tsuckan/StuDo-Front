@@ -76,17 +76,6 @@
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </div>
                         </div>
-                        <div class="sortBlock">
-                            Сортировка
-                            <div class="sortItems">
-                                <div class="sortItem d-flex">
-                                    <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
-                                </div>
-                                <div class="sortItem d-flex">
-                                    <div class="sortItemsStatus"></div>Категории
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -134,10 +123,35 @@
 </script>
 
 <style scoped>
-    .qq{
-        border: 1px solid black;
-    }
 
+    .CommentblockForPost
+    {
+        padding-bottom:20px;
+        width: 90%;
+        height: auto;
+        margin-left: 25px;
+        padding-top: 19px;
+        font-size: 16px;
+        color: #ACACAC;
+    }
+    .CommentAuthorForPost
+    {
+        float: right;
+    }
+    .BookmarkBtn
+    {
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
+    .BookmarkBtn:hover
+    {
+        color: blue;
+    }
     header{
         height: 50px;
         background: #222222;
@@ -174,20 +188,18 @@
     }
     .menuBar{
         width: 319px;
-
         position: fixed;
         margin-left: 20px;
 
     }
     .menuBarBut{
         width: 319px;
-
         height: 51px;
         border-radius: 13px;
         border-bottom: 3px solid #673AB7;
         background: #2F2F2F;
         margin-top: 37px;
-        color: white;
+        color: black;
         font-size: 18px;
         text-align: center;
         padding-top: 10px;
@@ -211,8 +223,6 @@
     }
     .btnsMenu{
         margin-top: 37px;
-
-
     }
     .btnActiv{
 
@@ -231,9 +241,6 @@
 
 
     }
-    .textBtns{
-        padding-top: 7px;
-    }
     .topMenu{
         width: 319px;
         height: 46px;
@@ -241,6 +248,7 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
         margin-left: 40px;
         justify-content: space-around;
@@ -309,17 +317,6 @@
         padding-top: 35px;
         padding-bottom: 47px;
 
-    }
-    .postdate{
-        height: 25px;
-        width: 90px;
-        color: white;
-        border-radius: 13px;
-        background: #3B3B3B;
-        margin-left: 270px;
-        font-size: 14px;
-        text-align: center;
-        padding-top: 3px;
     }
     .rightBlock_firstBlock{
         padding-top: 15px;
@@ -412,5 +409,9 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    .postdate
+    {
+        margin-left: 40%;
     }
 </style>
