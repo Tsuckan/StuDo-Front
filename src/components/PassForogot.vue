@@ -123,7 +123,11 @@
                         email: this.Email
                     }
                 }).then(({ data }) => {
-                    alert('kavo?')
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ссылка отправлена на почту',
+                        text: 'Проверьте почтовый ящик: '+ this.Email
+                    });
                     router.push("/Login");
                     if (data)
                     {

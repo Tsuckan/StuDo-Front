@@ -134,7 +134,10 @@
                     {
                         data=0;
                     }
-                        alert('Успешно');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Почта подтверждена',
+                    });
                         router.push("/Logged");
                 }).catch(error => {
                 if(error)
