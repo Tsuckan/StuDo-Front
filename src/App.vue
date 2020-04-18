@@ -9,11 +9,11 @@
 
 <script>
 
+    // eslint-disable-next-line no-unused-vars
     import router from "@/router";
 export default {
     mounted()
     {
-            router.push("/Login");
     },
 }
 </script>

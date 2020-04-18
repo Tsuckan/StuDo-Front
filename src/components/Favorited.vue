@@ -21,18 +21,27 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+
+                            <div class="menuBarBut">
+                            <router-link style="position: relative; color: white;" to="/Create">Создать объявление</router-link>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+                                <div class="pointers">
+                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                </div>
+                            </div>
+                            <div class="btnMenuItems d-flex">
+                                <div class="btnPassiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                </div>
                             </div>
 
                         </div>
@@ -203,21 +212,6 @@
 
         position: fixed;
         margin-left: 20px;
-
-    }
-    .menuBarBut{
-        width: 319px;
-
-        height: 51px;
-        border-radius: 13px;
-        border-bottom: 3px solid #673AB7;
-        background: #2F2F2F;
-        margin-top: 37px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        padding-top: 10px;
-
 
     }
     .btnMenuItems{

@@ -125,6 +125,7 @@
         border-radius: 15px;
         height: 35px;
         resize: none;
+        height: 75px;
         margin-left: 30px;
     }
     .Auth > div label

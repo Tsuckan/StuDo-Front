@@ -21,14 +21,22 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+                            <div class="menuBarBut">
+                            <router-link style="position: relative; color: white;" to="/ResumeCreate">Создать Резюме</router-link>
+                            </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
+
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                            </div>
                             </div>
 
                         </div>

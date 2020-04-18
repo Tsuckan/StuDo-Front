@@ -22,15 +22,21 @@
                             <div class="btnsMenu">
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
+                                    <div class="pointers">
                                     <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
                                 </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnActiv"></div>
-                                    <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
+                                    <div class="pointers">
+                                    <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnPassiv"></div>
+                                    <div class="pointers">
                                     <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                    </div>
                                 </div>
 
                             </div>
@@ -161,7 +167,7 @@
         border: none;
         margin-top: 370px;
         position: absolute;
-        top:90px;
+        top:80px;
         left:150px;
     }
     .ExitBtn
@@ -238,6 +244,7 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
         margin-left: 20px;
         justify-content: space-around;

@@ -131,6 +131,8 @@
         },
         mounted()
         {
+            // eslint-disable-next-line no-console
+            console.log("Pass Reset")
         },
         methods : {
             handleSubmit(e){

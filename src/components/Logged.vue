@@ -20,18 +20,26 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
+                           <div class="menuBarBut">
+                               <router-link to="/Create">Создать объявление</router-link>
+                           </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                <div class="pointers">
+                                    <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                </div>
                             </div>
 
                         </div>
@@ -197,7 +205,7 @@
                         }
                     }).catch(error => {
                         if(error)
-                    router.push("/Login");
+                                router.push("/Login");
                 });
             }}
 </script>
@@ -216,6 +224,7 @@
     .CommentAuthorForPost
     {
         float: right;
+        margin-right: 10px;
     }
     .BookmarkBtn
     {
@@ -227,6 +236,10 @@
         background-image: url("../assets/star_check_ON.svg");
         background-repeat: no-repeat;
         margin-top: 10px;
+    }
+    .rightBlock_firstBlock
+    {
+        visibility: hidden;
     }
     .BookmarkBtnIs
     {
@@ -283,20 +296,6 @@
         margin-left: 20px;
 
     }
-    .menuBarBut{
-        width: 319px;
-        height: 151px;
-        border-radius: 13px;
-        border-bottom: 3px solid #673AB7;
-        background: #2F2F2F;
-        margin-top: 37px;
-        color: black;
-        font-size: 18px;
-        text-align: center;
-        padding-top: 10px;
-
-
-    }
     .btnMenuItems{
         margin-top: 37px;
     }
@@ -341,7 +340,7 @@
         top:25px;
         right: 22%;
         display: flex;
-        margin-left: 40px;
+        margin-left: 20px;
         justify-content: space-around;
         text-transform: uppercase;
     }

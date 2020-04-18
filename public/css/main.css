@@ -10,8 +10,33 @@ header{
 body{
     background: #141414;
     font-family: Roboto;
+}
 
-
+.menuBarBut{
+    width: 319px;
+    height: 51px;
+    border-radius: 13px;
+    border-bottom: 3px solid #673AB7;
+    background: #2F2F2F;
+    margin-top: 37px;
+    color: black;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 50px;
+}
+.pointers
+{
+    margin-top: 5px;
+}
+a
+{
+    text-decoration: none !important;
+    color: white !important;
+}
+a:hover
+{
+    text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F !important;
 }
 .logoBlock{
     width: 213px;
@@ -38,24 +63,8 @@ body{
 }
 .menuBar{
     width: 319px;
-
     position: fixed;
     margin-left: 20px;
-
-}
-.menuBarBut{
-    width: 319px;
-
-    height: 51px;
-    border-radius: 13px;
-    border-bottom: 3px solid #673AB7;
-    background: #2F2F2F;
-    margin-top: 37px;
-    color: white;
-    font-size: 18px;
-    text-align: center;
-    padding-top: 10px;
-
 
 }
 .btnMenuItems{
