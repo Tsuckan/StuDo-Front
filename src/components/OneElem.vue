@@ -170,8 +170,31 @@
                     // eslint-disable-next-line no-console
                     console.log(this.posts.data.comments.length)
                 }).catch(error => {
-                if(error)
-                    router.push("/Login");
+                if(error.response.status==401)
+                {
+                    axios({
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        data: {
+                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                        }
+                    })
+                        .then(({ data }) => {
+                            if (data.accessToken!=null)
+                            {
+                                this.$store.commit("SET_USER", data.user);
+                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                this.$store.getters.USER;
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                        if(error)
+                            router.push("/Login");
+                    });
+                }
             });
 
 

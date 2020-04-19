@@ -134,11 +134,7 @@
                     {
                         data=0;
                     }
-                    this.$notify({
-                        group: 'foo',
-                        title: 'Почта подтверждена',
-                    });
-                        router.push("/Logged");
+                        router.push({ name: 'Login', params: { IsNotify: true } })
                 }).catch(error => {
                 if(error)
                 {

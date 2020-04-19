@@ -25,6 +25,8 @@ export default new VueRouter({
         {
             path: '/Login',
             component: HelloWorld,
+            name: 'Login',
+            props: true
         },
         {
             path: '/Test',

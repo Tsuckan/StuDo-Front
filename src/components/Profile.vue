@@ -148,8 +148,12 @@
                     });
                     router.push('/Profile')
                     }).catch(error => {
-                    if(error)
-                        router.push("/Login");
+                        if(error)
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Произошла ошибка'
+                    });
                 });
             }
         },
