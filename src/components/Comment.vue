@@ -120,7 +120,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/'+this.postid,
+                    url: 'https://studo.rtuitlab.ru/api/ad/comment/'+this.postid,
                     data: {
                         text: this.description
                     }

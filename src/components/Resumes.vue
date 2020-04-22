@@ -115,7 +115,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/resumes',
+                url: 'https://studo.rtuitlab.ru/api/resumes',
                 data: {}
             })
                 .then(data => {
@@ -125,7 +125,7 @@
                 {
                     axios({
                         method: 'post',
-                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        url: 'https://studo.rtuitlab.ru/api/auth/refresh',
                         data: {
                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                         }
@@ -143,7 +143,7 @@
                             }
                         }).catch(error => {
                         if(error)
-                            router.push("/Login");
+                            router.push({ path: '/Login', query: { InCorrect: true } })
                     });
                 }
             });
@@ -354,7 +354,7 @@
         height: 204px;
         background: #222222;
         border-radius: 13px;
-
+        visibility: hidden;
 
     }
     .rightBlock{

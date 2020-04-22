@@ -122,7 +122,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/user/password/change',
+                    url: 'https://studo.rtuitlab.ru/api/user/password/change',
                     data: {
                         id: this.$cookies.get("USER").id,
                         oldEmail: this.oldEmail,

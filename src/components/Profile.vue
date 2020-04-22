@@ -117,7 +117,7 @@
             exit() {
                 this.$cookies.remove("ACCESSTOKEN");
                 this.$cookies.remove("USER");
-                router.push("/Login")
+                router.push({ path: '/Login', query: { InCorrect: true } })
             },
             changepass() {
                 router.push("/passchange")
@@ -131,7 +131,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/user/change/info',
+                    url: 'https://studo.rtuitlab.ru/api/user/change/info',
                     data: {
                         id: this.$cookies.get("USER").id,
                         studentCardNumber: this.studentCardNumber,

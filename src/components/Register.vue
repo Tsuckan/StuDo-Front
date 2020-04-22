@@ -139,7 +139,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
+                    url: 'https://studo.rtuitlab.ru/api/auth/register',
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,
@@ -154,7 +154,7 @@
                         title: 'Успешно',
                         text: 'Подтвердите вашу почту по ссылке'
                     });
-                    router.push('/Login')
+                    router.push({ path: '/Login', query: { InCorrect: true } })
                     if (data)
                     {
                         data=0;
