@@ -115,7 +115,8 @@
       return {
         Email : "",
         Password : "",
-        IsNotify: this.$router.currentRoute.params['IsNotify']
+        IsNotify: this.$router.currentRoute.params['IsNotify'],
+        IsCorrect: this.$router.currentRoute.params['IsCorrect']
       }
     },
       mounted()
@@ -127,7 +128,7 @@
                   title: 'Почта подтверждена'
               });
           }
-          if (this.$cookies.get("ACCESSTOKEN"))
+          if (this.$cookies.get("ACCESSTOKEN") && this.IsCorrect)
           {
               router.push("/Logged");
           }
@@ -137,7 +138,7 @@ methods : {
     e.preventDefault()
       axios({
       method: 'post',
-      url: 'https://dev.studo.rtuitlab.ru/api/auth/login',
+      url: 'https://studo.rtuitlab.ru/api/auth/login',
       data: {
         email: this.Email,
         password: this.Password

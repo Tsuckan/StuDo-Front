@@ -141,7 +141,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/account/manage/resetPassword',
+                    url: 'https://studo.rtuitlab.ru/api/account/manage/resetPassword',
                     data: {
                         "userId": $_GET(this.$route.fullPath,"userId"),
                         "token":rdy,
@@ -150,7 +150,7 @@
                     }
                 })
                     .then(({ data }) => {
-                        router.push("/Login");
+                        router.push({ path: '/Login', query: { InCorrect: true } })
                         if (data)
                         {
                             data=0;

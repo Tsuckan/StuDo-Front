@@ -145,7 +145,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    url: 'https://studo.rtuitlab.ru/api/ad/bookmarks/' + a,
                     data: {}
                 })
             },
@@ -162,7 +162,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad/user/'+this.$cookies.get("USER").id,
+                url: 'https://studo.rtuitlab.ru/api/ad/user/'+this.$cookies.get("USER").id,
                 data: {}
             })
                 .then(data => {
@@ -172,7 +172,7 @@
                 {
                     axios({
                         method: 'post',
-                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        url: 'https://studo.rtuitlab.ru/api/auth/refresh',
                         data: {
                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                         }
@@ -190,7 +190,7 @@
                             }
                         }).catch(error => {
                         if(error)
-                            router.push("/Login");
+                            router.push({ path: '/Login', query: { InCorrect: true } })
                     });
                 }
             });
