@@ -88,7 +88,7 @@
             <div>
                 <h1>Восстановление пароля</h1>
                 <label for="Password">Пароль</label><br>
-                <input placeholder="" required id="Password" v-model="Password" name="Password" type="text"> <br>
+                <input placeholder="" required id="Password" v-model="Password" name="Password" type="password"> <br>
                 <label for="PasswordAgain">Ещё раз Пароль</label><br>
                 <input placeholder="" required id="PasswordAgain" v-model="PasswordAgain" name="PasswordAgain" type="password"> <br>
                 <div class="buttons">
@@ -131,6 +131,8 @@
         },
         mounted()
         {
+            // eslint-disable-next-line no-console
+            console.log("Pass Reset")
         },
         methods : {
             handleSubmit(e){
@@ -155,7 +157,11 @@
                         }
                     }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Произошла ошибка',
+                            text: 'Проверьте поля заполнения'
+                        });
                 });
             }
         }

@@ -22,19 +22,27 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+
+                            <div class="menuBarBut">
+                            <router-link style="position: relative" to="/Create">Создать объявление</router-link>
+                            </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/Logged">Все объявления</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                </div>
                             </div>
 
                         </div>
@@ -44,7 +52,9 @@
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
-                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
+                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -108,8 +118,6 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
-    // eslint-disable-next-line no-unused-vars
-    import CiaoVuePopup from 'ciao-vue-popup'
     export default {
         name: "MyLogged",
         data() {
@@ -160,9 +168,32 @@
                 .then(data => {
                     this.posts=data.data;
                 }).catch(error => {
-        if(error)
-            router.push("/Login");
-    });
+                    if(error.response.status==401)
+                {
+                    axios({
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        data: {
+                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                        }
+                    })
+                        .then(({ data }) => {
+                            if (data.accessToken!=null)
+                            {
+                                this.$store.commit("SET_USER", data.user);
+                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                this.$store.getters.USER;
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                        if(error)
+                            router.push("/Login");
+                    });
+                }
+            });
 
 
         }
@@ -170,6 +201,34 @@
 </script>
 
 <style scoped>
+    .BookmarkBtn
+    {
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+        background-size: auto;
+    }
+    .BookmarkBtnIs
+     {
+         background: transparent;
+         border:none;
+         float: right;
+         padding-bottom: 20px;
+         margin-right: 10px;
+         background-image: url("../assets/star_check_ON.svg");
+         background-repeat: no-repeat;
+         margin-top: 10px;
+         background-size: auto;
+     }
+    .BookmarkBtn:hover
+    {
+        color: blue;
+    }
     .qq{
         border: 1px solid black;
     }
@@ -223,21 +282,6 @@
 
         position: fixed;
         margin-left: 20px;
-
-    }
-    .menuBarBut{
-        width: 319px;
-
-        height: 51px;
-        border-radius: 13px;
-        border-bottom: 3px solid #673AB7;
-        background: #2F2F2F;
-        margin-top: 37px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        padding-top: 10px;
-
 
     }
     .btnMenuItems{

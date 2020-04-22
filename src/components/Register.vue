@@ -149,7 +149,11 @@
                         "passwordConfirm": this.passwordConfirm
                     }
                 }).then(({ data }) => {
-                    this.$popup('append', 'Подтвердите вашу почту по ссылке');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Успешно',
+                        text: 'Подтвердите вашу почту по ссылке'
+                    });
                     router.push('/Login')
                     if (data)
                     {
@@ -157,7 +161,11 @@
                     }
                 }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Ошибка',
+                            text: 'Проверьте поля заполнения'
+                        });
                 });
             }
         }

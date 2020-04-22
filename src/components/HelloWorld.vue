@@ -1,6 +1,5 @@
 <template>
     <div class="main">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -108,7 +107,6 @@
     import router from "@/router";
   import axios from 'axios';
   // eslint-disable-next-line no-unused-vars
-  import CiaoVuePopup from 'ciao-vue-popup'
   export default {
 
     name: 'HelloWorld',
@@ -117,10 +115,18 @@
       return {
         Email : "",
         Password : "",
+        IsNotify: this.$router.currentRoute.params['IsNotify']
       }
     },
       mounted()
       {
+          if(this.IsNotify)
+          {
+              this.$notify({
+                  group: 'foo',
+                  title: 'Почта подтверждена'
+              });
+          }
           if (this.$cookies.get("ACCESSTOKEN"))
           {
               router.push("/Logged");
@@ -144,12 +150,17 @@ methods : {
             this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
             this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
             this.$cookies.set('USER', this.$store.getters.USER, '1m');
+            this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
             this.$store.getters.USER;
             router.push("/Logged");
         }
     }).catch(error => {
           if(error)
-              this.$popup('append', 'Проверьте пару логин и пароль');
+              this.$notify({
+                  group: 'foo',
+                  title: 'Ошибка',
+                  text: 'Проверьте пару логин и пароль'
+              });
       });
   }
 }
@@ -170,18 +181,17 @@ methods : {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.blur_test
-{
-    filter: blur(20px);
-     position: fixed;
-     top: 0;
-     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: 100%;
-    margin: 0;
-}
+    .blur_test
+    {
+        filter: blur(20px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: 100%;
+        margin: 0;
+    }
 .Auth
 {
     display: flex;

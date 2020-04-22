@@ -20,15 +20,19 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
+                                </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                </div>
                             </div>
 
                         </div>
@@ -105,8 +109,31 @@
                 .then(data => {
                     this.posts=data;
                 }).catch(error => {
-                    if(error)
-                router.push("/Login");
+                if(error.response.status==401)
+                {
+                    axios({
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        data: {
+                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                        }
+                    })
+                        .then(({ data }) => {
+                            if (data.accessToken!=null)
+                            {
+                                this.$store.commit("SET_USER", data.user);
+                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                this.$store.getters.USER;
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                        if(error)
+                            router.push("/Login");
+                    });
+                }
             });
 
 

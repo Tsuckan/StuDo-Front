@@ -1,5 +1,3 @@
-
-/* eslint-disable */
 <template>
     <div class="box">
         <header>
@@ -11,18 +9,15 @@
                         StuDo
                     </div>
                 </div>
-
-
-
             </div>
         </header>
+        <div v-on:click="back()" class="blur_test">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
                                 <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
@@ -37,48 +32,6 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="postBlocks">
-                        <div class="postBlock">
-                            <div class="postTopBlock">
-                                <div class="blockTopForLogo">
-                                    <i class="fa fa-ambulance" aria-hidden="true"></i>
-                                </div>
-                                <div class="titleForPost">{{posts.data.name}}
-                                </div>
-                            </div>
-                            <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                    {{posts.data.shortDescription}}
-                                </div>
-                                <div class="postdate">
-                                </div>
-                            </div>
-                        </div>
-                        <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
-                        >Оставить комментарий</router-link></div>
-                    </div>
-                    <div class="postBlocks" v-for="post in posts.data.comments" :key="post.id">
-                        <div class="postBlock">
-                        <div class="postTopBlock">
-                            <div class="blockTopForLogo">
-                                <i class="fa fa-ambulance" aria-hidden="true"></i>
-                            </div>
-                            <div class="titleForPost">{{post.author}}
-                            </div>
-                        </div>
-                        <div class="postDownBlock">
-                            <div class="textblockForPost">
-                                {{post.text}}
-                            </div>
-                            <div class="postdate">
-                                {{formatDate(new Date(post.commentTime))}}
-                            </div>
-                        </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -100,6 +53,53 @@
 
             </div>
         </div>
+        </div>
+
+        <div style="margin: auto;" class="aaa col-lg-4">
+            <div class="postBlocks">
+                <div class="postBlock">
+                    <div class="postTopBlock">
+                        <div class="blockTopForLogo">
+                            <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">{{posts.data.name}}
+                        </div>
+                    </div>
+                    <div class="postDownBlock">
+                        <div class="textblockForPost">
+                            {{posts.data.shortDescription}}
+                        </div>
+                        <div class="postdate postdate_post">
+                            {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
+                        </div>
+                    </div>
+                </div>
+                <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
+                >Оставить комментарий</router-link></div>
+            </div>
+            <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
+                <div v-if="posts.data.comments.length!=0" :id='post.id' class="postBlock">
+                    <div  class="postTopBlock">
+                        <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
+                        </button>
+                        <div class="blockTopForLogo">
+                            <i class="fa fa-ambulance" aria-hidden="true"></i>
+                        </div>
+                        <div class="titleForPost">{{post.author}}
+                        </div>
+                    </div>
+                    <div class="postDownBlock">
+                        <div class="textblockForPost">
+                            {{post.text}}
+                        </div>
+                        <div class="postdate">
+                            {{formatDate(new Date(post.commentTime))}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>
 
@@ -116,6 +116,28 @@
                 postid: this.$router.currentRoute.params['id']
             };
         },methods : {
+            back()
+            {
+              router.push('/Logged')
+            },
+            checker(comid)
+            {
+                return comid===this.$cookies.get("USER").id
+            },
+            Bookmark(a) {
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'delete',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid + '/' + a,
+                    data: {}
+                }).then(data => {
+                    if(data)
+                        document.getElementById(a).remove();
+                    this.$popup('append', 'Комментарий удалён');
+                })
+            },
             formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
@@ -146,10 +168,33 @@
                     // eslint-disable-next-line no-console
                     console.log(this.posts)
                     // eslint-disable-next-line no-console
-                    console.log(this.posts.data.comments[0].commentTime)
+                    console.log(this.posts.data.comments.length)
                 }).catch(error => {
-                if(error)
-                router.push("/Login");
+                if(error.response.status==401)
+                {
+                    axios({
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        data: {
+                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                        }
+                    })
+                        .then(({ data }) => {
+                            if (data.accessToken!=null)
+                            {
+                                this.$store.commit("SET_USER", data.user);
+                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                this.$store.getters.USER;
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                        if(error)
+                            router.push("/Login");
+                    });
+                }
             });
 
 
@@ -160,6 +205,18 @@
 <style scoped>
     .qq{
         border: 1px solid black;
+    }
+
+    .blur_test
+    {
+        filter: blur(20px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: 100%;
+        margin: 0;
     }
 
     header{
@@ -307,6 +364,17 @@
         padding-top: 15px;
         padding-left: 90px;
     }
+    .BookmarkBtn
+    {
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+        background-image: url("../assets/star_check_ON.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
     .blockTopForLogo{
         width: 48px;
         height: 53px;
@@ -440,5 +508,14 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    .postdate_post
+    {
+        width: 200px;
+    }
+    .topMenu, .menuBar
+    {
+        pointer-events: none;
+
     }
 </style>

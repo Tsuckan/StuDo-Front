@@ -64,8 +64,11 @@
                         "endTime": this.endTime,
                         "organizationId": this.organizationId
                     }
-                }).then(({ data }) => {
-                    this.$popup('append', 'Объявление успешно создано');
+                }).then(({ data }) => {this.$notify({
+                    group: 'foo',
+                    title: 'Успешно',
+                    text: 'Объявление создано'
+                });
                     router.push('/Logged')
                     if (data)
                     {
@@ -73,7 +76,11 @@
                     }
                 }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
 
             }
@@ -127,7 +134,7 @@
         background-color: rgb(54,55,54);
         border: none;
         border-radius: 15px;
-        height: 35px;
+        height: 75px;
         resize: none;
         margin-left: 30px;
     }

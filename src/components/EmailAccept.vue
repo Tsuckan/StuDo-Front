@@ -134,8 +134,7 @@
                     {
                         data=0;
                     }
-                        alert('Успешно');
-                        router.push("/Logged");
+                        router.push({ name: 'Login', params: { IsNotify: true } })
                 }).catch(error => {
                 if(error)
                 {

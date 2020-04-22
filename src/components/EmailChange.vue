@@ -93,7 +93,7 @@
                 <input placeholder="" required id="newEmail" v-model="newEmail" name="newEmail" type="text"> <br>
                 <div class="buttons">
 
-                    <router-link class="Registerbtn" to="/Logged">Назад</router-link>
+                    <router-link class="Registerbtn" to="/Profile">Назад</router-link>
 
                     <button class="Login_BTN" @click="handleSubmit">
                         Принять
@@ -132,7 +132,7 @@
                     .then(({ data }) => {
                         if (data)
                         {
-                            router.push("/Logged");
+                            router.push("/Profile");
                         }
                     });
             }

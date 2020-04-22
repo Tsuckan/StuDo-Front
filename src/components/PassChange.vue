@@ -1,6 +1,7 @@
 
 <template>
     <div class="main">
+        <VuePopupPlugin :config="popupDefaultConfig"/>
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
@@ -136,12 +137,16 @@
                     .then(({ data }) => {
                         // eslint-disable-next-line no-console
                         console.log('status: ', data.status);
-                            router.push("/Logged");
+                            router.push("/Profile");
                     }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console
                         console.log('status: ', error.code);
-                        this.$popup('append', 'Произошла ошибка');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
             }
         }

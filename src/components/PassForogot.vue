@@ -123,6 +123,11 @@
                         email: this.Email
                     }
                 }).then(({ data }) => {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ссылка отправлена на почту',
+                        text: 'Проверьте почтовый ящик: '+ this.Email
+                    });
                     router.push("/Login");
                     if (data)
                     {
@@ -130,7 +135,11 @@
                     }
                 }).catch(error => {
                     if(error)
-                        this.$popup('append', 'Произошла ошибка');
+                        this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
             }
         }

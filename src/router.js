@@ -19,11 +19,14 @@ import EmailChange from "./components/EmailChange";
 import EmailTest from "./components/EmailTest";
 import Favorited from "./components/Favorited";
 import Comment from "./components/Comment";
+import nf from "./components/nf";
 export default new VueRouter({
     routes: [
         {
             path: '/Login',
             component: HelloWorld,
+            name: 'Login',
+            props: true
         },
         {
             path: '/Test',
@@ -50,6 +53,10 @@ export default new VueRouter({
         {
             path: '/PassReset',
             component: PassReset,
+        },
+        {
+            path: "*",
+            component: nf,
         },
         {
             path: '/Acceptation',
@@ -113,6 +120,7 @@ export default new VueRouter({
             path: '/Acceptation',
             component: EmailAccept,
         }
-    ]
+
+    ],
 
 })

@@ -21,15 +21,23 @@
                 <div class="col-lg-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/ResumeCreate">Создать Резюме</router-link>
+
+                            <div class="menuBarBut">
+                            <router-link style="position: relative; color: white;" to="/ResumeCreate">Создать Резюме</router-link>
+                            </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnPassiv"></div>
+
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
+                            </div>
                             </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
+
+                                <div class="pointers">
                                 <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                </div>
                             </div>
 
                         </div>
@@ -58,11 +66,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
+                    <div class="topMenuItems">
 
                         <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                     </div>
-                    <div class="topMenuItems">
+                    <div class="topMenuItems active">
                         <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
                     </div>
                     <div class="topMenuItems">
@@ -120,8 +128,31 @@
                 .then(data => {
                     this.posts=data.data;
                 }).catch(error => {
-                if(error)
-                    router.push("/Login");
+                if(error.response.status==401)
+                {
+                    axios({
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        data: {
+                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                        }
+                    })
+                        .then(({ data }) => {
+                            if (data.accessToken!=null)
+                            {
+                                this.$store.commit("SET_USER", data.user);
+                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                this.$store.getters.USER;
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                        if(error)
+                            router.push("/Login");
+                    });
+                }
             });
 
 
@@ -227,9 +258,6 @@
 
 
     }
-    .textBtns{
-        padding-top: 7px;
-    }
     .topMenu{
         width: 319px;
         height: 46px;
@@ -237,6 +265,7 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
         margin-left: 40px;
         justify-content: space-around;

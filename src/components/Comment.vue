@@ -86,7 +86,7 @@
         </div>
         <div class="Auth">
             <div>
-                <h1>Смена пароля</h1>
+                <h1>Создание комментария</h1>
                 <label for="description">Текст Комментария</label><br>
                 <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text"></textarea> <br>
                 <router-link class="Registerbtn" to="/Logged">Назад</router-link>
@@ -129,12 +129,21 @@
                     .then(({ data }) => {
                         // eslint-disable-next-line no-console
                         console.log('status: ', data.status);
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Успешно',
+                            text: 'Комментарий успешно отправлен'
+                        });
                         router.push("/Logged");
                     }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console
                         console.log('status: ', error.code);
-                    this.$popup('append', 'Произошла ошибка');
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
+                    });
                 });
             }
         }
@@ -215,7 +224,7 @@
     {
         border-radius: 15px;
         width: 540px;
-        height: 410px;
+        height: 270px;
         background-color: rgb(46,45,46);
     }
     .buttons
