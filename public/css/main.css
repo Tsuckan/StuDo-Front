@@ -131,9 +131,6 @@ a:hover
 }
 .postBlock{
     width: 100%;
-    margin: 0 auto;
-    height: auto;
-    margin-top: 50px;
     background: #3B3B3B;
     padding-left: 0px;
     border-radius: 13px;
@@ -199,8 +196,10 @@ a:hover
     height: 204px;
     background: #222222;
     border-radius: 13px;
-
-
+}
+.textblockForPost
+{
+    word-wrap: break-word;
 }
 .rightBlock{
     width: 319px;

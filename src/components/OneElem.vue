@@ -55,9 +55,8 @@
         </div>
         </div>
 
-        <div style="margin: auto;" class="aaa col-lg-4">
-            <div class="postBlocks">
-                <div class="postBlock">
+        <div class="aaa">
+                <div class="postBlock" ref="block">
                     <div class="postTopBlock">
                         <div class="blockTopForLogo">
                             <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -73,37 +72,37 @@
                             {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
                         </div>
                     </div>
-                </div>
-                <div class="commentsBlock">
-                    <div style="color: white" class="OneComment">
-                        <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
-                        <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
-                                <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
-                                </button>
-                            <div class="commentdate">
-                                {{formatDate(new Date(post.commentTime))}}
-                            </div>
-                                <div class="commentauthor">
-                                    {{post.author}}
+
+                    </div>
+
+                    <div ref="comments" class="commentsBlock">
+                        <div v-if="posts.data.comments.length!=0" style="color: white" class="OneComment">
+                            <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
+                                <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
+                                    <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
+                                    </button>
+                                    <div class="commentdate">
+                                        {{formatDate(new Date(post.commentTime))}}
+                                    </div>
+                                    <div class="commentauthor">
+                                        {{post.author}}
+                                    </div>
+                                    <div class="textblockForComment">
+                                        {{post.text}}
+                                    </div>
                                 </div>
-                                <div class="textblockForComment">
-                                    {{post.text}}
+
                             </div>
                         </div>
-
+                        <div style="margin-top:10px; height: 90%;color: white" v-else>Комментариев нет</div>
+                        <div class="writecomment">
+                            <textarea v-model="description" id="description"></textarea>
+                            <button @click="handleSubmitt"></button>
+                        </div>
                     </div>
-                    </div>
-                    <div class="writecomment">
-                        <textarea v-model="description" id="description"></textarea>
-                        <button @click="handleSubmitt"></button>
-                    </div>
-                    </div>
-
-            </div>
+                </div></div>
 
 
-        </div>
-    </div>
 </template>
 
 <script>
@@ -278,8 +277,15 @@
                 }
             });
 
+        },
+        updated() {
+            // eslint-disable-next-line no-console
+            let height = this.$refs.block.clientHeight;
+            // eslint-disable-next-line no-console
+            console.log(height+'px')
+            this.$refs.comments.style.height=height+'px';
+        },
 
-        }
     }
 </script>
 
@@ -336,24 +342,23 @@
     {
         float: left;
         position: relative;
-        left:20%
+        left:20%;
+        margin-top: 200px;
     }
     .commentsBlock
     {
+        display: flex;
+        border-radius: 10px;
+        display: inline-block;
         padding-left: 20px;
-        width: 260px;
-        height: 200px;
+        width: 300px;
         background: rgb(34,34,34);
-        position: absolute;
-        top:25.5%;
-        left:138%;
+
     }
     .qq{
         border: 1px solid black;
     }
-
-    .blur_test
-    {
+    .blur_test {
         filter: blur(20px);
         position: fixed;
         top: 0;
@@ -363,7 +368,6 @@
         background-size: 100%;
         margin: 0;
     }
-
     header{
         height: 50px;
         background: #222222;
@@ -482,11 +486,12 @@
     .active{
         border-bottom: 2px solid white;
     }
-    .postBlock{
+
+    .postBlock
+    {
+        float: left;
+        display: inline-block;
         width: 522px;
-        margin: 0 auto;
-        height: auto;
-        margin-top: 50px;
         background: #3B3B3B;
         padding-left: 0px;
         border-radius: 13px;
@@ -558,101 +563,12 @@
         text-align: center;
         padding-top: 3px;
     }
-    .rightBlock_firstBlock{
-        padding-top: 15px;
-        height: 204px;
-        background: #222222;
-        border-radius: 13px;
-
-
-    }
-    .rightBlock{
-        width: 319px;
-        margin-top: 59px;
-        position: fixed;
-
-        margin-left: 40px;
-    }
-    .rightBlock_secondBlock{
-        margin-top: 39.2px;
-        height: 285px;
-        background: #222222;
-        border-radius: 13px;
-        padding-top: 1px;
-    }
     .postdate
     {
         margin-left: 40%;
     }
-    .searchform{
-        background: #3B3B3B;
-        border-radius: 36px;
-        color: white;
-        border: 1px solid #3B3B3B;
-        width: 279px;
-        margin-left: 19px;
-        padding-top: 1px;
-
-
-    }
-    .searchInput{
-        background: #3B3B3B;
-        border-radius: 36px 0 0 36px;
-        color: white;
-        border: 1px solid #3B3B3B;
-        width: 245px;
-        margin-right: 5px;
-        padding-left: 5px;
-
-
-    }
-    .sortBlock{
-        width: 290px;
-        height: 100px;
-
-        margin-left: 19px;
-        margin-top: 27.4px;
-        color: #ACACAC;
-        font-size: 16px;
-    }
-    .catBlock{
-        width: 290px;
-
-
-        margin-left: 19px;
-        margin-top: 14px;
-        color: #ACACAC;
-        font-size: 16px;
-    }
-    .sortItems{
-        color: white;
-    }
-    .sortItemsStatus {
-        margin-top: 6px;
-        margin-right: 14px;
-        background: #3B3B3B;
-        border-radius: 50%;
-        height: 10px;
-        width: 10px;
-    }
-    .sortItem{
-        margin-top: 15px;
-
-    }
-    .sortItemsStatusActiv{
-
-        background:  #673AB7;
-
-    }
     .catBlock .sortItemsStatus{
         border-radius: 0;
-    }
-    .countCat{
-        text-align: right;
-        position: absolute;
-        right: 22px;
-        font-size: 18px;
-        color: #ACACAC;
     }
     .postdate_post
     {
