@@ -120,7 +120,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'delete',
-                    url: 'https://studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
                     data: {}
                 })
                 var leftSection = document.getElementById(a);
@@ -139,7 +139,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://studo.rtuitlab.ru/api/ad/bookmarks',
+                url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks',
                 data: {}
             })
                 .then(data => {

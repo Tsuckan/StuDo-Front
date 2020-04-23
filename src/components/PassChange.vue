@@ -126,7 +126,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/user/password/change',
+                    url: 'https://dev.studo.rtuitlab.ru/api/user/password/change',
                     data: {
                         id: this.$cookies.get("USER").id,
                         oldPassword: this.oldPassword,

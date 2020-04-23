@@ -74,31 +74,34 @@
                         </div>
                     </div>
                 </div>
-                <div><router-link :to="{name: 'Comment', params: {id: posts.data.id}, props: {id: posts.data.id}}"
-                >Оставить комментарий</router-link></div>
-            </div>
-            <div class="postBlocks"  v-for="post in posts.data.comments" :key="post.id">
-                <div v-if="posts.data.comments.length!=0" :id='post.id' class="postBlock">
-                    <div  class="postTopBlock">
-                        <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
-                        </button>
-                        <div class="blockTopForLogo">
-                            <i class="fa fa-ambulance" aria-hidden="true"></i>
+                <div class="commentsBlock">
+                    <div style="color: white" class="OneComment">
+                        <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
+                        <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
+                                <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
+                            <div class="commentdate">
+                                {{formatDate(new Date(post.commentTime))}}
+                            </div>
+                                <div class="commentauthor">
+                                    {{post.author}}
+                                </div>
+                                <div class="textblockForComment">
+                                    {{post.text}}
+                            </div>
                         </div>
-                        <div class="titleForPost">{{post.author}}
-                        </div>
+
                     </div>
-                    <div class="postDownBlock">
-                        <div class="textblockForPost">
-                            {{post.text}}
-                        </div>
-                        <div class="postdate">
-                            {{formatDate(new Date(post.commentTime))}}
-                        </div>
                     </div>
-                </div>
+                    <div class="writecomment">
+                        <textarea v-model="description" id="description"></textarea>
+                        <button @click="handleSubmitt"></button>
+                    </div>
+                    </div>
 
             </div>
+
+
         </div>
     </div>
 </template>
@@ -116,6 +119,84 @@
                 postid: this.$router.currentRoute.params['id']
             };
         },methods : {
+                handleSubmitt(e) {
+                    e.preventDefault()
+                    axios({
+                        headers: {
+                            'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                        },
+                        method: 'post',
+                        url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid,
+                        data: {
+                            text: this.description
+                        }
+                    })
+                        // eslint-disable-next-line no-unused-vars
+                        .then(({data}) => {
+                            // eslint-disable-next-line no-console
+                            console.log('status: ', data.status);
+                            this.description='';
+                            this.$notify({
+                                group: 'foo',
+                                title: 'Успешно',
+                                text: 'Комментарий успешно отправлен'
+                            });
+
+                            axios({
+                                headers: {
+                                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                                },
+                                method: 'get',
+                                url: 'https://dev.studo.rtuitlab.ru/api/ad/' + this.postid,
+                                data: {}
+                            })
+                                .then(data => {
+                                    this.posts=data;
+                                    // eslint-disable-next-line no-console
+                                    console.log(this.posts)
+                                    // eslint-disable-next-line no-console
+                                    console.log(this.posts.data.comments.length)
+                                }).catch(error => {
+                                if(error.response.status==401)
+                                {
+                                    axios({
+                                        method: 'post',
+                                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                                        data: {
+                                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+                                        }
+                                    })
+                                        .then(({ data }) => {
+                                            if (data.accessToken!=null)
+                                            {
+                                                this.$store.commit("SET_USER", data.user);
+                                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
+                                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
+                                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
+                                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
+                                                this.$store.getters.USER;
+                                                window.location.reload();
+                                            }
+                                        }).catch(error => {
+                                        if(error)
+                                            router.push({ path: '/Login', query: { InCorrect: true } })
+                                    });
+                                }
+                            });
+
+
+
+                        }).catch(error => {
+                        if (error)
+                            // eslint-disable-next-line no-console
+                            console.log('status: ', error.code);
+                        this.$notify({
+                            group: 'foo',
+                            title: 'Произошла ошибка',
+                            text: 'Проверьте поля заполнения'
+                        });
+                    });
+                },
             back()
             {
               router.push('/Logged')
@@ -130,7 +211,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'delete',
-                    url: 'https://studo.rtuitlab.ru/api/ad/comment/' + this.postid + '/' + a,
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid + '/' + a,
                     data: {}
                 }).then(data => {
                     if(data)
@@ -160,7 +241,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://studo.rtuitlab.ru/api/ad/' + this.postid,
+                url: 'https://dev.studo.rtuitlab.ru/api/ad/' + this.postid,
                 data: {}
             })
                 .then(data => {
@@ -174,7 +255,7 @@
                 {
                     axios({
                         method: 'post',
-                        url: 'https://studo.rtuitlab.ru/api/auth/refresh',
+                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
                         data: {
                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                         }
@@ -203,6 +284,70 @@
 </script>
 
 <style scoped>
+    .textblockForComment
+    {
+        width: 90%;
+        height: auto;
+        margin-left: 25px;
+        padding-top: 19px;
+        font-size: 16px;
+        color: #ACACAC;
+    }
+    .textblockForComment:last-child
+    {
+        margin-bottom: 40px;
+    }
+    .writecomment button
+    {
+        margin-left: 5px;
+        background:no-repeat url("../assets/Path 25.svg");
+        width: 30px;
+        height: 29px;
+        border: none;
+
+    }
+    .writecomment textarea
+    {
+        height: 35px;
+        resize: none;
+        border-radius: 5px;
+        background: rgb(55,55,55);
+        border: none;
+    }
+    .writecomment
+    {
+        width: 267px;
+        height: 35px;
+    }
+    .commentauthor
+    {
+        margin-top: 20px;
+    }
+    .commentdate
+    {
+        float: right;
+    }
+    .commentsBlock
+    {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .aaa
+    {
+        float: left;
+        position: relative;
+        left:20%
+    }
+    .commentsBlock
+    {
+        padding-left: 20px;
+        width: 260px;
+        height: 200px;
+        background: rgb(34,34,34);
+        position: absolute;
+        top:25.5%;
+        left:138%;
+    }
     .qq{
         border: 1px solid black;
     }
@@ -338,7 +483,7 @@
         border-bottom: 2px solid white;
     }
     .postBlock{
-        width: 100%;
+        width: 522px;
         margin: 0 auto;
         height: auto;
         margin-top: 50px;
@@ -347,7 +492,7 @@
         border-radius: 13px;
     }
     .postTopBlock{
-        height: 63px;
+        height: 68px;
     }
     .postDownBlock{
         position: relative;
@@ -371,7 +516,7 @@
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
-        background-image: url("../assets/star_check_ON.svg");
+        background-image: url("../assets/Delete_comment.svg");
         background-repeat: no-repeat;
         margin-top: 10px;
     }

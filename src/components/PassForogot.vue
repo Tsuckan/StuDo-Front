@@ -118,7 +118,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/user/password/reset',
+                    url: 'https://dev.studo.rtuitlab.ru/api/user/password/reset',
                     data: {
                         email: this.Email
                     }

@@ -139,7 +139,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/auth/register',
+                    url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,

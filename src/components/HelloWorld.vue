@@ -138,7 +138,7 @@ methods : {
     e.preventDefault()
       axios({
       method: 'post',
-      url: 'https://studo.rtuitlab.ru/api/auth/login',
+      url: 'https://dev.studo.rtuitlab.ru/api/auth/login',
       data: {
         email: this.Email,
         password: this.Password

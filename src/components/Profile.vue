@@ -131,7 +131,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/user/change/info',
+                    url: 'https://dev.studo.rtuitlab.ru/api/user/change/info',
                     data: {
                         id: this.$cookies.get("USER").id,
                         studentCardNumber: this.studentCardNumber,

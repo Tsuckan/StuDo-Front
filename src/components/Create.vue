@@ -55,7 +55,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/ad',
+                    url: 'https://dev.studo.rtuitlab.ru/api/ad',
                     data: {
                         "name": this.name,
                         "description": this.description,
