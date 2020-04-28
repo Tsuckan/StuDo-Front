@@ -104,16 +104,132 @@ a:hover
 
 
 }
+
+@media screen and (max-width: 1199px) {
+    .col-4 {
+        display: inline-block;
+        position: static;
+    }
+
+    #clear ~ .col-lg-4 {
+        margin-left: 10%;
+    }
+
+    .menuBar {
+        position: static !important;
+    }
+
+    .col-lg-4 {
+        display: inline-block;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 991px) {
+    .col-4 {
+        display: inline-block;
+        position: static;
+        margin-left: 200px;
+    }
+
+    #clear ~ .col-lg-4 {
+        margin-top: 300px;
+        margin-left: -425px;
+    }
+
+    .menuBar {
+        position: static !important;
+    }
+
+    .col-lg-4 {
+        display: inline-block;
+        width: 100%;
+    }
+    .topMenu
+    {
+        float: left;
+        margin: 0;
+        transform: scale(0.8);
+        position: absolute !important;
+        z-index: 9999;
+        top: -260px !important;
+        left: 200px!important;
+    }
+}
+@media screen and (max-width: 768px) {
+    .col-4 {
+        display: inline-block;
+        position: static;
+        margin-left: 75px;
+    }
+
+    #clear ~ .col-lg-4 {
+        margin-top: 300px;
+        margin-left: -240px;
+    }
+
+    .menuBar {
+        position: static !important;
+    }
+
+    .col-lg-4 {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .topMenu {
+        float: left;
+        margin: 0;
+        transform: scale(0.8);
+        position: absolute !important;
+        z-index: 9999;
+        top: -260px !important;
+        left: 75px !important;
+    }
+
+    @media screen and (max-width: 575px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-right: 75px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-left: -240px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 516px;
+        }
+
+        .topMenu {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -260px !important;
+            left: 75px !important;
+        }
+    }
+}
 .textBtns{
     padding-top: 7px;
 }
 .topMenu{
+    margin-top: 50px;
     width: 319px;
     height: 46px;
     background: #2F2F2F;
     border-radius: 13px;
     position: fixed;
     top:25px;
+    z-index: 9999;
     display: flex;
     margin-left: 40px;
     justify-content: space-around;
@@ -123,8 +239,6 @@ a:hover
     color: white;
     font-size: 14px;
     margin-top: 12px;
-
-
 }
 .active{
     border-bottom: 2px solid white;

@@ -19,7 +19,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
 
@@ -48,6 +48,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="clear"></div>
                 <div class="col-lg-4">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
@@ -69,42 +70,6 @@
                                 </div>
                                 <div class="postdate">
                                     {{formatDate(new Date(post.beginTime))}} - {{formatDate(new Date(post.endTime))}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="topMenu d-flex">
-                        <div class="topMenuItems active">
-
-                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                        </div>
-                        <div class="topMenuItems">
-                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                        </div>
-                    </div>
-
-                    <div class="rightBlock">
-                        <div class="rightBlock_firstBlock">
-                            <div class="searchform d-flex">
-                                <input type="text" class="searchInput">
-                                <div class="rightBlock_firstBlock_searchLogo">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="sortBlock">
-                                Сортировка
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
-                                    </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,6 +166,21 @@
 </script>
 
 <style scoped>
+    .CommentblockForPost
+    {
+        padding-bottom:20px;
+        width: 90%;
+        height: auto;
+        margin-left: 25px;
+        padding-top: 19px;
+        font-size: 16px;
+        color: #ACACAC;
+    }
+    .CommentAuthorForPost
+    {
+        float: right;
+        margin-right: 10px;
+    }
     .BookmarkBtn
     {
         background: transparent;
@@ -211,33 +191,25 @@
         background-image: url("../assets/star_check_ON.svg");
         background-repeat: no-repeat;
         margin-top: 10px;
-        background-size: auto;
+    }
+    .rightBlock_firstBlock
+    {
+        visibility: hidden;
     }
     .BookmarkBtnIs
-     {
-         background: transparent;
-         border:none;
-         float: right;
-         padding-bottom: 20px;
-         margin-right: 10px;
-         background-image: url("../assets/star_check_ON.svg");
-         background-repeat: no-repeat;
-         margin-top: 10px;
-         background-size: auto;
-     }
-    .BookmarkBtn:hover
     {
-        color: blue;
-    }
-    .qq{
-        border: 1px solid black;
-    }
-
-    .BookmarkBtn
-    {
+        background: transparent;
+        border:none;
         float: right;
         padding-bottom: 20px;
         margin-right: 10px;
+        background-image: url("../assets/star_check_OFF.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
+    .BookmarkBtn:hover
+    {
+        color: blue;
     }
     header{
         height: 50px;
@@ -249,10 +221,6 @@
         font-family: Roboto;
 
 
-    }
-    .postdate
-    {
-        margin-left: 40%;
     }
     .logoBlock{
         width: 213px;
@@ -279,7 +247,6 @@
     }
     .menuBar{
         width: 319px;
-
         position: fixed;
         margin-left: 20px;
 
@@ -301,8 +268,6 @@
     }
     .btnsMenu{
         margin-top: 37px;
-
-
     }
     .btnActiv{
 
@@ -321,9 +286,6 @@
 
 
     }
-    .textBtns{
-        padding-top: 7px;
-    }
     .topMenu{
         width: 319px;
         height: 46px;
@@ -331,8 +293,9 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
-        margin-left: 40px;
+        margin-left: 20px;
         justify-content: space-around;
         text-transform: uppercase;
     }
@@ -491,5 +454,9 @@
         right: 22px;
         font-size: 18px;
         color: #ACACAC;
+    }
+    .postdate
+    {
+        margin-left: 40%;
     }
 </style>

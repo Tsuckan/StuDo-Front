@@ -18,7 +18,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
 
@@ -47,6 +47,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="clear"></div>
                 <div class="col-lg-4">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div :id="post.id" class="postBlock">
@@ -71,18 +72,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
+                <div class="col-lg-4">
+                    <div class="topMenu d-flex">
+                        <div class="topMenuItems active">
 
-                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,11 +155,23 @@
 </script>
 
 <style scoped>
-    .qq{
-        border: 1px solid black;
+    .CommentblockForPost
+    {
+        padding-bottom:20px;
+        width: 90%;
+        height: auto;
+        margin-left: 25px;
+        padding-top: 19px;
+        font-size: 16px;
+        color: #ACACAC;
+    }
+    .CommentAuthorForPost
+    {
+        float: right;
+        margin-right: 10px;
     }
     .BookmarkBtn
-     {
+    {
         background: transparent;
         border:none;
         float: right;
@@ -167,12 +180,26 @@
         background-image: url("../assets/star_check_ON.svg");
         background-repeat: no-repeat;
         margin-top: 10px;
-     }
+    }
+    .rightBlock_firstBlock
+    {
+        visibility: hidden;
+    }
+    .BookmarkBtnIs
+    {
+        background: transparent;
+        border:none;
+        float: right;
+        padding-bottom: 20px;
+        margin-right: 10px;
+        background-image: url("../assets/star_check_OFF.svg");
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
     .BookmarkBtn:hover
     {
         color: blue;
     }
-
     header{
         height: 50px;
         background: #222222;
@@ -209,7 +236,6 @@
     }
     .menuBar{
         width: 319px;
-
         position: fixed;
         margin-left: 20px;
 
@@ -231,8 +257,6 @@
     }
     .btnsMenu{
         margin-top: 37px;
-
-
     }
     .btnActiv{
 
@@ -251,9 +275,6 @@
 
 
     }
-    .textBtns{
-        padding-top: 7px;
-    }
     .topMenu{
         width: 319px;
         height: 46px;
@@ -261,8 +282,9 @@
         border-radius: 13px;
         position: fixed;
         top:25px;
+        right: 22%;
         display: flex;
-        margin-left: 40px;
+        margin-left: 20px;
         justify-content: space-around;
         text-transform: uppercase;
     }
@@ -425,5 +447,120 @@
     .postdate
     {
         margin-left: 40%;
+    }
+
+    @media screen and (max-width: 1199px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-left: 10%;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-left: 200px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-left: -225px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+        .topMenu
+        {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -210px !important;
+            left: -110px!important;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-left: 100px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-right: -100px;
+            margin-left: -200px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+        .topMenu
+        {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -210px !important;
+            left: -70px!important;
+        }
+
+        @media screen and (max-width: 575px) {
+            .col-4 {
+                display: inline-block;
+                position: static;
+                margin-right: 75px;
+            }
+
+            #clear ~ .col-lg-4 {
+                margin-top: 300px;
+                margin-left: -240px;
+            }
+
+            .menuBar {
+                position: static !important;
+            }
+
+            .col-lg-4 {
+                display: inline-block;
+                width: 516px;
+            }
+
+            .topMenu {
+                float: left;
+                margin: 0;
+                transform: scale(0.8);
+                position: absolute !important;
+                z-index: 9999;
+                top: -210px !important;
+                left: -65px !important;
+            }
+        }
     }
 </style>

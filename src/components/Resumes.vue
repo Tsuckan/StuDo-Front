@@ -18,7 +18,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
                             <div class="menuBarBut">
@@ -42,6 +42,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="clear"></div>
                 <div class="col-lg-4">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
@@ -61,27 +62,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="topMenu d-flex">
-                    <div class="topMenuItems ">
+                <div class="col-lg-4">
+                    <div class="topMenu d-flex">
+                        <div class="topMenuItems ">
 
-                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                            <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                        </div>
+                        <div class="topMenuItems active">
+                            <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                        </div>
+                        <div class="topMenuItems">
+                            <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                        </div>
                     </div>
-                    <div class="topMenuItems active">
-                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                    </div>
-                </div>
 
-                <div class="rightBlock">
-                    <div class="rightBlock_firstBlock">
-                        <div class="searchform d-flex">
-                            <input type="text" class="searchInput">
-                            <div class="rightBlock_firstBlock_searchLogo">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                    <div class="rightBlock">
+                        <div class="rightBlock_firstBlock">
+                            <div class="searchform d-flex">
+                                <input type="text" class="searchInput">
+                                <div class="rightBlock_firstBlock_searchLogo">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,6 +156,133 @@
 
 <style scoped>
 
+    @media screen and (max-width: 1199px) {
+
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-left: 300px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-left: -265px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+        .topMenu
+        {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -210px !important;
+            left: -100px!important;
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-left: 200px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-left: -225px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+        .topMenu
+        {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -210px !important;
+            left: -145px!important;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .col-4 {
+            display: inline-block;
+            position: static;
+            margin-left: 100px;
+        }
+
+        #clear ~ .col-lg-4 {
+            margin-top: 300px;
+            margin-right: -100px;
+            margin-left: -200px;
+        }
+
+        .menuBar {
+            position: static !important;
+        }
+
+        .col-lg-4 {
+            display: inline-block;
+            width: 100%;
+        }
+        .topMenu
+        {
+            float: left;
+            margin: 0;
+            transform: scale(0.8);
+            position: absolute !important;
+            z-index: 9999;
+            top: -210px !important;
+            left: -100px!important;
+        }
+
+        @media screen and (max-width: 575px) {
+            .col-4 {
+                display: inline-block;
+                position: static;
+                margin-right: 75px;
+            }
+
+            #clear ~ .col-lg-4 {
+                margin-top: 300px;
+                margin-left: -240px;
+            }
+
+            .menuBar {
+                position: static !important;
+            }
+
+            .col-lg-4 {
+                display: inline-block;
+                width: 516px;
+            }
+
+            .topMenu {
+                float: left;
+                margin: 0;
+                transform: scale(0.8);
+                position: absolute !important;
+                z-index: 9999;
+                top: -210px !important;
+                left: -65px !important;
+            }
+        }
+    }
     .CommentblockForPost
     {
         padding-bottom:20px;

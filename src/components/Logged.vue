@@ -17,7 +17,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-4">
                     <div class="menuBar">
                         <div class="btnsMenu">
                            <div class="menuBarBut">
@@ -45,6 +45,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="clear"> </div>
                 <div class="col-lg-4">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <div class="postBlock">
@@ -76,46 +77,45 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-            <div class="col-lg-4">
-                <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
 
-                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
-                    </div>
-                </div>
+                        <div class="topMenu d-flex">
+                            <div class="topMenuItems active">
 
-                    <div class="rightBlock">
-                        <div class="rightBlock_firstBlock">
-                            <div class="searchform d-flex">
-                                <input type="text" class="searchInput">
-                                <div class="rightBlock_firstBlock_searchLogo">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
+                                <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
                             </div>
-                            <div class="sortBlock">
-                                Сортировка
-                                <div class="sortItems">
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
+                            <div class="topMenuItems">
+                                <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                            </div>
+                            <div class="topMenuItems">
+                                <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                            </div>
+                        </div>
+
+                        <div class="rightBlock">
+                            <div class="rightBlock_firstBlock">
+                                <div class="searchform d-flex">
+                                    <input type="text" class="searchInput">
+                                    <div class="rightBlock_firstBlock_searchLogo">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
-                                    <div class="sortItem d-flex">
-                                        <div class="sortItemsStatus"></div>Категории
+                                </div>
+                                <div class="sortBlock">
+                                    Сортировка
+                                    <div class="sortItems">
+                                        <div class="sortItem d-flex">
+                                            <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
+                                        </div>
+                                        <div class="sortItem d-flex">
+                                            <div class="sortItemsStatus"></div>Категории
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
 </template>
 
 <script>
