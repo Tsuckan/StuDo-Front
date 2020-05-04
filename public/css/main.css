@@ -1,44 +1,54 @@
-.qq{
+html {
+  height: auto;
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Roboto", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #141414;
+}
+
+.qq {
     border: 1px solid black;
 }
 
-header{
+header {
     height: 50px;
     background: #222222;
     margin: 0 auto;
 }
-body{
-    background: #141414;
-    font-family: Roboto;
-}
 
-.menuBarBut{
-    width: 319px;
+.menuBarBut {
     height: 51px;
     border-radius: 13px;
     border-bottom: 3px solid #673AB7;
     background: #2F2F2F;
-    margin-top: 37px;
+    margin: 37px 0;
     color: black;
     font-size: 18px;
     text-align: center;
     padding-top: 10px;
-    margin-bottom: 50px;
 }
-.pointers
-{
+.pointers {
     margin-top: 5px;
 }
-a
-{
+a {
     text-decoration: none !important;
     color: white !important;
 }
-a:hover
-{
+a:hover {
     text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F !important;
 }
-.logoBlock{
+.logoBlock {
     width: 213px;
     background: #2F2F2F;
     height: 70px;
@@ -48,192 +58,62 @@ a:hover
     position: relative;
     z-index: 1;
 }
-.imgLogo{
+.imgLogo {
 
 }
-.nameLogo{
+.nameLogo {
     font-size: 24px;
     color: white;
     margin-top: 10px;
     margin-left: 10px;
-
 }
 .logo{
     margin: 5px auto;
 }
 .menuBar{
-    width: 319px;
-    position: fixed;
-    margin-left: 20px;
-
 }
 .btnMenuItems{
-    margin-top: 37px;
-}
-.btnMenuItems{
-    width: 319px;
-
     height: 40px;
     border-radius: 8px;
     background: #222222;
     margin-top: 5px;
     color: white;
     font-size: 18px;
-
     padding-left: 20px;
 }
 .btnsMenu{
-    margin-top: 37px;
-
-
+    padding-top: 20px;
 }
 .btnActiv{
-
     width: 6px;
     height: 40px;
     background: #673AB7;
     margin-right: 20px;
-
-
 }
 .btnPassiv{
     width: 6px;
     height: 40px;
     background: #2F2F2F;
     margin-right: 20px;
-
-
 }
 
-@media screen and (max-width: 1199px) {
-    .col-4 {
-        display: inline-block;
-        position: static;
-    }
-
-    #clear ~ .col-lg-4 {
-        margin-left: 10%;
-    }
-
-    .menuBar {
-        position: static !important;
-    }
-
-    .col-lg-4 {
-        display: inline-block;
-        width: 100%;
-    }
-}
-@media screen and (max-width: 991px) {
-    .col-4 {
-        display: inline-block;
-        position: static;
-        margin-left: 200px;
-    }
-
-    #clear ~ .col-lg-4 {
-        margin-top: 300px;
-        margin-left: -425px;
-    }
-
-    .menuBar {
-        position: static !important;
-    }
-
-    .col-lg-4 {
-        display: inline-block;
-        width: 100%;
-    }
-    .topMenu
-    {
-        float: left;
-        margin: 0;
-        transform: scale(0.8);
-        position: absolute !important;
-        z-index: 9999;
-        top: -260px !important;
-        left: 200px!important;
-    }
-}
-@media screen and (max-width: 768px) {
-    .col-4 {
-        display: inline-block;
-        position: static;
-        margin-left: 75px;
-    }
-
-    #clear ~ .col-lg-4 {
-        margin-top: 300px;
-        margin-left: -240px;
-    }
-
-    .menuBar {
-        position: static !important;
-    }
-
-    .col-lg-4 {
-        display: inline-block;
-        width: 100%;
-    }
-
-    .topMenu {
-        float: left;
-        margin: 0;
-        transform: scale(0.8);
-        position: absolute !important;
-        z-index: 9999;
-        top: -260px !important;
-        left: 75px !important;
-    }
-
-    @media screen and (max-width: 575px) {
-        .col-4 {
-            display: inline-block;
-            position: static;
-            margin-right: 75px;
-        }
-
-        #clear ~ .col-lg-4 {
-            margin-top: 300px;
-            margin-left: -240px;
-        }
-
-        .menuBar {
-            position: static !important;
-        }
-
-        .col-lg-4 {
-            display: inline-block;
-            width: 516px;
-        }
-
-        .topMenu {
-            float: left;
-            margin: 0;
-            transform: scale(0.8);
-            position: absolute !important;
-            z-index: 9999;
-            top: -260px !important;
-            left: 75px !important;
-        }
-    }
-}
 .textBtns{
     padding-top: 7px;
 }
 .topMenu{
-    margin-top: 50px;
-    width: 319px;
     height: 46px;
-    background: #2F2F2F;
+    background: #2F2F2F; 
     border-radius: 13px;
-    position: fixed;
-    top:25px;
+    margin-top: -23px;
     z-index: 9999;
     display: flex;
-    margin-left: 40px;
     justify-content: space-around;
     text-transform: uppercase;
+}
+.fixedCol {
+    position: sticky;
+    padding: 0 10%;
+    top: 25px;
 }
 .topMenuItems{
     color: white;
@@ -243,6 +123,12 @@ a:hover
 .active{
     border-bottom: 2px solid white;
 }
+.mainArea {
+    padding-top: 20px;
+}
+.postBlocks{
+    padding-top: 37px;
+}
 .postBlock{
     width: 100%;
     background: #3B3B3B;
@@ -250,9 +136,9 @@ a:hover
     border-radius: 13px;
 }
 .postTopBlock{
-    height: 63px;
+    min-height: 64px;
 }
-.postDownBlock{
+.postDownBlock {
     position: relative;
     width: 100%;
     height: auto;
@@ -260,110 +146,104 @@ a:hover
     background: #2F2F2F;
     border-radius: 0 0 13px 13px;
 }
-.titleForPost{
+.profileInfo {
+    border-radius: 0;
+}
+.titleForPost {
     color: white;
     font-size: 19px;
-    margin: 0 auto;
-    padding-top: 15px;
-    padding-left: 90px;
+    display: inline-block;
+    width: 68%;
+    word-break: break-word;
+    padding: 15px 0;
 }
-.blockTopForLogo{
-    width: 48px;
-    height: 53px;
+.blockTopForLogo {
+    width: 50px;
+    height: 55px;
+    display: inline-block;
+    vertical-align: top;
     border-radius: 5px 5px 13px 13px;
     background: #673AB7;
-    position: absolute;
     z-index: 1;
-    margin-top: -5px;
-    margin-left: 25px;
     color: white;
     font-size: 25px;
     text-align: center;
-    padding-top: 10px;
+    padding: 13px 10px;
+    margin: -5px 4%;
 }
-.textblockForPost{
+.textblockForPost {
     width: 90%;
     height: auto;
-    margin-left: 25px;
-    padding-top: 19px;
+    margin: 0 auto;
+    padding-top: 15px;
     font-size: 16px;
     color: #ACACAC;
 }
-.postBlocks{
-    padding-top: 35px;
-    padding-bottom: 47px;
-
-}
-.postdate{
-    height: 25px;
-    width: 90px;
-    color: black;
-    border-radius: 13px;
-    background: #3B3B3B;
-    margin-left: 270px;
-    font-size: 14px;
-    text-align: center;
-    padding-top: 3px;
-}
-.rightBlock_firstBlock{
-    padding-top: 15px;
-    height: 204px;
-    background: #222222;
-    border-radius: 13px;
-}
-.textblockForPost
-{
+.textblockForPost {
     word-wrap: break-word;
 }
-.rightBlock{
-    width: 319px;
-    margin-top: 59px;
-    position: fixed;
-
-    margin-left: 40px;
+.postdate {
+    height: 25px;
+    width: max-content;
+    color: white;
+    border-radius: 13px;
+    background: #3B3B3B;
+    margin: 0 10px 0 auto;
+    font-size: 14px;
+    text-align: center;
+    padding: 1px 10px;
 }
-.rightBlock_secondBlock{
-    margin-top: 39.2px;
-    height: 285px;
+.CommentAuthorForPost {
+    height: 25px;
+    width: max-content;
+    border-radius: 13px;
+    background: #2F2F2F;
+    margin: 5px 10px 5px auto;
+    font-size: 14px;
+    text-align: center;
+    padding: 1px 10px;
+}
+.CommentblockForPost {
+    width: 90%;
+    height: auto;
+    margin-left: 25px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #ACACAC;
+}
+.rightBlock{
+    margin-top: -3px;
+}
+.rightBlock_block{
+    margin-top: 37px;
+    padding: 20px 10px;
     background: #222222;
     border-radius: 13px;
-    padding-top: 1px;
 }
-.searchform{
+.searchform {
     background: #3B3B3B;
     border-radius: 36px;
     color: white;
     border: 1px solid #3B3B3B;
-    width: 279px;
-    margin-left: 19px;
-    padding-top: 1px;
-
-
 }
-.searchInput{
+.searchInput {
+    width: 100%;
+    padding: 3px 0 3px 10px;
     background: #3B3B3B;
     border-radius: 36px 0 0 36px;
     color: white;
     border: 1px solid #3B3B3B;
-    width: 245px;
-    margin-right: 5px;
-    padding-left: 5px;
-
-
+}
+.searchLogo {
+    margin: auto 10px;
 }
 .sortBlock{
-    width: 290px;
-    height: 100px;
-
-    margin-left: 19px;
-    margin-top: 27.4px;
+    margin: 37px 5px 0;
     color: #ACACAC;
     font-size: 16px;
 }
 .catBlock{
     width: 290px;
-
-
     margin-left: 19px;
     margin-top: 14px;
     color: #ACACAC;
@@ -382,12 +262,9 @@ a:hover
 }
 .sortItem{
     margin-top: 15px;
-
 }
 .sortItemsStatusActiv{
-
     background:  #673AB7;
-
 }
 .catBlock .sortItemsStatus{
     border-radius: 0;
@@ -399,15 +276,368 @@ a:hover
     font-size: 18px;
     color: #ACACAC;
 }
-input
-{
+.changeDataBlock {
+    width: 100%;
+    padding: 15px 1%;
+    border-radius: 0 0 13px 13px;
+    background: #222222;
+}
+.halfBlock {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: center;
+}
+.leftAlign {
+    text-align: left;
+}
+.rightAlign {
+    text-align: right;
+}
+a.doubleLink {
+    display: block;
+}
+.blur_test {
+    filter: blur(20px);
+}
+.blur_layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;    
+}
+.singleAd {
+    width: 60%;
+    min-height: 400px;
+    position: absolute;
+    top: 150px;
+    left: 20%
+}
+.postBlock#full {
+    width: 60%;
+    min-height: 400px;
+    display: inline-block;
+    background: #3B3B3B;
+    border-radius: 13px 0 0 13px;
+    vertical-align: top;
+}
+.commentsContainer {
+    width: 40%;
+    display: inline-block;
+    border-radius: 0 13px 13px 0;
+    vertical-align: top;
+    background: rgb(34,34,34);
+    padding: 0.5%;
+}
+.commentsBlock {
+    width: 99%;
+    height: 100%
+}
+.oneComment {
+    height: 90%;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    word-break: break-word;
+}
+.customScroll::-webkit-scrollbar {
+    width: 6px;
+}
+.customScroll::-webkit-scrollbar-thumb {
+    background-color: #673AB7;
+    border-radius: 10px;
+}
+.customScroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: rgb(34,34,34);
+}
+.writecomment button {
+    width: 10%;
+    margin: 5px 0 5px 5px;
+    padding: 11px 0;
+    background:no-repeat url("/img/Path 25.svg");
+    border: none;
+}
+.writecomment textarea {
+    height: 35px;
+    width: 86%;
+    display: inline-block;
+    vertical-align: top;
+    resize: none;
+    border-radius: 5px;
+    background: rgb(55,55,55);
+    border: none;
+}
+.writecomment {
+    width: 100%;
+    padding: 5px;
+}
+.commentblock {
+    margin-top: 15px;
+}
+.popupBlock {
+    width: 60%;
+    background-color: #2F2F2F;
+    border-radius: 13px;
+    position: absolute;
+    top: 150px;
+    left: 20%;
+}
+.popupHeader {
+    color: white;
+    font-size: 19px;
+    width: 69%;
+    word-break: break-word;
+    padding: 15px 0;
+    background-color: #3B3B3B;
+    width: 100%;
+    border-radius: 13px 13px 0 0;
+    padding: 15px 4%;
+}
+.popupBody {
+    padding: 15px 4% 0;
+}
+.popupBody > label, .halfBlock > label {
+    color: #ACACAC;
+    text-align: left;
+}
+.popupBody > input, .halfBlock > input {
+    width: 99%;
+    background-color: #3B3B3B;
+    border: none;
+    border-radius: 10px;
+    height: 35px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+.popupBody > textarea {
+    width: 100%;
+    background-color: #3B3B3B;
+    border: none;
+    border-radius: 10px;
+    height: 75px;
+    resize: none;
+    margin-bottom: 15px;
+}
+.popupFooter {
+    background-color: #222222;
+    border-radius: 0 0 13px 13px;
+    padding: 15px 4%;
+}
+button.profile {
+    width: 95%;
+}
+button.transparent {
+    background: transparent;
+    color: honeydew;
+    margin: 0 10%;
+    border: none;
+}
+.BookmarkBtn {
+    background: transparent;
+    border:none;
+    float: right;
+    padding: 10px;
+    margin-right: 10px;
+    background-image: url("/img/star_check_ON.svg");
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}
+.BookmarkBtnIs {
+    background: transparent;
+    border:none;
+    float: right;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-right: 10px;
+    background-image: url("/img/star_check_OFF.svg");
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}
+.BookmarkBtn:hover {
+    color: blue;
+}
+.DeleteBtn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    background-image: url(/img/Delete_comment.svg);
+    background-repeat: no-repeat;
+    float: right;
+}
+input {
     color:honeydew;
-    padding-left:18px;
+    padding: 7px 10px;
+}
+input.profileField {
+    width: 100%;
+    background-color: rgb(54,55,54);
+    border: none;
+    border-radius: 10px;
+}
+textarea {
+    color:honeydew;
+    padding-left: 18px;
     padding-top: 6px;
 }
-textarea
-{
-    color:honeydew;
-    padding-left:18px;
-    padding-top: 6px;
+.menu {
+    display: none;
 }
+#menu_toggle {
+    display: none;
+}
+#menu_btn {
+    display: none;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1;
+}
+#menu_btn > span, #menu_btn > span::before, #menu_btn > span::after {
+    display: none;
+    position: absolute;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #673AB7;
+    transition-duration: .25s;
+}
+#menu_btn > span::before {
+    top: -8px;
+    content: '';
+}
+#menu_btn > span::after {
+    top: 8px;
+    content: '';
+}
+.btnMenuItems:hover, #menuBarBut:hover {
+    background-color: #CFD8DC;
+}
+#menu_toggle:checked ~ #menu_btn > span {
+    transform: rotate(45deg);
+}
+#menu_toggle:checked ~ #menu_btn > span::before {
+    top: 0;
+    transform: rotate(0);
+}
+#menu_toggle:checked ~ #menu_btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+#menu_toggle:checked ~ .btnsMenu {
+    visibility: visible;
+    left: 0;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 98%;
+        min-width: auto;
+    }
+    .changeDataBlock {
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 990px) {
+    .container {}
+    .col-4.firstCol {
+        display: none;
+    }
+    .menu {
+        display: block;
+    }
+    #menu_btn > span, #menu_btn > span::before, #menu_btn > span::after {
+        display: block;
+    }
+    #menu_btn {
+        display: flex;
+        z-index: 2000;
+    }
+    .btnsMenu {
+        display: block;
+        position: absolute;
+        visibility: hidden;
+        top: 0;
+        left: -100%;
+        width: 75%;
+        height: 100%;
+        margin: 0;
+        padding-top: 50px;
+        text-align: center;
+        background-color: #222222;
+        box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+        transition-duration: .25s;
+        z-index: 1000;
+    }
+    .btnMenuItems, .menuBarBut {
+        display: block;
+        margin-top: 0px;
+        margin-bottom: 2px;
+        border-radius: 0;
+        color: #333;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        transition-duration: .25s;
+    }
+    .btnMenuItems:hover, #menuBarBut:hover {
+        background-color: #CFD8DC;
+    }
+    .mainArea {
+        max-width: 60%;
+        width: 60%;
+        flex: 0 0 60%;
+        padding: 20px 4%;
+    }
+    .fixedCol {
+        padding: 0 20px 0 0;
+    }
+    .thirdCol {
+        max-width: 40%;
+        width: 40%;
+        flex: 0 0 40%;
+        padding: 0;
+    }
+    .topMenu {
+        margin-top: 57px;
+    }
+    .postBlock#full {
+        width: 100%;
+        border-radius: 13px 13px 0 0;
+    }
+    .commentsContainer {
+        display: inline-block;
+        width: 100%;
+        max-height: 300px;
+        height: 300px;
+        border-radius: 0 0 13px 13px;
+    }
+    .oneComment {
+        max-height: 247.5px;
+    }
+}
+
+@media (max-width: 655px) {
+    .container {
+        /* width: 100%; */
+    }
+}
+
+/*@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}*/

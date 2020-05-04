@@ -11,52 +11,91 @@
                 </div>
             </div>
         </header>
-        <div v-on:click="back()" class="blur_test">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="menuBar">
-                        <div class="btnsMenu">
-                            <router-link style="position: relative; color: white;" class="menuBarBut" to="/Create">Создать объявление</router-link>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
-                                <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
-                            </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnPassiv"></div>
-                                <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
-                            </div>
-
+        
+        <div class="blur_test">
+        <div>
+            <div class="menu">
+                <input id="menu_toggle" type="checkbox" />
+                <label id="menu_btn" for="menu_toggle">
+                    <span></span>   
+                </label>
+                <div class="btnsMenu">
+                    <div class="menuBarBut">
+                        <router-link to="/Create">Создать объявление</router-link>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div class="btnActiv"></div>
+                        <div class="pointers">
+                            <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                        </div>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div class="btnPassiv"></div>
+                        <div class="pointers">
+                            <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                        </div>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div class="btnPassiv"></div>
+                        <div class="pointers">
+                            <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-lg-4">
-                <div class="topMenu d-flex">
-                    <div class="topMenuItems active">
-
-                        <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
-                    </div>
-                    <div class="topMenuItems">
-                        <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+            <div class="row">
+                <div class="col-4 firstCol">
+                    <div class="fixedCol">
+                        <div class="menuBar">
+                            <div class="btnsMenu">
+                                <div class="menuBarBut">
+                                    <router-link to="/Create">Создать объявление</router-link>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnActiv"></div>
+                                    <div class="pointers">
+                                        <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnPassiv"></div>
+                                    <div class="pointers">
+                                        <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex">
+                                    <div class="btnPassiv"></div>
+                                    <div class="pointers">
+                                        <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
+                <div class="col-4 mainArea"></div>
+                <div class="col-4 thirdCol">
+                    <div class="fixedCol">
+                        <div class="topMenu d-flex">
+                            <div class="topMenuItems active">
+                                <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                            </div>
+                            <div class="topMenuItems">
+                                <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                            </div>
+                            <div class="topMenuItems">
+                                <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         </div>
+        <div v-on:click="back()"  class="blur_layer"></div>
 
-        <div class="aaa">
-                <div class="postBlock" ref="block">
+        <div class="singleAd">
+                <div class="postBlock" id="full" ref="block">
                     <div class="postTopBlock">
                         <div class="blockTopForLogo">
                             <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -64,7 +103,7 @@
                         <div class="titleForPost">{{posts.data.name}}
                         </div>
                     </div>
-                    <div class="postDownBlock">
+                    <div class="postDownBlock" style="min-height: 335px;">
                         <div class="textblockForPost">
                             {{posts.data.shortDescription}}
                         </div>
@@ -75,29 +114,30 @@
 
                     </div>
 
-                    <div ref="comments" class="commentsBlock">
-                        <div v-if="posts.data.comments.length!=0" style="color: white" class="OneComment">
-                            <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
-                                <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
-                                    <button v-if="checker(post.authorId)"  class="BookmarkBtn" @click="Bookmark(post.id)">
-                                    </button>
-                                    <div class="commentdate">
-                                        {{formatDate(new Date(post.commentTime))}}
-                                    </div>
-                                    <div class="commentauthor">
-                                        {{post.author}}
-                                    </div>
-                                    <div class="textblockForComment">
-                                        {{post.text}}
+                    <div ref="container" class="commentsContainer">
+                        <div ref="comments" class="commentsBlock">
+                            <div v-if="posts.data.comments.length!=0" style="color: white" class="oneComment customScroll" ref="commentsField">
+                                <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
+                                    <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
+                                        <div class="commentauthor">
+                                            {{post.author}}
+                                        </div>
+                                        <div class="textblockForComment">
+                                            {{post.text}}
+                                        </div>
+                                        <div class="commentdate">
+                                            {{formatDate(new Date(post.commentTime))}}
+                                        </div>
+                                        <button v-if="checker(post.authorId)"  class="DeleteBtn" @click="Bookmark(post.id)">
+                                        </button>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                        <div style="margin-top:10px; height: 90%;color: white" v-else>Комментариев нет</div>
-                        <div class="writecomment">
-                            <textarea v-model="description" id="description"></textarea>
-                            <button @click="handleSubmitt"></button>
+                            <div ref="noComments" style="padding-top:15px; text-align: center; color: white" v-else>Комментариев нет</div>
+                            <div class="writecomment">
+                                <textarea v-model="description" id="description" class="customScroll"></textarea>
+                                <button @click="handleSubmitt"></button>
+                            </div>
                         </div>
                     </div>
                 </div></div>
@@ -276,307 +316,42 @@
                     });
                 }
             });
-
         },
         updated() {
             // eslint-disable-next-line no-console
             let height = this.$refs.block.clientHeight;
             // eslint-disable-next-line no-console
-            console.log(height+'px')
-            this.$refs.comments.style.height=height+'px';
+            console.log(height+'px');
+            if (this.$refs.noComments) {
+                this.$refs.noComments.style.height=(height-58.5)+'px';
+            }
+            if (this.$refs.commentsField) {
+                this.$refs.commentsField.style.height=(height-58.5)+'px';
+            }
+            this.$refs.container.style.height=(height)+'px';
         },
-
     }
 </script>
 
 <style scoped>
-    .textblockForComment
-    {
-        width: 90%;
-        height: auto;
-        margin-left: 25px;
-        padding-top: 19px;
-        font-size: 16px;
-        color: #ACACAC;
-    }
-    .textblockForComment:last-child
-    {
-        margin-bottom: 40px;
-    }
-    .writecomment button
-    {
-        margin-left: 5px;
-        background:no-repeat url("../assets/Path 25.svg");
-        width: 30px;
-        height: 29px;
-        border: none;
-
-    }
-    .writecomment textarea
-    {
-        height: 35px;
-        resize: none;
-        border-radius: 5px;
-        background: rgb(55,55,55);
-        border: none;
-    }
-    .writecomment
-    {
-        width: 267px;
-        height: 35px;
-    }
-    .commentauthor
-    {
-        margin-top: 20px;
-    }
-    .commentdate
-    {
-        float: right;
-    }
-    .commentsBlock
-    {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    .aaa
-    {
-        float: left;
-        position: relative;
-        left:20%;
-        margin-top: 200px;
-    }
-    .commentsBlock
-    {
-        display: flex;
-        border-radius: 10px;
-        display: inline-block;
-        padding-left: 20px;
-        width: 300px;
-        background: rgb(34,34,34);
-
-    }
-    .qq{
-        border: 1px solid black;
-    }
-    .blur_test {
-        filter: blur(20px);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-size: 100%;
-        margin: 0;
-    }
-    header{
-        height: 50px;
-        background: #222222;
-        margin: 0 auto;
-    }
-    body{
-        background: #141414;
-        font-family: Roboto;
-
-
-    }
-    .logoBlock{
-        width: 213px;
-        background: #2F2F2F;
-        height: 70px;
-        border-bottom-left-radius: 13px;
-        border-bottom-right-radius: 13px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
-    .imgLogo{
-
-    }
-    .nameLogo{
-        font-size: 24px;
-        color: white;
-        margin-top: 10px;
-        margin-left: 10px;
-
-    }
-    .logo{
-        margin: 5px auto;
-    }
-    .menuBar{
-        width: 319px;
-
-        position: fixed;
-        margin-left: 20px;
-
-    }
-    .menuBarBut{
-        width: 319px;
-
-        height: 51px;
-        border-radius: 13px;
-        border-bottom: 3px solid #673AB7;
-        background: #2F2F2F;
-        margin-top: 37px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        padding-top: 10px;
-
-
-    }
-    .btnMenuItems{
-        margin-top: 37px;
-    }
-    .btnMenuItems{
-        width: 319px;
-
-        height: 40px;
-        border-radius: 8px;
-        background: #222222;
-        margin-top: 5px;
-        color: white;
-        font-size: 18px;
-
-        padding-left: 20px;
-    }
-    .btnsMenu{
-        margin-top: 37px;
-
-
-    }
-    .btnActiv{
-
-        width: 6px;
-        height: 40px;
-        background: #673AB7;
-        margin-right: 20px;
-
-
-    }
-    .btnPassiv{
-        width: 6px;
-        height: 40px;
-        background: #2F2F2F;
-        margin-right: 20px;
-
-
-    }
-    .textBtns{
-        padding-top: 7px;
-    }
-    .topMenu{
-        width: 319px;
-        height: 46px;
-        background: #2F2F2F;
-        border-radius: 13px;
-        position: fixed;
-        top:25px;
-        display: flex;
-        margin-left: 40px;
-        justify-content: space-around;
-        text-transform: uppercase;
-    }
-    .topMenuItems{
-        color: white;
-        font-size: 14px;
-        margin-top: 12px;
-
-
-    }
-    .active{
-        border-bottom: 2px solid white;
-    }
-
-    .postBlock
-    {
-        float: left;
-        display: inline-block;
-        width: 522px;
-        background: #3B3B3B;
-        padding-left: 0px;
-        border-radius: 13px;
-    }
-    .postTopBlock{
-        height: 68px;
-    }
-    .postDownBlock{
-        position: relative;
+    .textblockForComment {
         width: 100%;
         height: auto;
-        padding-bottom: 15px;
-        background: #2F2F2F;
-        border-radius: 0 0 13px 13px;
-    }
-    .titleForPost{
-        color: white;
-        font-size: 19px;
-        margin: 0 auto;
-        padding-top: 15px;
-        padding-left: 90px;
-    }
-    .BookmarkBtn
-    {
-        background: transparent;
-        border:none;
-        float: right;
-        padding-bottom: 20px;
-        margin-right: 10px;
-        background-image: url("../assets/Delete_comment.svg");
-        background-repeat: no-repeat;
-        margin-top: 10px;
-    }
-    .blockTopForLogo{
-        width: 48px;
-        height: 53px;
-        border-radius: 5px 5px 13px 13px;
-        background: #673AB7;
-        position: absolute;
-        z-index: 1;
-        margin-top: -5px;
-        margin-left: 25px;
-        color: white;
-        font-size: 25px;
-        text-align: center;
-        padding-top: 10px;
-    }
-    .textblockForPost{
-        width: 90%;
-        height: auto;
-        margin-left: 25px;
-        padding-top: 19px;
+        padding-left: 15px;
         font-size: 16px;
         color: #ACACAC;
     }
-    .postBlocks{
-        padding-top: 35px;
-        padding-bottom: 47px;
-
+    .commentauthor {
+        padding-bottom: 5px;
     }
-    .postdate{
-        height: 25px;
-        width: 90px;
-        color: white;
-        border-radius: 13px;
-        background: #3B3B3B;
-        margin-left: 270px;
-        font-size: 14px;
-        text-align: center;
-        padding-top: 3px;
+    .commentdate {
+        display: inline-block;
+        padding: 15px 0 0 15px;
     }
-    .postdate
-    {
-        margin-left: 40%;
-    }
-    .catBlock .sortItemsStatus{
+    .catBlock .sortItemsStatus {
         border-radius: 0;
     }
-    .postdate_post
-    {
+    .postdate_post {
         width: 200px;
-    }
-    .topMenu, .menuBar
-    {
-        pointer-events: none;
-
     }
 </style>
