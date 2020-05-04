@@ -158,7 +158,9 @@ a:hover {
     padding: 15px 0;
 }
 .blockTopForLogo {
-    width: 50px;
+    max-width: 50px;
+    min-width: 42px;
+    width: 14%;
     height: 55px;
     display: inline-block;
     vertical-align: top;
@@ -521,8 +523,8 @@ textarea {
     top: 8px;
     content: '';
 }
-.btnMenuItems:hover, #menuBarBut:hover {
-    background-color: #CFD8DC;
+#menu_toggle:checked ~ #menu_btn {
+    position: fixed;
 }
 #menu_toggle:checked ~ #menu_btn > span {
     transform: rotate(45deg);
@@ -536,6 +538,7 @@ textarea {
     transform: rotate(90deg);
 }
 #menu_toggle:checked ~ .btnsMenu {
+    position: fixed;
     visibility: visible;
     left: 0;
 }
@@ -594,7 +597,7 @@ textarea {
         transition-duration: .25s;
     }
     .btnMenuItems:hover, #menuBarBut:hover {
-        background-color: #CFD8DC;
+        background-color: #673AB7;
     }
     .mainArea {
         max-width: 60%;
@@ -632,7 +635,51 @@ textarea {
 
 @media (max-width: 655px) {
     .container {
-        /* width: 100%; */
+        width: 100%;
+    }
+    .logoBlock {
+        height: 50px;
+        border-radius: 0;
+        background-color: transparent;
+    }
+    .logo {
+        margin: 2px auto;
+    }
+    .row {
+        flex-flow: wrap;
+    }
+    .mainArea, .thirdCol {
+        max-width: 100%;
+        width: 100%;
+        flex: 0 0 100%;
+        padding: 0 4%;
+    }
+    .thirdCol {
+        order: 1;
+    }
+    .mainArea {
+        order: 2;
+    }
+    .fixedCol {
+        padding: 0;
+    }
+    .topMenu {
+        margin-top: 5px;
+    }
+    .rightBlock_block {
+        margin-top: 10px;
+    }
+    .postBlocks {
+        padding-top: 20px;
+    }
+    .BookmarkBtnIs, .BookmarkBtn {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+    .popupBlock, .singleAd {
+        width: 80%;
+        left: 10%;
+        top: 80px
     }
 }
 
