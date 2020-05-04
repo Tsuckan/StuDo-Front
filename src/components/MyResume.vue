@@ -140,7 +140,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/resumes/user/'+this.$cookies.get('USER').id,
+                url: process.env.VUE_APP_API + 'resumes/user/'+this.$cookies.get('USER').id,
                 data: {}
             })
                 .then(data => {
@@ -150,7 +150,7 @@
                 {
                     axios({
                         method: 'post',
-                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        url: process.env.VUE_APP_API + 'auth/refresh',
                         data: {
                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                         }

@@ -164,7 +164,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/user/password/change',
+                    url: process.env.VUE_APP_API + 'user/password/change',
                     data: {
                         id: this.$cookies.get("USER").id,
                         oldPassword: this.oldPassword,

@@ -194,7 +194,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    url: process.env.VUE_APP_API + 'ad/bookmarks/' + a,
                     data: {}
                 }).then(data => {
                     if(data)
@@ -225,7 +225,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'get',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad',
+                    url: process.env.VUE_APP_API + 'ad',
                     data: {}
                 }).then(data => {
                         this.posts=data.data;
@@ -239,7 +239,7 @@
                     {
                         axios({
                             method: 'post',
-                            url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                            url: process.env.VUE_APP_API + 'auth/refresh',
                             data: {
                                 refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                             }

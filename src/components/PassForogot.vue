@@ -158,7 +158,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/user/password/reset',
+                    url: process.env.VUE_APP_API + 'user/password/reset',
                     data: {
                         email: this.Email
                     }

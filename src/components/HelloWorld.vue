@@ -176,7 +176,7 @@ methods : {
     e.preventDefault()
       axios({
       method: 'post',
-      url: 'https://dev.studo.rtuitlab.ru/api/auth/login',
+      url: process.env.VUE_APP_API + 'auth/login',
       data: {
         email: this.Email,
         password: this.Password

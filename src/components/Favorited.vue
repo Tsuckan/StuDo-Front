@@ -149,7 +149,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'delete',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks/' + a,
+                    url: process.env.VUE_APP_API + 'ad/bookmarks/' + a,
                     data: {}
                 })
                 var leftSection = document.getElementById(a);
@@ -168,7 +168,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad/bookmarks',
+                url: process.env.VUE_APP_API + 'ad/bookmarks',
                 data: {}
             })
                 .then(data => {

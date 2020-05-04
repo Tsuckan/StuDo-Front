@@ -162,7 +162,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/resumes',
+                    url: process.env.VUE_APP_API + 'resumes',
                     data: {
                         "id": "",
                         "name": this.name,

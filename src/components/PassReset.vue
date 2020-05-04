@@ -179,7 +179,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/account/manage/resetPassword',
+                    url: process.env.VUE_APP_API + 'account/manage/resetPassword',
                     data: {
                         "userId": $_GET(this.$route.fullPath,"userId"),
                         "token":rdy,

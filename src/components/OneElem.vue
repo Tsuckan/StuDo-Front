@@ -165,7 +165,7 @@
                             'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                         },
                         method: 'post',
-                        url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid,
+                        url: process.env.VUE_APP_API + 'ad/comment/' + this.postid,
                         data: {
                             text: this.description
                         }
@@ -186,7 +186,7 @@
                                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                                 },
                                 method: 'get',
-                                url: 'https://dev.studo.rtuitlab.ru/api/ad/' + this.postid,
+                                url: process.env.VUE_APP_API + 'ad/' + this.postid,
                                 data: {}
                             })
                                 .then(data => {
@@ -200,7 +200,7 @@
                                 {
                                     axios({
                                         method: 'post',
-                                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                                        url: process.env.VUE_APP_API + 'refresh',
                                         data: {
                                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                                         }
@@ -250,7 +250,7 @@
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
                     method: 'delete',
-                    url: 'https://dev.studo.rtuitlab.ru/api/ad/comment/' + this.postid + '/' + a,
+                    url: process.env.VUE_APP_API + 'ad/comment/' + this.postid + '/' + a,
                     data: {}
                 }).then(data => {
                     if(data)
@@ -280,7 +280,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: 'https://dev.studo.rtuitlab.ru/api/ad/' + this.postid,
+                url: process.env.VUE_APP_API + 'ad/' + this.postid,
                 data: {}
             })
                 .then(data => {
@@ -294,7 +294,7 @@
                 {
                     axios({
                         method: 'post',
-                        url: 'https://dev.studo.rtuitlab.ru/api/auth/refresh',
+                        url: process.env.VUE_APP_API + 'auth/refresh',
                         data: {
                             refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
                         }

@@ -184,7 +184,7 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                     method: 'post',
-                    url: 'https://dev.studo.rtuitlab.ru/api/auth/register',
+                    url: process.env.VUE_APP_API + 'auth/register',
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,
