@@ -44,9 +44,11 @@ header {
 a {
     text-decoration: none !important;
     color: white !important;
+    transition-duration: .25s;
 }
 a:hover {
     text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F !important;
+    transition-duration: .25s;
 }
 .logoBlock {
     width: 213px;
@@ -444,9 +446,14 @@ button.transparent {
     float: right;
     padding: 10px;
     margin-right: 10px;
-    background-image: url("/img/star_check_ON.svg");
+    background-image: url("/img/star_check_ON_colored.svg");
     background-repeat: no-repeat;
     margin-top: 10px;
+    transition-duration: .25s;
+}
+.BookmarkBtn:hover {
+    background-image: url("/img/star_check_ON.svg");
+    transition-duration: .25s;
 }
 .BookmarkBtnIs {
     background: transparent;
@@ -458,9 +465,11 @@ button.transparent {
     background-image: url("/img/star_check_OFF.svg");
     background-repeat: no-repeat;
     margin-top: 10px;
+    transition-duration: .25s;
 }
-.BookmarkBtn:hover {
-    color: blue;
+.BookmarkBtnIs:hover {
+    background-image: url("/img/star_check_OFF_colored.svg");
+    transition-duration: .25s;
 }
 .DeleteBtn {
     display: inline-block;
