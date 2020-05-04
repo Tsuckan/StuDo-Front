@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ref="noComments" style="padding-top:15px; text-align: center; color: white" v-else>Комментариев нет</div>
+                            <div ref="noComments" class="noComments" style="padding-top:15px; text-align: center; color: white" v-else>Комментариев нет</div>
                             <div class="writecomment">
                                 <textarea v-model="description" id="description" class="customScroll"></textarea>
                                 <button @click="handleSubmitt"></button>

@@ -637,7 +637,7 @@ textarea {
         height: 300px;
         border-radius: 0 0 13px 13px;
     }
-    .oneComment {
+    .oneComment, .noComments {
         max-height: 247.5px;
     }
 }
