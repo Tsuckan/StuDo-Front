@@ -43,11 +43,11 @@ header {
 }
 a {
     text-decoration: none !important;
-    color: white !important;
+    color: #ffffffcc !important;
     transition-duration: .25s;
 }
 a:hover {
-    text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F !important;
+    text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F !important;
     transition-duration: .25s;
 }
 .logoBlock {
@@ -61,11 +61,11 @@ a:hover {
     z-index: 1;
 }
 .imgLogo {
-
+    opacity: 0.8;
 }
 .nameLogo {
     font-size: 24px;
-    color: white;
+    color: #ffffffcc;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -79,7 +79,7 @@ a:hover {
     border-radius: 8px;
     background: #222222;
     margin-top: 5px;
-    color: white;
+    color: #ffffffcc;
     font-size: 18px;
     padding-left: 20px;
 }
@@ -118,12 +118,13 @@ a:hover {
     top: 25px;
 }
 .topMenuItems{
-    color: white;
+    color: #ffffffcc;
     font-size: 14px;
     margin-top: 12px;
 }
 .active{
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #ffffffcc;
+
 }
 .mainArea {
     padding-top: 20px;
@@ -152,7 +153,7 @@ a:hover {
     border-radius: 0;
 }
 .titleForPost {
-    color: white;
+    color: #ffffffcc;
     font-size: 19px;
     display: inline-block;
     width: 68%;
@@ -169,7 +170,7 @@ a:hover {
     border-radius: 5px 5px 13px 13px;
     background: #673AB7;
     z-index: 1;
-    color: white;
+    color: #ffffffcc;
     font-size: 25px;
     text-align: center;
     padding: 13px 10px;
@@ -189,7 +190,7 @@ a:hover {
 .postdate {
     height: 25px;
     width: max-content;
-    color: white;
+    color: #ffffffcc;
     border-radius: 13px;
     background: #3B3B3B;
     margin: 0 10px 0 auto;
@@ -227,7 +228,7 @@ a:hover {
 .searchform {
     background: #3B3B3B;
     border-radius: 36px;
-    color: white;
+    color: #ffffffcc;
     border: 1px solid #3B3B3B;
 }
 .searchInput {
@@ -235,7 +236,7 @@ a:hover {
     padding: 3px 0 3px 10px;
     background: #3B3B3B;
     border-radius: 36px 0 0 36px;
-    color: white;
+    color: #ffffffcc;
     border: 1px solid #3B3B3B;
 }
 .searchLogo {
@@ -254,7 +255,7 @@ a:hover {
     font-size: 16px;
 }
 .sortItems{
-    color: white;
+    color: #ffffffcc;
 }
 .sortItemsStatus {
     margin-top: 6px;
@@ -391,7 +392,7 @@ a.doubleLink {
     left: 20%;
 }
 .popupHeader {
-    color: white;
+    color: #ffffffcc;
     font-size: 19px;
     width: 69%;
     word-break: break-word;
@@ -436,7 +437,7 @@ button.profile {
 }
 button.transparent {
     background: transparent;
-    color: honeydew;
+    color: #ffffffcc;
     margin: 0 10%;
     border: none;
 }
@@ -483,7 +484,7 @@ button.transparent {
     float: right;
 }
 input {
-    color:honeydew;
+    color:#ffffffcc;
     padding: 7px 10px;
 }
 input.profileField {
@@ -491,9 +492,10 @@ input.profileField {
     background-color: rgb(54,55,54);
     border: none;
     border-radius: 10px;
+    margin-bottom: 15px;
 }
 textarea {
-    color:honeydew;
+    color:#ffffffcc;
     padding-left: 18px;
     padding-top: 6px;
 }

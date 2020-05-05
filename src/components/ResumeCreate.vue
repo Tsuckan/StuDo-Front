@@ -26,19 +26,19 @@
                     <div class="btnMenuItems d-flex">
                         <div class="btnActiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                         </div>
                     </div>
                 </div>
@@ -50,18 +50,18 @@
                             <div class="menuBar">
                                 <div class="btnsMenu">
                                     <div class="menuBarBut">
-                                        <router-link style="position: relative; color: white;" to="/ResumeCreate">Создать Резюме</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/ResumeCreate">Создать Резюме</router-link>
                                     </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnActiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white;" to="/Resumes">Все Резюме</router-link>
+                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Все Резюме</router-link>
                                         </div>
                                     </div>
                                     <div class="btnMenuItems d-flex">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white;"  to="/MyResume">Мои Резюме</router-link>
+                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
                                         </div>
                                     </div>
                                 </div>
@@ -92,13 +92,13 @@
                         <div class="fixedCol">
                             <div class="topMenu d-flex">
                                 <div class="topMenuItems">
-                                    <router-link style="position: relative; color: white;" to="/Logged">Объявления</router-link>
+                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
                                 </div>
                                 <div class="topMenuItems active">
-                                    <router-link style="position: relative; color: white;" to="/Resumes">Резюме</router-link>
+                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
                                 </div>
                                 <div class="topMenuItems">
-                                    <router-link style="position: relative; color: white;" to="/Profile">Профиль</router-link>
+                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
                                 </div>
                             </div>
 
@@ -124,7 +124,7 @@
                 <label for="name">Название</label>
                 <input placeholder="" required id="name" v-model="name" name="name" type="text">
                 <label for="description">Описание</label>
-                <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text"></textarea>
+                <textarea cols="103" required placeholder="" id="description" v-model="description" name="description" type="text" class="customScroll"></textarea>
             </div>
             <div class="popupFooter">
                 <div class="halfBlock leftAlign">

@@ -26,19 +26,19 @@
                     <div class="btnMenuItems d-flex">
                         <div class="btnActiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                         </div>
                     </div>
                 </div>
@@ -54,31 +54,31 @@
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnActiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white;" to="/Logged">Все объявления</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white;"  to="/MyLogged">Мои объявления</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white;"  to="/Favorited">Закладки</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white;"  to="/Logged">Вкладка 4</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Logged">Вкладка 4</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white;"  to="/Logged">Вкладка 5</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Logged">Вкладка 5</router-link>
                                     </div>
                                 </div>
                             </div>
