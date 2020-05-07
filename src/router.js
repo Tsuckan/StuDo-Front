@@ -59,10 +59,6 @@ export default new VueRouter({
             component: nf,
         },
         {
-            path: '/Acceptation',
-            component: EmailAccept,
-        },
-        {
             path: '/Profile',
             component: Profile,
         },

@@ -212,7 +212,7 @@ button {
   border-radius: 30px;
   background-color: rgb(102,49,179);
   border: none;
-  color: #ffffffcc;
+  color: white;
   padding: 7px 10px;
   cursor: pointer;
 }
