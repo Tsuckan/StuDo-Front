@@ -4,8 +4,7 @@
         <header>
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
+                    <div class="imgLogo"></div>
                     <div class="nameLogo">
                         StuDo
                     </div>
@@ -13,7 +12,15 @@
             </div>
         </header>
 
-        <div>
+        <transition name="popup">
+            <div v-if="showPopup" class="blur_layer" />
+        </transition>
+
+        <transition name="popup">
+            <popup v-if="showPopup" class="inFront" :viewName="this.rootMessage" @close="closePopup" />
+        </transition>
+
+        <div :class="blur">
             <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
                 <label id="menu_btn" for="menu_toggle">
@@ -105,7 +112,7 @@
                             </button>
                         </div>
                         <div class="halfBlock rightAlign">
-                            <button class="transparent" @click="exit">
+                            <button class="transparent" @click="exit('login')">
                                 Выйти
                             </button>
                         </div>
@@ -133,27 +140,58 @@
 
 <script>
     import router from "@/router";
+    import popup from "./Popup";
     import axios from "axios";
     export default {
-        name: "Logged",
+        name: "Prof",
+        components: {
+            popup: popup
+        },
         data() {
             return {
-                firstname:this.$cookies.get("USER").firstname,
-                surname:this.$cookies.get("USER").surname,
-                studentCardNumber:this.$cookies.get("USER").studentCardNumber,
-                rawHtml: {}
+                firstname: '',
+                surname: '',
+                studentCardNumber: '',
+                rawHtml: {},
+                rootMessage: '',
+                showPopup: false,
+                blur: ''
             };
-        }, methods: {
-            exit() {
+        },
+        created: function () {
+            if (this.$cookies.get("USER")) {
+                this.firstname = this.$cookies.get("USER").firstname;
+                this.surname = this.$cookies.get("USER").surname;
+                this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
+            }
+            else {
+                this.blur='blur_test';
+                this.rootMessage = 'login';
+                this.showPopup = true;
+            }
+        },
+        methods: {
+            exit(message) {
+                this.blur='blur_test';
+                this.rootMessage = message;
+
+                this.firstname = '';
+                this.surname = '';
+                this.studentCardNumber = '';
+
+                this.showPopup = true;
                 this.$cookies.remove("ACCESSTOKEN");
                 this.$cookies.remove("USER");
-                router.push({ path: '/Login', query: { InCorrect: true } })
             },
             changepass() {
-                router.push("/passchange")
+                this.blur='blur_test';
+                this.rootMessage = 'passChange';
+                this.showPopup = true;
             },
             changeemail() {
-                router.push("/emailchange")
+                this.blur='blur_test';
+                this.rootMessage = 'emailChange';
+                this.showPopup = true;
             },
             accept() {
                 axios({
@@ -176,7 +214,7 @@
                         title: 'Успешно',
                         text: 'Данные успешно изменены'
                     });
-                    router.push('/Profile')
+                    router.go();
                     }).catch(error => {
                         if(error)
                     this.$notify({
@@ -185,6 +223,14 @@
                         text: 'Произошла ошибка'
                     });
                 });
+            },
+            closePopup() {
+                this.showPopup=false;
+                this.blur='';
+
+                this.firstname = this.$cookies.get("USER").firstname;
+                this.surname = this.$cookies.get("USER").surname;
+                this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
             }
         },
         mounted() {

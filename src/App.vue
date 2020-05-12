@@ -8,7 +8,6 @@
 </template>
 
 <script>
-    window.globalVar = "https://dev.studo.rtuitlab.ru/api/";
 export default {
     mounted()
     {
