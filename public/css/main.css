@@ -21,6 +21,10 @@ body {
     border: 1px solid black;
 }
 
+.box, .main {
+    position: relative;
+}
+
 header {
     height: 50px;
     background: #222222;
@@ -124,7 +128,6 @@ a:hover {
 }
 .active{
     border-bottom: 2px solid #ffffffcc;
-
 }
 .mainArea {
     padding-top: 20px;
@@ -307,19 +310,21 @@ a.doubleLink {
 }
 .blur_layer {
     position: absolute;
+    filter: blur(20px);
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
     bottom: 0;
-    right: 0;    
+    right: 0; 
+    z-index: 2;   
 }
 .singleAd {
-    width: 60%;
+    width: 60vw;
     min-height: 400px;
     position: absolute;
-    top: 150px;
-    left: 20%
+    top: -10px;
+    left: -62.5%;
 }
 .postBlock#full {
     width: 60%;
@@ -388,8 +393,8 @@ a.doubleLink {
     background-color: #2F2F2F;
     border-radius: 13px;
     position: absolute;
-    top: 150px;
     left: 20%;
+    z-index: 9990;
 }
 .popupHeader {
     color: #ffffffcc;
@@ -484,7 +489,7 @@ button.transparent {
     float: right;
 }
 input {
-    color:#ffffffcc;
+    color: #ffffffcc;
     padding: 7px 10px;
 }
 input.profileField {
@@ -495,7 +500,7 @@ input.profileField {
     margin-bottom: 15px;
 }
 textarea {
-    color:#ffffffcc;
+    color: #ffffffcc;
     padding-left: 18px;
     padding-top: 6px;
 }
@@ -562,12 +567,19 @@ textarea {
     .changeDataBlock {
         padding: 15px 0;
     }
+    .singleAd {
+        width: 75vw;
+        left: -67.5%;
+    }
 }
 
 @media (max-width: 990px) {
     .container {}
     .col-4.firstCol {
         display: none;
+    }
+    .singleAd {
+        left: 12.5%;
     }
     .menu {
         display: block;
@@ -694,8 +706,19 @@ textarea {
     }
 }
 
-/*@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}*/
+.popup-enter-active, .popup-leave-active {
+        transition: opacity .7s;
+    }
+    .popup-enter, .popup-leave-to {
+        opacity: 0;
+    }
+    .inFront {
+        z-index: 9900;
+        position: relative;
+    }
+    .blur-enter-active, .blur-leave-active {
+        transition: opacity .7s;
+    }
+    .blur-enter, .blur-leave-to {
+        opacity: 0;
+    }
