@@ -83,15 +83,15 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
                         <transition name="popup">
                             <popup v-if="isShowing(post.id)" class="inFront" :viewName="'oneElem'" :id="post.id" @close="closePopup" />
                         </transition>
                         <div class="postBlock" :class="blur">
                             <div class="postTopBlock">
-                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="isFavorite(post)" class="BookmarkBtn" @click="Bookmark(post.id)">
                                 </button>
-                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="!isFavorite(post)" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -133,8 +133,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput">
-                                    <div class="searchLogo">
+                                    <input type="text" class="searchInput" v-model="query">
+                                    <div class="searchLogo" @click="filterPosts(query)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -162,17 +162,18 @@
     import router from "@/router";
     import axios from 'axios';
     import popup from './Popup';
-    // eslint-disable-next-line no-unused-vars
-    import CiaoVuePopup from 'ciao-vue-popup'
+
     export default {
         name: "Logged",
         components: {
             popup: popup
         },
+        props: ['id'],
         data() {
             return {
                 rawHtml: {},
                 posts: [],
+                filteredPosts: [],
                 comments: [],
                 openedPost: -1,
                 showPopup: false,
@@ -197,14 +198,18 @@
             isShowing(id) {
                 if (this.openedPost === -1)
                     return false
-                else if (this.posts[this.openedPost].id === id)
+                else if (this.filteredPosts[this.openedPost].id === id)
                     return true
                 else
                     return false;
             },
+            isFavorite(post) {
+                return post.isFavorite
+            },
             back() {
+                router.push({query: ''});
                 if (this.openedPost != -1) {
-                    this.posts[this.openedPost].show = false;
+                    this.filteredPosts[this.openedPost].show = false;
                     this.openedPost = -1;
                     this.showPopup = false;
                     this.blur = '';
@@ -236,12 +241,12 @@
                 }).then(data => {
                     if(data)
                     var leftSection = document.getElementById(a);
-                    leftSection.parentNode.removeChild(leftSection);
+                    leftSection.classList.replace('BookmarkBtnIs', 'BookmarkBtn');
                     this.$notify({
                         group: 'foo',
                         title: 'Пост добавлен в закладки'
                     });
-                    }).catch(error => {
+                }).catch(error => {
                     if(error)
                         this.$notify({
                         group: 'foo',
@@ -250,9 +255,10 @@
                 });
             },
             showPost(id) {
-                for (var i = 0; i < this.posts.length; i++) {
-                    if (this.posts[i].id === id) {
-                        this.posts[i].show = true;
+                router.push({query: {id: id}});
+                for (var i = 0; i < this.filteredPosts.length; i++) {
+                    if (this.filteredPosts[i].id === id) {
+                        this.filteredPosts[i].show = true;
                         this.showPopup = true;
                         this.openedPost = i;
                         this.blur = 'blur_test';
@@ -261,7 +267,7 @@
             },
             closePopup(e) {
                 if (e === 'unauthorized') {
-                    this.posts[this.openedPost].show = false;
+                    this.filteredPosts[this.openedPost].show = false;
                     this.openedPost = -1;
 
                     this.message = 'login';
@@ -275,32 +281,53 @@
                     if (this.message === 'login')
                         router.go();
                 }
+            },
+            filterPosts(query) {
+                this.filteredPosts = this.posts.filter(function(post) {
+                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    if (post.shortDescription.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    return false;
+                });
             }
         },
-            mounted() {
-                axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
-                    method: 'get',
-                    url: process.env.VUE_APP_API + 'ad',
-                    data: {}
-                }).then(data => {
-                        this.posts=data.data;
-                        for (let i = 0; i < this.posts.length; i++) {
-                            this.posts[i].show = false;
-                            this.comments.push(this.posts[i].lastComment);
+        mounted() {
+            axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
+                method: 'get',
+                url: process.env.VUE_APP_API + 'ad',
+                data: {}
+            }).then(data => {
+                this.posts = data.data;
+                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
+                for (let i = 0; i < this.filteredPosts.length; i++) {
+                    this.filteredPosts[i].show = false;
+                    this.comments.push(this.filteredPosts[i].lastComment);
+                }
+                if (this.id != '') {
+                    for (var i = 0; i < this.filteredPosts.length; i++) {
+                        if (this.filteredPosts[i].id === this.id) {
+                            this.filteredPosts[i].show = true;
+                            this.showPopup = true;
+                            this.openedPost = i;
+                            this.blur = 'blur_test';
                         }
-                    }).catch(error => {
-                    // eslint-disable-next-line no-console
-                    if(error.response.status==401) {
-                        this.message = 'login';
-                        this.showPopup = true;
-                        this.showLogin = true;
-                        this.blur = 'blur_test';
                     }
-                });
-            }}
+                }
+            }).catch(error => {
+                // eslint-disable-next-line no-console
+                if(error.response.status==401) {
+                    this.message = 'login';
+                    this.showPopup = true;
+                    this.showLogin = true;
+                    this.blur = 'blur_test';
+                }
+            });
+        }
+    }
 </script>
 
 <style scoped>

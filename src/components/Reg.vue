@@ -11,7 +11,7 @@
                     <label for="surname">Фамилия</label>
                     <input placeholder="" id="surname" v-model="surname" name="surname" required type="text">
                 </div>
-                <label for="studentCardNumber">Номер Студенческого</label>
+                <label for="studentCardNumber">Номер студенческого</label>
                 <input placeholder="" id="studentCardNumber" v-model="studentCardNumber" required name="studentCardNumber" type="text">
                 <label for="Email">Email</label>
                 <input placeholder="" id="Email" v-model="Email" name="Email" required type="text">
@@ -48,7 +48,63 @@
         methods : {
             handleSubmit(e){
                 e.preventDefault()
-                axios({
+                if (this.firstname === '' || this.firstname === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Имя незаполнено'
+                    });
+                }
+                else if (this.surname === '' || this.surname === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Фамилия незаполнено'
+                    });
+                }
+                else if (this.studentCardNumber === '' || this.studentCardNumber === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Номер студенческого незаполнено'
+                    });
+                }
+                else if (this.Email === '' || this.Email === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Почта незаполнено'
+                    });
+                }
+                else if (this.Password === '' || this.Password === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Пароль незаполнено'
+                    });
+                }
+                else if (this.passwordConfirm === '' || this.passwordConfirm === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Повтор пароля незаполнено'
+                    });
+                }
+                else if (this.Password.length < 6) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Пароль меньше 6 символов'
+                    });
+                }
+                else if (this.passwordConfirm != this.Password) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Пароли не совпадают'
+                    });
+                }
+                else axios({
                 headers: {
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },

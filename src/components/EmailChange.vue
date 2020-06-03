@@ -39,7 +39,21 @@
         methods : {
             handleSubmit(e){
                 e.preventDefault()
-                axios({
+                if (this.oldEmail === '' || this.oldEmail === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Старая почта незаполнено'
+                    });
+                }
+                else if (this.newEmail === '' || this.newEmail === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Новая почта незаполнено'
+                    });
+                }
+                else axios({
                     method: 'post',
                     url: process.env.VUE_APP_API + 'user/change/email',
                     headers: {
@@ -50,14 +64,13 @@
                         oldEmail: this.oldEmail,
                         newEmail: this.newEmail
                 }
-                })
-                    
-                    // eslint-disable-next-line no-unused-vars
-                    .then(({ data }) => {
-                        // eslint-disable-next-line no-console
-                        console.log('status: ', data.status);
-                        router.go();
-                    }).catch(error => {
+                }) 
+                // eslint-disable-next-line no-unused-vars
+                .then(({ data }) => {
+                    // eslint-disable-next-line no-console
+                    console.log('status: ', data.status);
+                    router.go();
+                }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console
                         console.log('status: ', error.code);

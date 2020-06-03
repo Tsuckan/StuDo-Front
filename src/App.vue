@@ -9,8 +9,10 @@
 
 <script>
 export default {
-    mounted()
-    {
+    mounted() {
+      if (this.$cookies.get("THEME") === 'LIGHT') {
+        document.documentElement.setAttribute('theme', 'light');
+      }
     },
 }
 </script>

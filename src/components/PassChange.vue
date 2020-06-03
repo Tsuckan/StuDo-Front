@@ -7,7 +7,7 @@
                 <label for="oldPassword">Старый пароль</label>
                 <input placeholder="" required id="oldPassword" v-model="oldPassword" name="oldPassword" type="password">
                 <label for="newPassword">Новый пароль</label>
-                <input placeholder="" required id="newPassword" v-model="newPassword" name="newPassword" type="password">
+                <input placeholder="Не менее 6 символов" required id="newPassword" v-model="newPassword" name="newPassword" type="password">
             </div>
             <div class="popupFooter">
                 <div class="halfBlock leftAlign">
@@ -39,7 +39,28 @@
         methods : {
             handleSubmit(e){
                 e.preventDefault()
-                axios({
+                if (this.oldPassword === '' || this.oldPassword === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Старый пароль незаполнено'
+                    });
+                }
+                else if (this.newPassword === '' || this.newPassword === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Новый пароль незаполнено'
+                    });
+                }
+                else if (this.newPassword.length < 6) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Пароль меньше 6 символов'
+                    });
+                }
+                else axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },

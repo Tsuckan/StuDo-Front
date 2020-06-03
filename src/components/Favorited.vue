@@ -138,6 +138,7 @@
         components: {
             popup: popup
         },
+        props: ['id'],
         data() {
             return {
                 rawHtml: {},
@@ -148,7 +149,8 @@
                 message: 'lodin',
                 blur: ''
             };
-        },methods : {
+        },
+        methods : {
             formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
@@ -197,6 +199,7 @@
                 this.blur = 'blur_test';
             },
             showPost(id) {
+                router.push({query: {id: id}});
                 for (var i = 0; i < this.posts.length; i++) {
                     if (this.posts[i].id === id) {
                         this.posts[i].show = true;
@@ -232,13 +235,22 @@
                 method: 'get',
                 url: process.env.VUE_APP_API + 'ad/bookmarks',
                 data: {}
-            })
-                .then(data => {
-                    this.posts=data.data;
-                    for (let i = 0; i < this.posts.length; i++) {
-                        this.posts[i].show = false;
+            }).then(data => {
+                this.posts=data.data;
+                for (let i = 0; i < this.posts.length; i++) {
+                    this.posts[i].show = false;
+                }
+                if (this.id != '') {
+                    for (var i = 0; i < this.posts.length; i++) {
+                        if (this.posts[i].id === this.id) {
+                            this.posts[i].show = true;
+                            this.showPopup = true;
+                            this.openedPost = i;
+                            this.blur = 'blur_test';
+                        }
                     }
-                }).catch(error => {
+                }
+            }).catch(error => {
                 if(error) {
                     if(error.response.status==401) {
                         this.message = 'login';

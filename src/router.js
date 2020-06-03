@@ -26,10 +26,12 @@ export default new VueRouter({
         {
             path: '/Favorited',
             component: Favorited,
+            props: (route) => ({ id: route.query.id })
         },
         {
             path: '/MyLogged',
             component: MyLogged,
+            props: (route) => ({ id: route.query.id })
         },
         {
             path: '/PassReset',
@@ -47,7 +49,7 @@ export default new VueRouter({
             path: '/Logged',
             component: Logged,
             name: 'LoggedId',
-            props: true
+            props: (route) => ({ id: route.query.id })
         },
         {
             path: '/Resume',

@@ -20,7 +20,7 @@
             </div>
             <div ref="container" class="commentsContainer">
                 <div ref="comments" class="commentsBlock">
-                    <div v-if="posts.data.comments.length!=0" style="color: white; opacity: 0.8;" class="oneComment customScroll" ref="commentsField">
+                    <div v-if="posts.data.comments.length!=0" class="oneComment customScroll" ref="commentsField">
                         <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
                             <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
                                 <div class="commentauthor">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <div ref="noComments" class="noComments" style="padding-top:15px; text-align: center; color: white; opacity: 0.8;" v-else>Комментариев нет</div>
+                    <div ref="noComments" class="noComments" style="padding-top:15px; text-align: center;" v-else>Комментариев нет</div>
                     <div class="writecomment">
                         <textarea v-model="description" id="description" class="customScroll"></textarea>
                         <button @click="handleSubmit"></button>
@@ -184,14 +184,16 @@
         height: auto;
         padding-left: 15px;
         font-size: 16px;
-        color: #ACACAC;
+        color: var(--textblockForPost-color);
     }
     .commentauthor {
         padding-bottom: 5px;
+        color: var(--comment-color);
     }
     .commentdate {
         display: inline-block;
         padding: 15px 0 0 15px;
+        color: var(--comment-color);
     }
     .catBlock .sortItemsStatus {
         border-radius: 0;

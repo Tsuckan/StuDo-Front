@@ -72,7 +72,7 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <div class="blockTopForLogo">
@@ -107,8 +107,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput">
-                                    <div class="searchLogo">
+                                    <input type="text" class="searchInput" v-model="query">
+                                    <div class="searchLogo" @click="filterPosts(query)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -134,6 +134,7 @@
             return {
                 rawHtml: {},
                 posts: [],
+                filteredPosts: [],
                 showPopup: false,
                 message: 'login',
                 blur: ''
@@ -157,6 +158,15 @@
                     if (this.message === 'login')
                         router.go();
                 }
+            },
+            filterPosts(query) {
+                this.filteredPosts = this.posts.filter(function(post) {
+                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    if (post.description.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    return false;
+                });
             }
         },
         mounted() {
@@ -168,9 +178,10 @@
                 url: process.env.VUE_APP_API + 'resumes',
                 data: {}
             })
-                .then(data => {
-                    this.posts=data.data;
-                }).catch(error => {
+            .then(data => {
+                this.posts = data.data;
+                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
+            }).catch(error => {
                 if(error.response.status==401) {
                     this.message = 'login';
                     this.showPopup = true;

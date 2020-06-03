@@ -54,7 +54,21 @@
 methods : {
   handleSubmit(e){
     e.preventDefault()
-      axios({
+      if (this.Email === '' || this.Email === undefined) {
+        this.$notify({
+          group: 'foo',
+          title: 'Ошибка',
+          text: 'Поле Почта незаполнено'
+        });
+      }
+      else if (this.Password === '' || this.Password === undefined) {
+        this.$notify({
+          group: 'foo',
+          title: 'Ошибка',
+          text: 'Поле Пароль незаполнено'
+        });
+      }
+      else axios({
       method: 'post',
       url: process.env.VUE_APP_API + 'auth/login',
       data: {
@@ -78,7 +92,7 @@ methods : {
               this.$notify({
                   group: 'foo',
                   title: 'Ошибка',
-                  text: 'Проверьте пару логин и пароль'
+                  text: 'Проверьте логин и пароль'
               });
       });
   }
