@@ -15,15 +15,23 @@
             </div>
         </header>
 
+        <transition name="popup">
+            <div v-if="showPopup" class="blur_layer"  @click="back" />
+        </transition>
+
+        <transition name="popup">
+            <popup v-if="showLogin" class="inFront" :viewName="message" @close="closePopup" />
+        </transition>
+
         <div>
-            <div class="menu">
+            <div class="menu" :class="blur">
                 <input id="menu_toggle" type="checkbox" />
                 <label id="menu_btn" for="menu_toggle">
                     <span></span>   
                 </label>
                 <div class="btnsMenu">
                     <div class="menuBarBut">
-                        <router-link to="/Create">Создать объявление</router-link>
+                        <a href="javascript: void(0);" @click="create">Создать объявление</a>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
@@ -46,12 +54,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 firstCol">
+                <div class="col-4 firstCol" :class="blur">
                     <div class="fixedCol">
                         <div class="menuBar">
                             <div class="btnsMenu">
                                 <div class="menuBarBut">
-                                    <router-link style="position: relative" to="/Create">Создать объявление</router-link>
+                                    <a href="javascript: void(0);" @click="create">Создать объявление</a>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
@@ -78,7 +86,10 @@
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
-                        <div class="postBlock">
+                        <transition name="popup">
+                            <popup v-if="isShowing(post.id)" class="inFront" :viewName="'oneElem'" :id="post.id" @close="closePopup" />
+                        </transition>
+                        <div class="postBlock" :class="blur">
                             <div class="postTopBlock">
                                 <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
                                 </button>
@@ -87,8 +98,7 @@
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
-                                <div class="titleForPost"><router-link :to="{name: 'Ad', params: {id: post.id}, props: {id: post.id}}"
-                                >{{post.name}}</router-link>
+                                <div class="titleForPost"><a href="javascript: void(0);" @click="showPost(post.id)">{{post.name}}</a>
                                 </div>
                             </div>
                             <div class="postDownBlock">
@@ -102,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4 thirdCol">
+                <div class="col-4 thirdCol" :class="blur">
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems active">
@@ -125,15 +135,26 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
+    import popup from './Popup';
     export default {
         name: "MyLogged",
+        components: {
+            popup: popup
+        },
+        props: ['id'],
         data() {
             return {
                 rawHtml: {},
-                posts: []
+                posts: [],
+                openedPost: -1,
+                showPopup: false,
+                showLogin: false,
+                message: 'lodin',
+                blur: ''
             };
-        },methods : { formatDate(date) {
-
+        },
+        methods : { 
+            formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
 
@@ -156,11 +177,55 @@
                     data: {}
                 })
             },
-            handleSubmit() {
-                router.push("/Profile")
+            isShowing(id) {
+                if (this.openedPost === -1)
+                    return false
+                else if (this.posts[this.openedPost].id === id)
+                    return true
+                else
+                    return false;
             },
-            Create() {
-                router.push("/Resumes")
+            back() {
+                if (this.openedPost != -1) {
+                    this.posts[this.openedPost].show = false;
+                    this.openedPost = -1;
+                    this.showPopup = false;
+                    this.blur = '';
+                }
+            },
+            create() {
+                this.message = 'create';
+                this.showPopup = true;
+                this.showLogin = true;
+                this.blur = 'blur_test';
+            },
+            showPost(id) {
+                router.push({query: {id: id}});
+                for (var i = 0; i < this.posts.length; i++) {
+                    if (this.posts[i].id === id) {
+                        this.posts[i].show = true;
+                        this.showPopup = true;
+                        this.openedPost = i;
+                        this.blur = 'blur_test';
+                    }
+                }
+            },
+            closePopup(e) {
+                if (e === 'unauthorized') {
+                    this.posts[this.openedPost].show = false;
+                    this.openedPost = -1;
+
+                    this.message = 'login';
+                    this.showLogin = true;
+                }
+                else {
+                    this.showPopup = false;
+                    this.showLogin = false;
+                    this.blur = '';
+
+                    if (this.message === 'login')
+                        router.go();
+                }
             }
         },
         mounted() {
@@ -172,37 +237,29 @@
                 url: process.env.VUE_APP_API + 'ad/user/'+this.$cookies.get("USER").id,
                 data: {}
             })
-                .then(data => {
-                    this.posts=data.data;
-                }).catch(error => {
-                    if(error.response.status==401)
-                {
-                    axios({
-                        method: 'post',
-                        url: process.env.VUE_APP_API + 'auth/refresh',
-                        data: {
-                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
+            .then(data => {
+                this.posts=data.data;
+                for (let i = 0; i < this.posts.length; i++) {
+                    this.posts[i].show = false;
+                }
+                if (this.id != '') {
+                    for (var i = 0; i < this.posts.length; i++) {
+                        if (this.posts[i].id === this.id) {
+                            this.posts[i].show = true;
+                            this.showPopup = true;
+                            this.openedPost = i;
+                            this.blur = 'blur_test';
                         }
-                    })
-                        .then(({ data }) => {
-                            if (data.accessToken!=null)
-                            {
-                                this.$store.commit("SET_USER", data.user);
-                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
-                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
-                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
-                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
-                                this.$store.getters.USER;
-                                window.location.reload();
-                            }
-                        }).catch(error => {
-                        if(error)
-                            router.push({ path: '/Login', query: { InCorrect: true } })
-                    });
+                    }
+                }
+            }).catch(error => {
+                if(error.response.status==401) {
+                    this.message = 'login';
+                    this.showPopup = true;
+                    this.showLogin = true;
+                    this.blur = 'blur_test';
                 }
             });
-
-
         }
     }
 </script>

@@ -137,6 +137,7 @@ a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
+  display: block;
 }
 
 a:hover {
@@ -529,7 +530,6 @@ pre code {
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 0 50px 0;
-  background: #191919;
 }
 
 .container-fluid {

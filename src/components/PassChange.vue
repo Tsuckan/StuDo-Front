@@ -1,137 +1,17 @@
 
 <template>
-    <div class="main">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
-        <header>
-            <div class="logoBlock d-flex">
-                <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
-                    <div class="nameLogo">
-                        StuDo
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div class="blur_test">
-            <div class="menu">
-                <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
-                </label>
-                <div class="btnsMenu">
-                    <div class="menuBarBut">
-                        <router-link to="/Create">Создать объявление</router-link>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnActiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-4 firstCol">
-                        <div class="fixedCol">
-                            <div class="menuBar">
-                                <div class="btnsMenu">
-                                    <div class="menuBarBut">
-                                        <router-link to="/Create">Создать объявление</router-link>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnActiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                                        </div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                                        </div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mainArea">
-                        <div class="postBlocks">
-
-                        </div>
-                    </div>
-                    <div class="col-4 thirdCol">
-                        <div class="fixedCol">
-                            <div class="topMenu d-flex">
-                                <div class="topMenuItems active">
-                                    <router-link  to="/Logged">Объявления</router-link>
-                                </div>
-                                <div class="topMenuItems">
-                                    <router-link  to="/Resumes">Резюме</router-link>
-                                </div>
-                                <div class="topMenuItems">
-                                    <router-link  to="/Profile">Профиль</router-link>
-                                </div>
-                            </div>
-
-                            <div class="rightBlock">
-                                <div class="rightBlock_block">
-                                    <div class="searchform d-flex">
-                                        <input type="text" class="searchInput">
-                                        <div class="searchLogo">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <div class="sortBlock">
-                                        Сортировка
-                                        <div class="sortItems">
-                                            <div class="sortItem d-flex">
-                                                <div class="sortItemsStatus sortItemsStatusActiv"></div>По дате создания
-                                            </div>
-                                            <div class="sortItem d-flex">
-                                                <div class="sortItemsStatus"></div>Категории
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="blur_layer"></div>
+    <div>
         <div class="popupBlock">
             <div class="popupHeader">Смена пароля</div>
             <div class="popupBody">
                 <label for="oldPassword">Старый пароль</label>
                 <input placeholder="" required id="oldPassword" v-model="oldPassword" name="oldPassword" type="password">
                 <label for="newPassword">Новый пароль</label>
-                <input placeholder="" required id="newPassword" v-model="newPassword" name="newPassword" type="password">
+                <input placeholder="Не менее 6 символов" required id="newPassword" v-model="newPassword" name="newPassword" type="password">
             </div>
             <div class="popupFooter">
                 <div class="halfBlock leftAlign">
-                    <router-link to="/Profile">Назад</router-link>
+                    <a href="javascript: void(0);" @click="$emit('close')">Назад</a>
                 </div>
                 <div class="halfBlock rightAlign">
                     <button @click="handleSubmit">
@@ -159,7 +39,28 @@
         methods : {
             handleSubmit(e){
                 e.preventDefault()
-                axios({
+                if (this.oldPassword === '' || this.oldPassword === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Старый пароль незаполнено'
+                    });
+                }
+                else if (this.newPassword === '' || this.newPassword === undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Поле Новый пароль незаполнено'
+                    });
+                }
+                else if (this.newPassword.length < 6) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Пароль меньше 6 символов'
+                    });
+                }
+                else axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
@@ -175,7 +76,7 @@
                     .then(({ data }) => {
                         // eslint-disable-next-line no-console
                         console.log('status: ', data.status);
-                            router.push("/Profile");
+                        router.go();
                     }).catch(error => {
                     if(error)
                         // eslint-disable-next-line no-console

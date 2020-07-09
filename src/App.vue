@@ -8,10 +8,11 @@
 </template>
 
 <script>
-    window.globalVar = "https://dev.studo.rtuitlab.ru/api/";
 export default {
-    mounted()
-    {
+    mounted() {
+      if (this.$cookies.get("THEME") === 'LIGHT') {
+        document.documentElement.setAttribute('theme', 'light');
+      }
     },
 }
 </script>

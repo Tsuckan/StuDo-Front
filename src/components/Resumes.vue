@@ -13,15 +13,24 @@
                 </div>
             </div>
         </header>
+
+        <transition name="popup">
+            <div v-if="showPopup" class="blur_layer" />
+        </transition>
+
+        <transition name="popup">
+            <popup v-if="showPopup" class="inFront" :viewName="message" @close="closePopup" />
+        </transition>
+
         <div>
-            <div class="menu">
+            <div class="menu" :class="blur">
                 <input id="menu_toggle" type="checkbox" />
                 <label id="menu_btn" for="menu_toggle">
                     <span></span>   
                 </label>
                 <div class="btnsMenu">
                     <div class="menuBarBut">
-                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/ResumeCreate">Создать Резюме</router-link>
+                        <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
                         </div>
                         <div class="btnMenuItems d-flex">
                             <div class="btnActiv"></div>
@@ -37,13 +46,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" :class="blur">
                 <div class="col-4 firstCol">
                     <div class="fixedCol">
                         <div class="menuBar">
                             <div class="btnsMenu">
                                 <div class="menuBarBut">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/ResumeCreate">Создать Резюме</router-link>
+                                    <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
                                 </div>
                             <div class="btnMenuItems d-flex">
                                 <div class="btnActiv"></div>
@@ -63,7 +72,7 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in posts" :key="post.id">
+                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <div class="blockTopForLogo">
@@ -98,8 +107,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput">
-                                    <div class="searchLogo">
+                                    <input type="text" class="searchInput" v-model="query">
+                                    <div class="searchLogo" @click="filterPosts(query)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -115,19 +124,49 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
+    import popup from './Popup';
     export default {
-        name: "Logged",
+        name: "Resumes",
+        components: {
+            popup: popup
+        },
         data() {
             return {
                 rawHtml: {},
-                posts: []
+                posts: [],
+                filteredPosts: [],
+                showPopup: false,
+                message: 'login',
+                blur: ''
             };
-        },methods : {
-            handleSubmit(Idval) {
-                router.push({ path: '/Ad', query: { Id: Idval } })
+        },
+        methods : {
+            createResume() {
+                this.message = 'createResume';
+                this.showPopup = true;
+                this.blur = 'blur_test';
             },
-            Create() {
-                router.push("/Resumes")
+            closePopup(e) {
+                if (e === 'unauthorized') {
+                    this.message = 'login';
+                    this.showPopup = true;
+                }
+                else {
+                    this.showPopup = false;
+                    this.blur = '';
+
+                    if (this.message === 'login')
+                        router.go();
+                }
+            },
+            filterPosts(query) {
+                this.filteredPosts = this.posts.filter(function(post) {
+                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    if (post.description.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    return false;
+                });
             }
         },
         mounted() {
@@ -139,37 +178,16 @@
                 url: process.env.VUE_APP_API + 'resumes',
                 data: {}
             })
-                .then(data => {
-                    this.posts=data.data;
-                }).catch(error => {
-                if(error.response.status==401)
-                {
-                    axios({
-                        method: 'post',
-                        url: process.env.VUE_APP_API + 'auth/refresh',
-                        data: {
-                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
-                        }
-                    })
-                        .then(({ data }) => {
-                            if (data.accessToken!=null)
-                            {
-                                this.$store.commit("SET_USER", data.user);
-                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
-                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
-                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
-                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
-                                this.$store.getters.USER;
-                                window.location.reload();
-                            }
-                        }).catch(error => {
-                        if(error)
-                            router.push({ path: '/Login', query: { InCorrect: true } })
-                    });
+            .then(data => {
+                this.posts = data.data;
+                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
+            }).catch(error => {
+                if(error.response.status==401) {
+                    this.message = 'login';
+                    this.showPopup = true;
+                    this.blur = 'blur_test';
                 }
             });
-
-
         }
     }
 </script>

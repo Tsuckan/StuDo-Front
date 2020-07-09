@@ -1,152 +1,54 @@
 <template>
-    <div class="box">
-        <header>
-            <div class="logoBlock d-flex">
-                <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
-                    <div class="nameLogo">
-                        StuDo
-                    </div>
-                </div>
-            </div>
-        </header>
-        
-        <div class="blur_test">
-        <div>
-            <div class="menu">
-                <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
-                </label>
-                <div class="btnsMenu">
-                    <div class="menuBarBut">
-                        <router-link to="/Create">Создать объявление</router-link>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnActiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4 firstCol">
-                    <div class="fixedCol">
-                        <div class="menuBar">
-                            <div class="btnsMenu">
-                                <div class="menuBarBut">
-                                    <router-link to="/Create">Создать объявление</router-link>
-                                </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnActiv"></div>
-                                    <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                                    </div>
-                                </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
-                                    <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                                    </div>
-                                </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
-                                    <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 mainArea"></div>
-                <div class="col-4 thirdCol">
-                    <div class="fixedCol">
-                        <div class="topMenu d-flex">
-                            <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
-                            </div>
-                            <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
-                            </div>
-                            <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div v-on:click="back()"  class="blur_layer"></div>
-
+    <div>
         <div class="singleAd">
-                <div class="postBlock" id="full" ref="block">
-                    <div class="postTopBlock">
-                        <div class="blockTopForLogo">
-                            <i class="fa fa-ambulance" aria-hidden="true"></i>
-                        </div>
-                        <div class="titleForPost">{{posts.data.name}}
-                        </div>
+            <div class="postBlock" id="full" ref="block">
+                <div class="postTopBlock">
+                    <div class="blockTopForLogo">
+                        <i class="fa fa-ambulance" aria-hidden="true"></i>
                     </div>
-                    <div class="postDownBlock" style="min-height: 335px;">
-                        <div class="textblockForPost">
-                            {{posts.data.shortDescription}}
-                        </div>
-                        <div class="postdate postdate_post">
-                            {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
-                        </div>
+                    <div class="titleForPost">{{posts.data.name}}
                     </div>
-
+                </div>
+                <div class="postDownBlock" style="min-height: 335px;">
+                    <div class="textblockForPost">
+                        {{posts.data.shortDescription}}
                     </div>
-
-                    <div ref="container" class="commentsContainer">
-                        <div ref="comments" class="commentsBlock">
-                            <div v-if="posts.data.comments.length!=0" style="color: white; opacity: 0.8;" class="oneComment customScroll" ref="commentsField">
-                                <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
-                                    <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
-                                        <div class="commentauthor">
-                                            {{post.author}}
-                                        </div>
-                                        <div class="textblockForComment">
-                                            {{post.text}}
-                                        </div>
-                                        <div class="commentdate">
-                                            {{formatDate(new Date(post.commentTime))}}
-                                        </div>
-                                        <button v-if="checker(post.authorId)"  class="DeleteBtn" @click="Bookmark(post.id)">
-                                        </button>
-                                    </div>
+                    <div class="postdate postdate_post">
+                        {{formatDate(new Date(posts.data.beginTime))}} - {{formatDate(new Date(posts.data.endTime))}}
+                    </div>
+                </div>
+            </div>
+            <div ref="container" class="commentsContainer">
+                <div ref="comments" class="commentsBlock">
+                    <div v-if="posts.data.comments.length!=0" class="oneComment customScroll" ref="commentsField">
+                        <div class="commentsblocks"  v-for="post in posts.data.comments" :key="post.id">
+                            <div v-if="posts.data.comments.length!=0" :id='post.id' class="commentblock">
+                                <div class="commentauthor">
+                                    {{post.author}}
                                 </div>
-                            </div>
-                            <div ref="noComments" class="noComments" style="padding-top:15px; text-align: center; color: white; opacity: 0.8;" v-else>Комментариев нет</div>
-                            <div class="writecomment">
-                                <textarea v-model="description" id="description" class="customScroll"></textarea>
-                                <button @click="handleSubmitt"></button>
+                                <div class="textblockForComment">
+                                    {{post.text}}
+                                </div>
+                                <div class="commentdate">
+                                    {{formatDate(new Date(post.commentTime))}}
+                                </div>
+                                <button v-if="checker(post.authorId)"  class="DeleteBtn" @click="Bookmark(post.id)">
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div></div>
-
-
+                    <div ref="noComments" class="noComments" style="padding-top:15px; text-align: center;" v-else>Комментариев нет</div>
+                    <div class="writecomment">
+                        <textarea v-model="description" id="description" class="customScroll"></textarea>
+                        <button @click="handleSubmit"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-    import router from "@/router";
     import axios from 'axios';
     export default {
         name: "Ad",
@@ -155,10 +57,11 @@
             return {
                 rawHtml: {},
                 posts: [],
-                postid: this.$router.currentRoute.params['id']
+                postid: this.id
             };
-        },methods : {
-                handleSubmitt(e) {
+        },
+        methods : {
+                handleSubmit(e) {
                     e.preventDefault()
                     axios({
                         headers: {
@@ -196,35 +99,10 @@
                                     // eslint-disable-next-line no-console
                                     console.log(this.posts.data.comments.length)
                                 }).catch(error => {
-                                if(error.response.status==401)
-                                {
-                                    axios({
-                                        method: 'post',
-                                        url: process.env.VUE_APP_API + 'refresh',
-                                        data: {
-                                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
-                                        }
-                                    })
-                                        .then(({ data }) => {
-                                            if (data.accessToken!=null)
-                                            {
-                                                this.$store.commit("SET_USER", data.user);
-                                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
-                                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
-                                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
-                                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
-                                                this.$store.getters.USER;
-                                                window.location.reload();
-                                            }
-                                        }).catch(error => {
-                                        if(error)
-                                            router.push({ path: '/Login', query: { InCorrect: true } })
-                                    });
+                                if(error.response.status==401) {
+                                    this.$emit('close', 'unauthorized');
                                 }
                             });
-
-
-
                         }).catch(error => {
                         if (error)
                             // eslint-disable-next-line no-console
@@ -236,12 +114,7 @@
                         });
                     });
                 },
-            back()
-            {
-              router.push('/Logged')
-            },
-            checker(comid)
-            {
+            checker(comid) {
                 return comid===this.$cookies.get("USER").id
             },
             Bookmark(a) {
@@ -266,12 +139,6 @@
                 var yy = date.getFullYear();
                 if (yy < 10) yy = '0' + yy;
                 return dd + '.' + mm + '.' + yy;
-            },
-            handleSubmit(Idval) {
-                router.push({ path: '/Ad', query: { Id: Idval } })
-            },
-            Create() {
-                router.push("/Resumes")
             }
         },
         mounted() {
@@ -290,30 +157,8 @@
                     // eslint-disable-next-line no-console
                     console.log(this.posts.data.comments.length)
                 }).catch(error => {
-                if(error.response.status==401)
-                {
-                    axios({
-                        method: 'post',
-                        url: process.env.VUE_APP_API + 'auth/refresh',
-                        data: {
-                            refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
-                        }
-                    })
-                        .then(({ data }) => {
-                            if (data.accessToken!=null)
-                            {
-                                this.$store.commit("SET_USER", data.user);
-                                this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
-                                this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
-                                this.$cookies.set('USER', this.$store.getters.USER, '1m');
-                                this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
-                                this.$store.getters.USER;
-                                window.location.reload();
-                            }
-                        }).catch(error => {
-                        if(error)
-                            router.push({ path: '/Login', query: { InCorrect: true } })
-                    });
+                if(error.response.status==401) {
+                    this.$emit('close', 'unauthorized');
                 }
             });
         },
@@ -339,14 +184,16 @@
         height: auto;
         padding-left: 15px;
         font-size: 16px;
-        color: #ACACAC;
+        color: var(--textblockForPost-color);
     }
     .commentauthor {
         padding-bottom: 5px;
+        color: var(--comment-color);
     }
     .commentdate {
         display: inline-block;
         padding: 15px 0 0 15px;
+        color: var(--comment-color);
     }
     .catBlock .sortItemsStatus {
         border-radius: 0;

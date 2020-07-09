@@ -13,15 +13,23 @@
             </div>
         </header>
 
+        <transition name="popup">
+            <div v-if="showPopup" class="blur_layer"  @click="back" />
+        </transition>
+
+        <transition name="popup">
+            <popup v-if="showLogin" class="inFront" :viewName="message" @close="closePopup" />
+        </transition>
+
         <div>
-            <div class="menu">
+            <div class="menu" :class="blur">
                 <input id="menu_toggle" type="checkbox" />
                 <label id="menu_btn" for="menu_toggle">
                     <span></span>   
                 </label>
                 <div class="btnsMenu">
                     <div class="menuBarBut">
-                        <router-link to="/Create">Создать объявление</router-link>
+                        <a href="javascript: void(0);" @click="create">Создать объявление</a>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnActiv"></div>
@@ -44,12 +52,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 firstCol">
+                <div class="col-4 firstCol" :class="blur">
                     <div class="fixedCol">
                         <div class="menuBar">
                             <div class="btnsMenu">
                                 <div class="menuBarBut">
-                                    <router-link to="/Create">Создать объявление</router-link>
+                                    <a href="javascript: void(0);" @click="create">Создать объявление</a>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnActiv"></div>
@@ -75,18 +83,20 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in posts" :key="post.id">
-                        <div class="postBlock">
+                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
+                        <transition name="popup">
+                            <popup v-if="isShowing(post.id)" class="inFront" :viewName="'oneElem'" :id="post.id" @close="closePopup" />
+                        </transition>
+                        <div class="postBlock" :class="blur">
                             <div class="postTopBlock">
-                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="isFavorite(post)" class="BookmarkBtn" @click="Bookmark(post.id)">
                                 </button>
-                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="!isFavorite(post)" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
-                                <div class="titleForPost"><router-link :to="{name: 'Ad', params: {id: post.id}, props: {id: post.id}}"
-                                >{{post.name}}</router-link>
+                                <div class="titleForPost"><a href="javascript: void(0);" @click="showPost(post.id)">{{post.name}}</a>
                                 </div>
                             </div>
                             <div class="postDownBlock">
@@ -106,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4 thirdCol">
+                <div class="col-4 thirdCol" :class="blur">
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems active">
@@ -123,8 +133,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput">
-                                    <div class="searchLogo">
+                                    <input type="text" class="searchInput" v-model="query">
+                                    <div class="searchLogo" @click="filterPosts(query)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -151,33 +161,65 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
-    // eslint-disable-next-line no-unused-vars
-    import CiaoVuePopup from 'ciao-vue-popup'
+    import popup from './Popup';
+
     export default {
         name: "Logged",
+        components: {
+            popup: popup
+        },
+        props: ['id'],
         data() {
             return {
                 rawHtml: {},
                 posts: [],
-                comments: []
+                filteredPosts: [],
+                comments: [],
+                openedPost: -1,
+                showPopup: false,
+                showLogin: false,
+                message: 'login',
+                blur: ''
             };
-        },methods : {
-            getter(data, isText)
-            {
+        },
+        methods : {
+            getter(data, isText) {
                 try {
-                    if(isText)
-                    {
+                    if(isText) {
                         return data.text
                     }
-                    else
-                    {
+                    else {
                         return data.author
                     }
                 } catch (err) {
-
                     return false;
-
                 }
+            },
+            isShowing(id) {
+                if (this.openedPost === -1)
+                    return false
+                else if (this.filteredPosts[this.openedPost].id === id)
+                    return true
+                else
+                    return false;
+            },
+            isFavorite(post) {
+                return post.isFavorite
+            },
+            back() {
+                router.push({query: ''});
+                if (this.openedPost != -1) {
+                    this.filteredPosts[this.openedPost].show = false;
+                    this.openedPost = -1;
+                    this.showPopup = false;
+                    this.blur = '';
+                }
+            },
+            create() {
+                this.message = 'create';
+                this.showPopup = true;
+                this.showLogin = true;
+                this.blur = 'blur_test';
             },
             formatDate(date) {
                 var dd = date.getDate();
@@ -199,12 +241,12 @@
                 }).then(data => {
                     if(data)
                     var leftSection = document.getElementById(a);
-                    leftSection.parentNode.removeChild(leftSection);
+                    leftSection.classList.replace('BookmarkBtnIs', 'BookmarkBtn');
                     this.$notify({
                         group: 'foo',
                         title: 'Пост добавлен в закладки'
                     });
-                    }).catch(error => {
+                }).catch(error => {
                     if(error)
                         this.$notify({
                         group: 'foo',
@@ -212,57 +254,80 @@
                     });
                 });
             },
-            handleSubmit(Idval) {
-                router.push({path: '/Ad', query: {Id: Idval}})
-            },
-            Create() {
-                router.push("/Resumes")
-            },
-        },
-            mounted() {
-                axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
-                    method: 'get',
-                    url: process.env.VUE_APP_API + 'ad',
-                    data: {}
-                }).then(data => {
-                        this.posts=data.data;
-                        for (let i = 0; i < this.posts.length; i++)
-                        {
-                            this.comments.push(this.posts[i].lastComment)
-                        }
-                    }).catch(error => {
-                    // eslint-disable-next-line no-console
-                    if(error.response.status==401)
-                    {
-                        axios({
-                            method: 'post',
-                            url: process.env.VUE_APP_API + 'auth/refresh',
-                            data: {
-                                refreshToken: this.$cookies.get("REFRESHTOKENTOKEN"),
-                            }
-                        })
-                            .then(({ data }) => {
-                                if (data.accessToken!=null)
-                                {
-                                    this.$store.commit("SET_USER", data.user);
-                                    this.$store.commit("SET_ACCESSTOKEN", data.accessToken);
-                                    this.$cookies.set('ACCESSTOKEN', this.$store.getters.ACCESSTOKEN, '1m');
-                                    this.$cookies.set('USER', this.$store.getters.USER, '1m');
-                                    this.$cookies.set('REFRESHTOKENTOKEN', data.refreshToken, '1m');
-                                    this.$store.getters.USER;
-                                    window.location.reload();
-                                }
-                            }).catch(error => {
-                            if(error)
-                                router.push({ path: '/Login', query: { InCorrect: true } })
-                                });
+            showPost(id) {
+                router.push({query: {id: id}});
+                for (var i = 0; i < this.filteredPosts.length; i++) {
+                    if (this.filteredPosts[i].id === id) {
+                        this.filteredPosts[i].show = true;
+                        this.showPopup = true;
+                        this.openedPost = i;
+                        this.blur = 'blur_test';
                     }
+                }
+            },
+            closePopup(e) {
+                if (e === 'unauthorized') {
+                    this.filteredPosts[this.openedPost].show = false;
+                    this.openedPost = -1;
 
+                    this.message = 'login';
+                    this.showLogin = true;
+                }
+                else {
+                    this.showPopup = false;
+                    this.showLogin = false;
+                    this.blur = '';
+
+                    if (this.message === 'login')
+                        router.go();
+                }
+            },
+            filterPosts(query) {
+                this.filteredPosts = this.posts.filter(function(post) {
+                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    if (post.shortDescription.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        return true;
+                    return false;
                 });
-            }}
+            }
+        },
+        mounted() {
+            axios({
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                },
+                method: 'get',
+                url: process.env.VUE_APP_API + 'ad',
+                data: {}
+            }).then(data => {
+                this.posts = data.data;
+                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
+                for (let i = 0; i < this.filteredPosts.length; i++) {
+                    this.filteredPosts[i].show = false;
+                    this.comments.push(this.filteredPosts[i].lastComment);
+                }
+                if (this.id != '') {
+                    for (var i = 0; i < this.filteredPosts.length; i++) {
+                        if (this.filteredPosts[i].id === this.id) {
+                            this.filteredPosts[i].show = true;
+                            this.showPopup = true;
+                            this.openedPost = i;
+                            this.blur = 'blur_test';
+                        }
+                    }
+                }
+            }).catch(error => {
+                // eslint-disable-next-line no-console
+                if(error.response.status==401) {
+                    this.message = 'login';
+                    this.showPopup = true;
+                    this.showLogin = true;
+                    this.blur = 'blur_test';
+                }
+            });
+        }
+    }
 </script>
 
 <style scoped>

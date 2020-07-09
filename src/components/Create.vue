@@ -1,99 +1,6 @@
 
 <template>
-    <div class="main">
-        <header>
-            <div class="logoBlock d-flex">
-                <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
-                    <div class="nameLogo">
-                        StuDo
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div class="blur_test">
-            <div class="menu">
-                <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
-                </label>
-                <div class="btnsMenu">
-                    <div class="menuBarBut">
-                        <router-link to="/Create">Создать объявление</router-link>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnActiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                        </div>
-                    </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
-                        <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-4 firstCol">
-                        <div class="fixedCol">
-                            <div class="menuBar">
-                                <div class="btnsMenu">
-                                    <div class="menuBarBut">
-                                        <router-link to="/Create">Создать объявление</router-link>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnActiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
-                                        </div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
-                                        </div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mainArea"></div>
-                    <div class="col-4 thirdCol">
-                        <div class="fixedCol">
-                            <div class="topMenu d-flex">
-                                <div class="topMenuItems active">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
-                                </div>
-                                <div class="topMenuItems">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
-                                </div>
-                                <div class="topMenuItems">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="blur_layer"></div>
+    <div>
         <div class="popupBlock">
             <div class="popupHeader">Создание объявления</div>
             <div class="popupBody">
@@ -110,7 +17,7 @@
             </div>
             <div class="popupFooter">
                 <div class="halfBlock leftAlign">
-                    <router-link to="/Logged">Назад</router-link>
+                    <a href="javascript: void(0);" @click="$emit('close')">Назад</a>
                 </div>
                 <div class="halfBlock rightAlign">
                     <button @click="handleSubmit">
@@ -125,7 +32,7 @@
     import router from "@/router";
     import axios from 'axios';
     export default {
-        name: 'HelloWorld',
+        name: 'Create',
         data(){
             return {
                 "name": "",
@@ -161,9 +68,8 @@
                     title: 'Успешно',
                     text: 'Объявление создано'
                 });
-                    router.push('/Logged')
-                    if (data)
-                    {
+                    router.go();
+                    if (data) {
                         data=0;
                     }
                 }).catch(error => {
