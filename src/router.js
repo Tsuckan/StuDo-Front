@@ -3,13 +3,11 @@ import VueRouter from "vue-router";
 import Logged from "./components/Ads/Ads";
 import Profile from "./components/Profile";
 import Resumes from "./components/Resumes/Resumes";
-import MyLogged from "./components/Ads/MyAds";
 import MyResume from "./components/Resumes/MyResumes";
 import Resume from "./components/Resumes/ResumeInfo";
 import EmailAccept from "./components/EmailAccept";
 import PassReset from "./components/PassReset";
 import EmailTest from "./components/EmailTest";
-import Favorited from "./components/Ads/FavoritedAds";
 import nf from "./components/nf";
 export default new VueRouter({
     routes: [
@@ -22,16 +20,6 @@ export default new VueRouter({
             component: Resumes,
             name: 'ResumeId',
             props: true
-        },
-        {
-            path: '/Favorited',
-            component: Favorited,
-            props: (route) => ({ id: route.query.id })
-        },
-        {
-            path: '/MyLogged',
-            component: MyLogged,
-            props: (route) => ({ id: route.query.id })
         },
         {
             path: '/PassReset',

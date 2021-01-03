@@ -215,6 +215,10 @@ body {
   background-color: var(--body-background);
 }
 
+input, div, a {
+    outline: none;
+}
+
 .qq {
     border: 1px solid black;
 }
@@ -258,6 +262,7 @@ a:hover {
     color: var(--btnMenuItems-color);
     font-size: 18px;
     padding-left: 20px;
+    cursor: pointer;
 }
 .btnsMenu{
     padding-top: 20px;
@@ -416,7 +421,6 @@ a:hover {
 }
 .searchLogo {
     margin: auto 10px;
-    cursor: pointer;
 }
 .sortBlock{
     margin: 37px 5px 0;

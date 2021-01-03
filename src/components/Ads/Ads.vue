@@ -18,22 +18,22 @@
                     <div class="menuBarBut">
                         <a href="javascript: void(0);" @click="create">Создать объявление</a>
                     </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnActiv"></div>
+                    <div class="btnMenuItems d-flex" @click="to('all')">
+                        <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Все объявления</div>
                         </div>
                     </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
+                    <div class="btnMenuItems d-flex" @click="to('my')">
+                        <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                         </div>
                     </div>
-                    <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
+                    <div class="btnMenuItems d-flex" @click="to('favorite')">
+                        <div :class="mode.favorite === true ? 'btnActiv' : 'btnPassiv'"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
                         </div>
                     </div>
                 </div>
@@ -46,22 +46,22 @@
                                 <div class="menuBarBut">
                                     <a href="javascript: void(0);" @click="create">Создать объявление</a>
                                 </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnActiv"></div>
+                                <div class="btnMenuItems d-flex" @click="to('all')">
+                                    <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Все объявления</div>
                                     </div>
                                 </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
+                                <div class="btnMenuItems d-flex" @click="to('my')">
+                                    <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                                     </div>
                                 </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
+                                <div class="btnMenuItems d-flex" @click="to('favorite')">
+                                    <div :class="mode.favorite === true ? 'btnActiv' : 'btnPassiv'"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +94,11 @@
                                     {{formatDate(new Date(post.beginTime))}} - {{formatDate(new Date(post.endTime))}}
                                 </div>
                             </div>
-                            <div style="color: honeydew" v-if="getter(post.lastComment,false)" class="CommentAuthorForPost">
-                                Автор: {{getter(post.lastComment,false)}}
+                            <div style="color: honeydew" v-if="post.lastComment" class="CommentAuthorForPost">
+                                Автор: {{post.lastComment.author}}
                             </div>
-                            <div  v-if="getter(post.lastComment,false)" class="CommentblockForPost">
-                                {{getter(post.lastComment,true)}}...
+                            <div  v-if="post.lastComment" class="CommentblockForPost">
+                                {{post.lastComment.text}}...
                             </div>
                         </div>
                     </div>
@@ -158,9 +158,12 @@
         props: ['id'],
         data() {
             return {
-                rawHtml: {},
+                mode: {
+                    all: true,
+                    my: false,
+                    favorite: false
+                },
                 posts: [],
-                filteredPosts: [],
                 comments: [],
                 search: '',
                 openedPost: -1,
@@ -178,26 +181,68 @@
                     _posts = this.searchPosts();
                 }
 
-                console.log(_posts);
-
                 return _posts;
             },
-            getter(data, isText) {
-                try {
-                    if(isText) {
-                        return data.text
-                    }
-                    else {
-                        return data.author
-                    }
-                } catch (err) {
-                    return false;
+            to(modeName) {
+                let url;
+                this.mode = { all: false, my: false, favorite: false };
+
+                if (modeName === 'all') {
+                    url = process.env.VUE_APP_API + 'ad';
+                    this.mode.all = true;
                 }
+
+                if (modeName === 'my') {
+                    url = process.env.VUE_APP_API + 'ad/user/'+this.$cookies.get("USER").id;
+                    this.mode.my = true;
+                }
+
+                if (modeName === 'favorite') {
+                    url = process.env.VUE_APP_API + 'ad/bookmarks';
+                    this.mode.favorite = true;
+                }
+
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'get',
+                    url: url,
+                    data: {}
+                }).then(data => {
+                    this.posts = data.data;
+                    for (let i = 0; i < this.posts.length; i++) {
+                        this.posts[i].show = false;
+                        this.comments.push(this.posts[i].lastComment);
+                    }
+
+                    if (this.id != '') {
+                        for (let i = 0; i < this.posts.length; i++) {
+                            if (this.posts[i].id === this.id) {
+                                this.posts[i].show = true;
+                                this.showPopup = true;
+                                this.openedPost = i;
+                                this.blur = 'blur_test';
+                            }
+                        }
+                    }
+
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
+                    }
+                }).catch(error => {
+                    if(error.response.status==401) {
+                        this.message = 'login';
+                        this.showPopup = true;
+                        this.showLogin = true;
+                        this.blur = 'blur_test';
+                    }
+                });
             },
             isShowing(id) {
                 if (this.openedPost === -1)
                     return false
-                else if (this.filteredPosts[this.openedPost].id === id)
+                else if (this.posts[this.openedPost].id === id)
                     return true
                 else
                     return false;
@@ -208,7 +253,7 @@
             back() {
                 router.push({query: ''});
                 if (this.openedPost != -1) {
-                    this.filteredPosts[this.openedPost].show = false;
+                    this.posts[this.openedPost].show = false;
                     this.openedPost = -1;
                     this.showPopup = false;
                     this.blur = '';
@@ -257,9 +302,9 @@
             },
             showPost(id) {
                 router.push({query: {id: id}});
-                for (let i = 0; i < this.filteredPosts.length; i++) {
-                    if (this.filteredPosts[i].id === id) {
-                        this.filteredPosts[i].show = true;
+                for (let i = 0; i < this.posts.length; i++) {
+                    if (this.posts[i].id === id) {
+                        this.posts[i].show = true;
                         this.showPopup = true;
                         this.openedPost = i;
                         this.blur = 'blur_test';
@@ -268,7 +313,7 @@
             },
             closePopup(e) {
                 if (e === 'unauthorized') {
-                    this.filteredPosts[this.openedPost].show = false;
+                    this.posts[this.openedPost].show = false;
                     this.openedPost = -1;
 
                     this.message = 'login';
@@ -296,39 +341,7 @@
             }
         },
         mounted() {
-            axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
-                method: 'get',
-                url: process.env.VUE_APP_API + 'ad',
-                data: {}
-            }).then(data => {
-                this.posts = data.data;
-                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
-                for (let i = 0; i < this.filteredPosts.length; i++) {
-                    this.filteredPosts[i].show = false;
-                    this.comments.push(this.filteredPosts[i].lastComment);
-                }
-                if (this.id != '') {
-                    for (let i = 0; i < this.filteredPosts.length; i++) {
-                        if (this.filteredPosts[i].id === this.id) {
-                            this.filteredPosts[i].show = true;
-                            this.showPopup = true;
-                            this.openedPost = i;
-                            this.blur = 'blur_test';
-                        }
-                    }
-                }
-            }).catch(error => {
-                // eslint-disable-next-line no-console
-                if(error.response.status==401) {
-                    this.message = 'login';
-                    this.showPopup = true;
-                    this.showLogin = true;
-                    this.blur = 'blur_test';
-                }
-            });
+            this.to('all');
         }
     }
 </script>
