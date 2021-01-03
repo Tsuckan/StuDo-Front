@@ -5,14 +5,14 @@
 </template>
 
 <script>
-	import login from './Authorize';
-	import registration from './Reg';
+	import login from './Authorization';
+	import registration from './Registration';
 	import passForget from './PassForget';
-	import oneElem from './OneElem';
-	import create from './Create';
+	import adInfo from '../Ads/AdInfo';
+	import createAd from '../Ads/CreateAd';
 	import passChange from './PassChange';
 	import emailChange from './EmailChange';
-	import createResume from './ResumeCreate'
+	import createResume from '../Resumes/CreateResume';
 	
 	export default {
 		name: 'popup',
@@ -23,8 +23,8 @@
 					login: login,
 					registration: registration,
 					passForget: passForget,
-					oneElem: oneElem,
-					create: create,
+					adInfo: adInfo,
+					createAd: createAd,
 					passChange: passChange,
 					emailChange: emailChange,
 					createResume: createResume

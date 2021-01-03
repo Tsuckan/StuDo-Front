@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 <template>
     <div class="box">
@@ -6,7 +7,7 @@
             <div class="logoBlock d-flex">
                 <div class="logo d-flex">
                     <div class="imgLogo">
-                        <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>
+                        <img src="../../../src/assets/logo.png" height="50px" width="50px"/></div>
                     <div class="nameLogo">
                         StuDo
                     </div>
@@ -39,13 +40,13 @@
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
+                        <div class="btnActiv"></div>
                         <div class="pointers">
                             <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
-                        <div class="btnActiv"></div>
+                        <div class="btnPassiv"></div>
                         <div class="pointers">
                             <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                         </div>
@@ -63,17 +64,17 @@
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                                    <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Logged">Все объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
+                                    <div class="btnActiv"></div>
                                     <div class="pointers">
                                     <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
-                                    <div class="btnActiv"></div>
+                                    <div class="btnPassiv"></div>
                                     <div class="pointers">
                                     <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                                     </div>
@@ -86,11 +87,13 @@
                 <div class="col-4 mainArea">
                     <div class="postBlocks" v-for="post in posts" :key="post.id">
                         <transition name="popup">
-                            <popup v-if="isShowing(post.id)" class="inFront" :viewName="'oneElem'" :id="post.id" @close="closePopup" />
+                            <popup v-if="isShowing(post.id)" class="inFront" :viewName="'adInfo'" :id="post.id" @close="closePopup" />
                         </transition>
-                        <div :id="post.id" class="postBlock" :class="blur">
+                        <div class="postBlock" :class="blur">
                             <div class="postTopBlock">
-                                <button class="BookmarkBtn" @click="Bookmark(post.id)">
+                                <button :id="post.id" v-if="post.isFavorite" class="BookmarkBtn" @click="Bookmark(post.id)">
+                                </button>
+                                <button :id="post.id" v-if="!post.isFavorite" class="BookmarkBtnIs" @click="Bookmark(post.id)">
                                 </button>
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
@@ -132,9 +135,9 @@
 <script>
     import router from "@/router";
     import axios from 'axios';
-    import popup from './Popup';
+    import popup from '../Popups/Popup';
     export default {
-        name: "Logged",
+        name: "MyLogged",
         components: {
             popup: popup
         },
@@ -150,31 +153,29 @@
                 blur: ''
             };
         },
-        methods : {
+        methods : { 
             formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
+
                 var mm = date.getMonth() + 1;
                 if (mm < 10) mm = '0' + mm;
+
                 var yy = date.getFullYear();
                 if (yy < 10) yy = '0' + yy;
+
                 return dd + '.' + mm + '.' + yy;
             },
             Bookmark(a) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'Пост удалён из закладок'
-                });
+                this.$popup('append', 'Пост добавлен в закладки');
                 axios({
                     headers: {
                         'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                     },
-                    method: 'delete',
+                    method: 'post',
                     url: process.env.VUE_APP_API + 'ad/bookmarks/' + a,
                     data: {}
                 })
-                var leftSection = document.getElementById(a);
-                leftSection.parentNode.removeChild(leftSection);
             },
             isShowing(id) {
                 if (this.openedPost === -1)
@@ -233,9 +234,10 @@
                     'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
                 },
                 method: 'get',
-                url: process.env.VUE_APP_API + 'ad/bookmarks',
+                url: process.env.VUE_APP_API + 'ad/user/'+this.$cookies.get("USER").id,
                 data: {}
-            }).then(data => {
+            })
+            .then(data => {
                 this.posts=data.data;
                 for (let i = 0; i < this.posts.length; i++) {
                     this.posts[i].show = false;
@@ -251,16 +253,15 @@
                     }
                 }
             }).catch(error => {
-                if(error) {
-                    if(error.response.status==401) {
-                        this.message = 'login';
-                        this.showPopup = true;
-                        this.showLogin = true;
-                        this.blur = 'blur_test';
-                    }
+                if(error.response.status==401) {
+                    this.message = 'login';
+                    this.showPopup = true;
+                    this.showLogin = true;
+                    this.blur = 'blur_test';
                 }
             });
-        }}
+        }
+    }
 </script>
 
 <style scoped>
@@ -271,7 +272,7 @@
         color: #ACACAC;
         font-size: 16px;
     }
-    .catBlock {
+    .catBlock .sortItemsStatus{
         border-radius: 0;
     }
     .countCat{

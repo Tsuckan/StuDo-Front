@@ -1,15 +1,15 @@
 
 import VueRouter from "vue-router";
-import Logged from "./components/Logged";
+import Logged from "./components/Ads/Ads";
 import Profile from "./components/Profile";
-import Resumes from "./components/Resumes";
-import MyLogged from "./components/MyLogged";
-import MyResume from "./components/MyResume";
-import Resume from "./components/Resume";
+import Resumes from "./components/Resumes/Resumes";
+import MyLogged from "./components/Ads/MyAds";
+import MyResume from "./components/Resumes/MyResumes";
+import Resume from "./components/Resumes/ResumeInfo";
 import EmailAccept from "./components/EmailAccept";
 import PassReset from "./components/PassReset";
 import EmailTest from "./components/EmailTest";
-import Favorited from "./components/Favorited";
+import Favorited from "./components/Ads/FavoritedAds";
 import nf from "./components/nf";
 export default new VueRouter({
     routes: [

@@ -158,7 +158,7 @@
 
 <script>
     import router from "@/router";
-    import popup from "./Popup";
+    import popup from './Popups/Popup';
     import axios from "axios";
     export default {
         name: "Prof",
