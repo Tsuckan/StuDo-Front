@@ -223,12 +223,6 @@ body {
     position: relative;
 }
 
-header {
-    height: 50px;
-    background: var(--header-color);
-    margin: 0 auto;
-}
-
 .container {
     background: var(--container-background);
 }
@@ -255,30 +249,6 @@ a {
 a:hover {
     text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F !important;
     transition-duration: .25s;
-}
-.logoBlock {
-    width: 213px;
-    background: var(--header-block-color);
-    height: 70px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
-.imgLogo {
-    opacity: 0.8;
-}
-.nameLogo {
-    font-size: 24px;
-    color: var(--header-text-color);
-    margin-top: 10px;
-    margin-left: 10px;
-}
-.logo{
-    margin: 5px auto;
-}
-.menuBar{
 }
 .btnMenuItems{
     height: 40px;
@@ -721,7 +691,7 @@ textarea {
     display: none;
     align-items: center;
     position: absolute;
-    top: 10px;
+    top: -40px;
     left: 20px;
     width: 30px;
     height: 30px;
@@ -748,6 +718,7 @@ textarea {
 }
 #menu_toggle:checked ~ #menu_btn {
     position: fixed;
+    top: 10px;
 }
 #menu_toggle:checked ~ #menu_btn > span {
     transform: rotate(45deg);
@@ -928,14 +899,6 @@ input:checked + .slider:before {
 @media (max-width: 655px) {
     .container {
         width: 100%;
-    }
-    .logoBlock {
-        height: 50px;
-        border-radius: 0;
-        background-color: transparent;
-    }
-    .logo {
-        margin: 2px auto;
     }
     .row {
         flex-flow: wrap;

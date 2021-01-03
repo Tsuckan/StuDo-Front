@@ -1,4 +1,3 @@
-
 <template>
     <div class="box">
         <transition name="popup">

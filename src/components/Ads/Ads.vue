@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
     <div class="box">
         <transition name="popup">
@@ -71,7 +70,7 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
+                    <div class="postBlocks" v-for="post in getFilteredPosts()" :key="post.id">
                         <transition name="popup">
                             <popup v-if="isShowing(post.id)" class="inFront" :viewName="'adInfo'" :id="post.id" @close="closePopup" />
                         </transition>
@@ -121,8 +120,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput" v-model="query">
-                                    <div class="searchLogo" @click="filterPosts(query)">
+                                    <input type="text" class="searchInput" v-model="search">
+                                    <div class="searchLogo">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -163,6 +162,7 @@
                 posts: [],
                 filteredPosts: [],
                 comments: [],
+                search: '',
                 openedPost: -1,
                 showPopup: false,
                 showLogin: false,
@@ -171,6 +171,17 @@
             };
         },
         methods : {
+            getFilteredPosts() {
+                let _posts = this.posts;
+
+                if (this.search) {
+                    _posts = this.searchPosts();
+                }
+
+                console.log(_posts);
+
+                return _posts;
+            },
             getter(data, isText) {
                 try {
                     if(isText) {
@@ -210,13 +221,13 @@
                 this.blur = 'blur_test';
             },
             formatDate(date) {
-                var dd = date.getDate();
+                let dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
 
-                var mm = date.getMonth() + 1;
+                let mm = date.getMonth() + 1;
                 if (mm < 10) mm = '0' + mm;
 
-                var yy = date.getFullYear();
+                let yy = date.getFullYear();
                 if (yy < 10) yy = '0' + yy;
                 
                 return dd + '.' + mm + '.' + yy;
@@ -229,9 +240,8 @@
                     method: 'post',
                     url: process.env.VUE_APP_API + 'ad/bookmarks/' + a,
                     data: {}
-                }).then(data => {
-                    if(data)
-                    var leftSection = document.getElementById(a);
+                }).then(() => {
+                    let leftSection = document.getElementById(a);
                     leftSection.classList.replace('BookmarkBtnIs', 'BookmarkBtn');
                     this.$notify({
                         group: 'foo',
@@ -247,7 +257,7 @@
             },
             showPost(id) {
                 router.push({query: {id: id}});
-                for (var i = 0; i < this.filteredPosts.length; i++) {
+                for (let i = 0; i < this.filteredPosts.length; i++) {
                     if (this.filteredPosts[i].id === id) {
                         this.filteredPosts[i].show = true;
                         this.showPopup = true;
@@ -273,14 +283,16 @@
                         router.go();
                 }
             },
-            filterPosts(query) {
-                this.filteredPosts = this.posts.filter(function(post) {
-                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+            searchPosts() {
+                let _posts = this.posts.filter((post) => {
+                    if (post.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
                         return true;
-                    if (post.shortDescription.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                    if (post.shortDescription.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
                         return true;
                     return false;
                 });
+
+                return _posts;
             }
         },
         mounted() {
@@ -299,7 +311,7 @@
                     this.comments.push(this.filteredPosts[i].lastComment);
                 }
                 if (this.id != '') {
-                    for (var i = 0; i < this.filteredPosts.length; i++) {
+                    for (let i = 0; i < this.filteredPosts.length; i++) {
                         if (this.filteredPosts[i].id === this.id) {
                             this.filteredPosts[i].show = true;
                             this.showPopup = true;

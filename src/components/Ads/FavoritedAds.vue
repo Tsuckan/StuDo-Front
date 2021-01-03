@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
     <div class="box">
         <transition name="popup">
@@ -50,19 +49,19 @@
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
                                     </div>
                                 </div>
                                 <div class="btnMenuItems d-flex">
                                     <div class="btnActiv"></div>
                                     <div class="pointers">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +74,7 @@
                         <transition name="popup">
                             <popup v-if="isShowing(post.id)" class="inFront" :viewName="'adInfo'" :id="post.id" @close="closePopup" />
                         </transition>
-                        <div :id="post.id" class="postBlock" :class="blur">
+                        <div class="postBlock" :class="blur">
                             <div class="postTopBlock">
                                 <button class="BookmarkBtn" @click="Bookmark(post.id)">
                                 </button>
