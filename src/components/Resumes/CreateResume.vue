@@ -26,16 +26,13 @@
     import router from "@/router";
     import axios from 'axios';
     export default {
-        name: 'HelloWorld',
+        name: 'CreateResume',
         data(){
             return {
-                "id": "",
-                "name": "",
-                "description": "",
+                id: '',
+                name: '',
+                description: '',
             }
-        },
-        mounted()
-        {
         },
         methods : {
             handleSubmit(e){

@@ -1,19 +1,6 @@
 /* eslint-disable */
 <template>
     <div class="box">
-        <VuePopupPlugin :config="popupDefaultConfig"/>
-        <header>
-            <div class="logoBlock d-flex">
-                <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../../src/assets/logo.png" height="50px" width="50px"/></div>
-                    <div class="nameLogo">
-                        StuDo
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <transition name="popup">
             <div v-if="showPopup" class="blur_layer"  @click="back" />
         </transition>
@@ -134,7 +121,7 @@
     import axios from 'axios';
     import popup from '../Popups/Popup';
     export default {
-        name: "Logged",
+        name: "FavoritedAds",
         components: {
             popup: popup
         },
@@ -154,10 +141,13 @@
             formatDate(date) {
                 var dd = date.getDate();
                 if (dd < 10) dd = '0' + dd;
+
                 var mm = date.getMonth() + 1;
                 if (mm < 10) mm = '0' + mm;
+
                 var yy = date.getFullYear();
                 if (yy < 10) yy = '0' + yy;
+                
                 return dd + '.' + mm + '.' + yy;
             },
             Bookmark(a) {

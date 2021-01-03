@@ -2,18 +2,25 @@
 <template>
   <div class="container">
       <notifications classes="my-style" group="foo" />
+
+      <appHeader></appHeader>
+
       <router-view></router-view>
   </div>
 
 </template>
 
 <script>
+import header from '../src/components/Header';
 export default {
-    mounted() {
-      if (this.$cookies.get("THEME") === 'LIGHT') {
-        document.documentElement.setAttribute('theme', 'light');
-      }
-    },
+  components: {
+    appHeader: header
+  },
+  mounted() {
+    if (this.$cookies.get("THEME") === 'LIGHT') {
+      document.documentElement.setAttribute('theme', 'light');
+    }
+  },
 }
 </script>
 <style>

@@ -32,7 +32,7 @@
     import router from "@/router";
     import axios from 'axios';
     export default {
-        name: 'Create',
+        name: 'CreateAd',
         data(){
             return {
                 "name": "",
@@ -42,9 +42,6 @@
                 "endTime": "",
                 "organizationId": ""
             }
-        },
-        mounted()
-        {
         },
         methods : {
             handleSubmit(e){

@@ -1,18 +1,6 @@
 /* eslint-disable */
 <template>
     <div class="box">
-        <header>
-            <div class="logoBlock d-flex">
-                <div class="logo d-flex">
-                    <div class="imgLogo">
-                        <img src="../../../src/assets/logo.png" height="50px" width="50px"/></div>
-                    <div class="nameLogo">
-                        StuDo
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <transition name="popup">
             <div v-if="showPopup" class="blur_layer" />
         </transition>
@@ -112,7 +100,7 @@
     import axios from 'axios';
     import popup from '../Popups/Popup';
     export default {
-        name: "Resume",
+        name: "ResumeInfo",
         components: {
             popup: popup
         },

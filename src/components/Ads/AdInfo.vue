@@ -51,7 +51,7 @@
 <script>
     import axios from 'axios';
     export default {
-        name: "Ad",
+        name: "AdInfo",
         props: ['id'],
         data() {
             return {
@@ -61,59 +61,59 @@
             };
         },
         methods : {
-                handleSubmit(e) {
-                    e.preventDefault()
-                    axios({
-                        headers: {
-                            'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                        },
-                        method: 'post',
-                        url: process.env.VUE_APP_API + 'ad/comment/' + this.postid,
-                        data: {
-                            text: this.description
-                        }
-                    })
-                        // eslint-disable-next-line no-unused-vars
-                        .then(({data}) => {
-                            // eslint-disable-next-line no-console
-                            console.log('status: ', data.status);
-                            this.description='';
-                            this.$notify({
-                                group: 'foo',
-                                title: 'Успешно',
-                                text: 'Комментарий успешно отправлен'
-                            });
-
-                            axios({
-                                headers: {
-                                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                                },
-                                method: 'get',
-                                url: process.env.VUE_APP_API + 'ad/' + this.postid,
-                                data: {}
-                            })
-                                .then(data => {
-                                    this.posts=data;
-                                    // eslint-disable-next-line no-console
-                                    console.log(this.posts)
-                                    // eslint-disable-next-line no-console
-                                    console.log(this.posts.data.comments.length)
-                                }).catch(error => {
-                                if(error.response.status==401) {
-                                    this.$emit('close', 'unauthorized');
-                                }
-                            });
-                        }).catch(error => {
-                        if (error)
-                            // eslint-disable-next-line no-console
-                            console.log('status: ', error.code);
+            handleSubmit(e) {
+                e.preventDefault()
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'post',
+                    url: process.env.VUE_APP_API + 'ad/comment/' + this.postid,
+                    data: {
+                        text: this.description
+                    }
+                })
+                    // eslint-disable-next-line no-unused-vars
+                    .then(({data}) => {
+                        // eslint-disable-next-line no-console
+                        console.log('status: ', data.status);
+                        this.description='';
                         this.$notify({
                             group: 'foo',
-                            title: 'Произошла ошибка',
-                            text: 'Проверьте поля заполнения'
+                            title: 'Успешно',
+                            text: 'Комментарий успешно отправлен'
                         });
+
+                        axios({
+                            headers: {
+                                'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                            },
+                            method: 'get',
+                            url: process.env.VUE_APP_API + 'ad/' + this.postid,
+                            data: {}
+                        })
+                            .then(data => {
+                                this.posts=data;
+                                // eslint-disable-next-line no-console
+                                console.log(this.posts)
+                                // eslint-disable-next-line no-console
+                                console.log(this.posts.data.comments.length)
+                            }).catch(error => {
+                            if(error.response.status==401) {
+                                this.$emit('close', 'unauthorized');
+                            }
+                        });
+                    }).catch(error => {
+                    if (error)
+                        // eslint-disable-next-line no-console
+                        console.log('status: ', error.code);
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Произошла ошибка',
+                        text: 'Проверьте поля заполнения'
                     });
-                },
+                });
+            },
             checker(comid) {
                 return comid===this.$cookies.get("USER").id
             },
