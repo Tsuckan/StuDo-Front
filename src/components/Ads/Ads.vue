@@ -170,7 +170,7 @@
                 showPopup: false,
                 showLogin: false,
                 message: 'login',
-                blur: ''
+                blur: 'blur_test'
             };
         },
         methods : {
@@ -216,6 +216,7 @@
                     for (let i = 0; i < this.posts.length; i++) {
                         this.posts[i].show = false;
                         this.comments.push(this.posts[i].lastComment);
+                        this.blur = '';
                     }
 
                     if (this.id != '') {

@@ -128,7 +128,7 @@
                 search: '',
                 showPopup: false,
                 message: 'login',
-                blur: ''
+                blur: 'blur_test'
             };
         },
         methods : {
@@ -166,6 +166,8 @@
                 })
                 .then(data => {
                     this.posts = data.data;
+
+                    this.blur = '';
 
                     if (document.getElementById('menu_toggle')) {
                         document.getElementById('menu_toggle').checked = false;

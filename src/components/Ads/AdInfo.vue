@@ -55,7 +55,6 @@
         props: ['id'],
         data() {
             return {
-                rawHtml: {},
                 posts: [],
                 postid: this.id
             };

@@ -106,12 +106,11 @@
         },
         data() {
             return {
-                rawHtml: {},
                 posts: [],
                 ids: this.$route.params.id,
                 showPopup: false,
                 message: 'login',
-                blur: ''
+                blur: 'blur_test'
             };
         },
         methods : {
@@ -155,6 +154,8 @@
             })
                 .then(data => {
                     this.posts=data;
+
+                    this.blur = '';
                 }).catch(error => {
                 if(error.response.status==401) {
                     this.message = 'login';

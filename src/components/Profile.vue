@@ -157,14 +157,14 @@
                 firstname: '',
                 surname: '',
                 studentCardNumber: '',
-                rawHtml: {},
                 rootMessage: '',
                 showPopup: false,
-                blur: ''
+                blur: 'blur_test'
             };
         },
         created: function () {
             if (this.$cookies.get("USER")) {
+                this.blur = '';
                 this.firstname = this.$cookies.get("USER").firstname;
                 this.surname = this.$cookies.get("USER").surname;
                 this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
