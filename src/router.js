@@ -6,14 +6,10 @@ import Resumes from "./components/Resumes/Resumes";
 import Resume from "./components/Resumes/ResumeInfo";
 import EmailAccept from "./components/EmailAccept";
 import PassReset from "./components/PassReset";
-import EmailTest from "./components/EmailTest";
 import nf from "./components/nf";
+
 export default new VueRouter({
     routes: [
-        {
-            path: '/Test',
-            component: EmailTest,
-        },
         {
             path: '/resumes',
             component: Resumes,

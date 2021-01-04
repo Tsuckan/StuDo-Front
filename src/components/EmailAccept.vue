@@ -11,22 +11,22 @@
                     <div class="menuBarBut">
                         <router-link to="/Create">Создать объявление</router-link>
                     </div>
-                    <div class="btnMenuItems d-flex">
+                    <div class="btnMenuItems d-flex" @click="to('all')">
                         <div class="btnActiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Все объявления</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Все объявления</div>
                         </div>
                     </div>
-                    <div class="btnMenuItems d-flex">
+                    <div class="btnMenuItems d-flex" @click="to('my')">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                         </div>
                     </div>
-                    <div class="btnMenuItems d-flex">
+                    <div class="btnMenuItems d-flex" @click="to('favorite')">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
                         </div>
                     </div>
                 </div>
@@ -40,22 +40,22 @@
                                     <div class="menuBarBut">
                                         <router-link to="/Create">Создать объявление</router-link>
                                     </div>
-                                    <div class="btnMenuItems d-flex">
+                                    <div class="btnMenuItems d-flex" @click="to('all')">
                                         <div class="btnActiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Все объявления</router-link>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Все объявления</div>
                                         </div>
                                     </div>
-                                    <div class="btnMenuItems d-flex">
+                                    <div class="btnMenuItems d-flex" @click="to('my')">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои объявления</router-link>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                                         </div>
                                     </div>
-                                    <div class="btnMenuItems d-flex">
+                                    <div class="btnMenuItems d-flex" @click="to('favorite')">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,6 +140,19 @@
                 Email : "",
                 Password : ""
             }
+        },
+        methods: {
+            to(path) {
+                if (path === 'my') {
+                    localStorage.setItem('mode', 'my');
+                }
+
+                if (path === 'favorite') {
+                    localStorage.setItem('mode', 'favorite');
+                }
+                
+                router.push({ name: 'Ads' });
+            },
         },
         mounted()
         {
