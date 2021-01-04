@@ -94,10 +94,6 @@
                         })
                             .then(data => {
                                 this.posts=data;
-                                // eslint-disable-next-line no-console
-                                console.log(this.posts)
-                                // eslint-disable-next-line no-console
-                                console.log(this.posts.data.comments.length)
                             }).catch(error => {
                             if(error.response.status==401) {
                                 this.$emit('close', 'unauthorized');
@@ -152,10 +148,6 @@
             })
                 .then(data => {
                     this.posts=data;
-                    // eslint-disable-next-line no-console
-                    console.log(this.posts)
-                    // eslint-disable-next-line no-console
-                    console.log(this.posts.data.comments.length)
                 }).catch(error => {
                 if(error.response.status==401) {
                     this.$emit('close', 'unauthorized');
@@ -163,10 +155,7 @@
             });
         },
         updated() {
-            // eslint-disable-next-line no-console
             let height = this.$refs.block.clientHeight;
-            // eslint-disable-next-line no-console
-            console.log(height+'px');
             if (this.$refs.noComments) {
                 this.$refs.noComments.style.height=(height-58.5)+'px';
             }
@@ -194,9 +183,6 @@
         display: inline-block;
         padding: 15px 0 0 15px;
         color: var(--comment-color);
-    }
-    .catBlock .sortItemsStatus {
-        border-radius: 0;
     }
     .postdate_post {
         width: 200px;

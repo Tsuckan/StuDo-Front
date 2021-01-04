@@ -1,6 +1,6 @@
 <template>
     <header>
-        <router-link class="logoBlock d-flex" to="/Logged">
+        <router-link class="logoBlock d-flex" to="/ads">
             <div class="logo d-flex">
                 <div class="imgLogo">
                     <img src="../../src/assets/logo.png" height="50px" width="50px"/></div>

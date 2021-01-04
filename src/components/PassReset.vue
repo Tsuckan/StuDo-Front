@@ -14,7 +14,7 @@
                     <div class="btnMenuItems d-flex">
                         <div class="btnActiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Все объявления</router-link>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
@@ -43,7 +43,7 @@
                                     <div class="btnMenuItems d-flex">
                                         <div class="btnActiv"></div>
                                         <div class="pointers">
-                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Все объявления</router-link>
+                                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Все объявления</router-link>
                                         </div>
                                     </div>
                                     <div class="btnMenuItems d-flex">
@@ -71,10 +71,10 @@
                         <div class="fixedCol">
                             <div class="topMenu d-flex">
                                 <div class="topMenuItems active">
-                                    <router-link  to="/Logged">Объявления</router-link>
+                                    <router-link  to="/ads">Объявления</router-link>
                                 </div>
                                 <div class="topMenuItems">
-                                    <router-link  to="/Resumes">Резюме</router-link>
+                                    <router-link  to="/resumes">Резюме</router-link>
                                 </div>
                                 <div class="topMenuItems">
                                     <router-link  to="/Profile">Профиль</router-link>

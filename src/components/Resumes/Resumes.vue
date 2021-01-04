@@ -19,17 +19,17 @@
                 <div class="btnsMenu">
                     <div class="menuBarBut">
                         <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
+                    </div>
+                    <div class="btnMenuItems d-flex" @click="to('all')">
+                        <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
+                        <div class="pointers">
+                            <div style="position: relative; color: white; opacity: 0.8;">Все Резюме</div>
                         </div>
-                        <div class="btnMenuItems d-flex">
-                            <div class="btnActiv"></div>
-                            <div class="pointers">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Все Резюме</router-link>
-                            </div>
-                        </div>
-                        <div class="btnMenuItems d-flex">
-                            <div class="btnPassiv"></div>
-                            <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                    </div>
+                    <div class="btnMenuItems d-flex" @click="to('my')">
+                        <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
+                        <div class="pointers">
+                            <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
                         </div>
                     </div>
                 </div>
@@ -42,16 +42,16 @@
                                 <div class="menuBarBut">
                                     <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
                                 </div>
-                            <div class="btnMenuItems d-flex">
-                                <div class="btnActiv"></div>
+                                <div class="btnMenuItems d-flex" @click="to('all')">
+                                    <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Все Резюме</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Все Резюме</div>
                                     </div>
                                 </div>
-                                <div class="btnMenuItems d-flex">
-                                    <div class="btnPassiv"></div>
+                                <div class="btnMenuItems d-flex" @click="to('my')">
+                                    <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +60,13 @@
                 </div>
                 <div id="clear"></div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks" v-for="post in filteredPosts" :key="post.id">
+                    <div class="postBlocks" v-for="post in getFilteredPosts()" :key="post.id">
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
-                                <div class="titleForPost"><router-link :to="{name: 'Resume', params: {Resumeid: post.id}, props: {Resumeid: post.id}}"
+                                <div class="titleForPost"><router-link :to="{name: 'Resume', params: {id: post.id}}"
                                 >{{post.name}}</router-link>
                                 </div>
                             </div>
@@ -82,10 +82,10 @@
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Объявления</router-link>
                             </div>
                             <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/resumes">Резюме</router-link>
                             </div>
                             <div class="topMenuItems">
                                 <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
@@ -95,8 +95,8 @@
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
-                                    <input type="text" class="searchInput" v-model="query">
-                                    <div class="searchLogo" @click="filterPosts(query)">
+                                    <input type="text" class="searchInput" v-model="search">
+                                    <div class="searchLogo">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -120,15 +120,64 @@
         },
         data() {
             return {
-                rawHtml: {},
+                mode: {
+                    all: true,
+                    my: false
+                },
                 posts: [],
-                filteredPosts: [],
+                search: '',
                 showPopup: false,
                 message: 'login',
                 blur: ''
             };
         },
         methods : {
+            getFilteredPosts() {
+                let _posts = this.posts;
+
+                if (this.search) {
+                    _posts = this.searchPosts();
+                }
+
+                return _posts;
+            },
+            to(modeName) {
+                let url;
+                this.mode = { all: false, my: false };
+
+                if (modeName === 'all' && localStorage.getItem('mode') !== 'my') {
+                    url = process.env.VUE_APP_API + 'resumes';
+                    this.mode.all = true;
+                }
+
+                if (modeName === 'my' || localStorage.getItem('mode') === 'my') {
+                    url = process.env.VUE_APP_API + 'resumes/user/'+this.$cookies.get('USER').id;
+                    this.mode.my = true;
+                    localStorage.removeItem('mode');
+                }
+
+                axios({
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
+                    },
+                    method: 'get',
+                    url: url,
+                    data: {}
+                })
+                .then(data => {
+                    this.posts = data.data;
+
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
+                    }
+                }).catch(error => {
+                    if(error.response.status==401) {
+                        this.message = 'login';
+                        this.showPopup = true;
+                        this.blur = 'blur_test';
+                    }
+                });
+            },
             createResume() {
                 this.message = 'createResume';
                 this.showPopup = true;
@@ -147,35 +196,20 @@
                         router.go();
                 }
             },
-            filterPosts(query) {
-                this.filteredPosts = this.posts.filter(function(post) {
-                    if (post.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+            searchPosts() {
+                let _posts = this.posts.filter((post) => {
+                    if (post.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
                         return true;
-                    if (post.description.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                    if (post.description.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
                         return true;
                     return false;
                 });
+
+                return _posts;
             }
         },
         mounted() {
-            axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
-                method: 'get',
-                url: process.env.VUE_APP_API + 'resumes',
-                data: {}
-            })
-            .then(data => {
-                this.posts = data.data;
-                this.filteredPosts = JSON.parse(JSON.stringify(data.data));
-            }).catch(error => {
-                if(error.response.status==401) {
-                    this.message = 'login';
-                    this.showPopup = true;
-                    this.blur = 'blur_test';
-                }
-            });
+            this.to('all');
         }
     }
 </script>

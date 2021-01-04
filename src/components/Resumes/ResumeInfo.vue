@@ -19,16 +19,16 @@
                     <div class="menuBarBut">
                         <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
                     </div>
-                    <div class="btnMenuItems d-flex">
+                    <div class="btnMenuItems d-flex" @click="to('resumes')">
                         <div class="btnActiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Все Резюме</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Все Резюме</div>
                         </div>
                     </div>
-                    <div class="btnMenuItems d-flex">
+                    <div class="btnMenuItems d-flex" @click="to('myResumes')">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
                         </div>
                     </div>
                 </div>
@@ -41,16 +41,16 @@
                                 <div class="menuBarBut">
                                     <a href="javascript: void(0);" @click="createResume">Создать резюме</a>
                                 </div>
-                                <div class="btnMenuItems d-flex">
+                                <div class="btnMenuItems d-flex" @click="to('resumes')">
                                     <div class="btnActiv"></div>
                                     <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Все Резюме</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Все Резюме</div>
                                     </div>
                                 </div>
-                                <div class="btnMenuItems d-flex">
+                                <div class="btnMenuItems d-flex" @click="to('myResumes')">
                                     <div class="btnPassiv"></div>
                                     <div class="pointers">
-                                    <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
                                     </div>
                                 </div>
                             </div>
@@ -79,10 +79,10 @@
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Объявления</router-link>
                             </div>
                             <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/resumes">Резюме</router-link>
                             </div>
                             <div class="topMenuItems">
                                 <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
@@ -104,18 +104,27 @@
         components: {
             popup: popup
         },
-        props: ['Resumeid'],
         data() {
             return {
                 rawHtml: {},
                 posts: [],
-                ids: this.$router.currentRoute.params['Resumeid'],
+                ids: this.$route.params.id,
                 showPopup: false,
                 message: 'login',
                 blur: ''
             };
         },
         methods : {
+            to(path) {
+                if (path === 'resumes') {
+                    router.push({ name: 'Resumes' });
+                }
+
+                if (path === 'myResumes') {
+                    localStorage.setItem('mode', 'my');
+                    router.push({ name: 'Resumes' });
+                }
+            },
             createResume() {
                 this.message = 'createResume';
                 this.showPopup = true;

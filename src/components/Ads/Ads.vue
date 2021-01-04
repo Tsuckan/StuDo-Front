@@ -107,10 +107,10 @@
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems active">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Объявления</router-link>
                             </div>
                             <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/resumes">Резюме</router-link>
                             </div>
                             <div class="topMenuItems">
                                 <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
@@ -187,19 +187,21 @@
                 let url;
                 this.mode = { all: false, my: false, favorite: false };
 
-                if (modeName === 'all') {
+                if (modeName === 'all' && localStorage.getItem('mode') !== 'my' && localStorage.getItem('mode') !== 'favorite') {
                     url = process.env.VUE_APP_API + 'ad';
                     this.mode.all = true;
                 }
 
-                if (modeName === 'my') {
+                if (modeName === 'my' || localStorage.getItem('mode') === 'my') {
                     url = process.env.VUE_APP_API + 'ad/user/'+this.$cookies.get("USER").id;
                     this.mode.my = true;
+                    localStorage.removeItem('mode');
                 }
 
-                if (modeName === 'favorite') {
+                if (modeName === 'favorite' || localStorage.getItem('mode') === 'favorite') {
                     url = process.env.VUE_APP_API + 'ad/bookmarks';
                     this.mode.favorite = true;
+                    localStorage.removeItem('mode');
                 }
 
                 axios({
@@ -347,21 +349,5 @@
 </script>
 
 <style scoped>
-    .catBlock{
-        width: 290px;
-        margin-left: 19px;
-        margin-top: 14px;
-        color: #ACACAC;
-        font-size: 16px;
-    }
-    .catBlock {
-        border-radius: 0;
-    }
-    .countCat{
-        text-align: right;
-        position: absolute;
-        right: 22px;
-        font-size: 18px;
-        color: #ACACAC;
-    }
+
 </style>

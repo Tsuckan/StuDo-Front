@@ -18,19 +18,19 @@
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои  объявления</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('ads')">Мои  объявления</div>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('resumes')">Мои Резюме</div>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('favorite')">Закладки</div>
                         </div>
                     </div>
                 </div>
@@ -40,22 +40,22 @@
                         <div class="fixedCol">
                             <div class="menuBar">
                                 <div class="btnsMenu">
-                                    <div class="btnMenuItems d-flex">
+                                    <div class="btnMenuItems d-flex" @click="to('ads')">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyLogged">Мои  объявления</router-link>
-                                    </div>
-                                    </div>
-                                    <div class="btnMenuItems d-flex">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/MyResume">Мои Резюме</router-link>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Мои  объявления</div>
                                         </div>
                                     </div>
-                                    <div class="btnMenuItems d-flex">
+                                    <div class="btnMenuItems d-flex" @click="to('resumes')">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                        <router-link style="position: relative; color: white; opacity: 0.8;"  to="/Favorited">Закладки</router-link>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
+                                        </div>
+                                    </div>
+                                    <div class="btnMenuItems d-flex" @click="to('favorite')">
+                                        <div class="btnPassiv"></div>
+                                        <div class="pointers">
+                                            <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,10 +110,10 @@
                     <div class="fixedCol">
                         <div class="topMenu d-flex">
                             <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Logged">Объявления</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/ads">Объявления</router-link>
                             </div>
                             <div class="topMenuItems">
-                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/Resumes">Резюме</router-link>
+                                <router-link style="position: relative; color: white; opacity: 0.8;" to="/resumes">Резюме</router-link>
                             </div>
                             <div class="topMenuItems active">
                                 <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
@@ -176,6 +176,22 @@
             }
         },
         methods: {
+            to(path) {
+                if (path === 'ads') {
+                    localStorage.setItem('mode', 'my');
+                    router.push({ name: 'Ads' });
+                }
+
+                if (path === 'resumes') {
+                    localStorage.setItem('mode', 'my');
+                    router.push({ name: 'Resumes' });
+                }
+
+                if (path === 'favorite') {
+                    localStorage.setItem('mode', 'favorite');
+                    router.push({ name: 'Ads' });
+                }
+            },
             exit(message) {
                 this.blur='blur_test';
                 this.rootMessage = message;

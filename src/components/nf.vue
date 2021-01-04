@@ -5,7 +5,7 @@
             var s = decodeURIComponent(this.$route.fullPath);
             // eslint-disable-next-line no-console
             console.log(s);
-            window.location.href = process.env.VUE_APP_API.slice(0, -4) + '#/Logged';
+            window.location.href = process.env.VUE_APP_API.slice(0, -4) + '#/ads';
         }
     }
 </script>
