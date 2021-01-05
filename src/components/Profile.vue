@@ -1,18 +1,18 @@
 <template>
     <div class="box">
         <transition name="popup">
-            <div v-if="showPopup" class="blur_layer" />
+            <div v-if="showPopup" class="blur_layer" @click="back" />
         </transition>
 
         <transition name="popup">
-            <popup v-if="showPopup" class="inFront" :viewName="this.rootMessage" @close="closePopup" />
+            <popup v-if="showPopup && !isChecked()" class="inFront" :viewName="this.rootMessage" @close="closePopup" />
         </transition>
 
-        <div :class="blur">
+        <div>
             <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
+                <label id="menu_btn" @click="toggleMenu()">
+                    <span></span>
                 </label>
                 <div class="btnsMenu">
                     <div class="btnMenuItems d-flex">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" :class="blur">
                     <div class="col-4 firstCol">
                         <div class="fixedCol">
                             <div class="menuBar">
@@ -43,7 +43,7 @@
                                     <div class="btnMenuItems d-flex" @click="to('ads')">
                                         <div class="btnPassiv"></div>
                                         <div class="pointers">
-                                            <div style="position: relative; color: white; opacity: 0.8;">Мои  объявления</div>
+                                            <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                                         </div>
                                     </div>
                                     <div class="btnMenuItems d-flex" @click="to('resumes')">
@@ -192,6 +192,28 @@
                     router.push({ name: 'Ads' });
                 }
             },
+            toggleMenu() {
+                if (this.showPopup && !document.getElementById('menu_toggle').checked)
+                    return;
+                
+                if (document.getElementById('menu_toggle').checked) {
+                    this.blur = '';
+                    this.showPopup = false;
+                }
+                else {
+                    this.blur = 'blur_test';
+                    this.showPopup = true;
+                }
+                document.getElementById('menu_toggle').checked = !document.getElementById('menu_toggle').checked;
+            },
+            isChecked() {
+                return document.getElementById('menu_toggle').checked;
+            },
+            back() {
+                if (document.getElementById('menu_toggle').checked) {
+                    this.toggleMenu();
+                }
+            },
             exit(message) {
                 this.blur='blur_test';
                 this.rootMessage = message;
@@ -274,6 +296,10 @@
                             title: 'Ошибка',
                             text: 'Произошла ошибка'
                         });
+                    }
+                }).finally(() => {
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
                     }
                 });
             },

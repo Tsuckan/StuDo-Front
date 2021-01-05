@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <transition name="popup">
-            <div v-if="showPopup" class="blur_layer"  @click="back" />
+            <div v-if="showPopup" class="blur_layer" @click="back" />
         </transition>
 
         <transition name="popup">
@@ -9,10 +9,10 @@
         </transition>
 
         <div>
-            <div class="menu" :class="blur">
+            <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
+                <label id="menu_btn" @click="toggleMenu()">
+                    <span></span> 
                 </label>
                 <div class="btnsMenu">
                     <div class="menuBarBut">
@@ -97,7 +97,7 @@
                             <div style="color: honeydew" v-if="post.lastComment" class="CommentAuthorForPost">
                                 Автор: {{post.lastComment.author}}
                             </div>
-                            <div  v-if="post.lastComment" class="CommentblockForPost">
+                            <div v-if="post.lastComment" class="CommentblockForPost">
                                 {{post.lastComment.text}}...
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <router-link style="position: relative; color: white; opacity: 0.8;" to="/Profile">Профиль</router-link>
                             </div>
                         </div>
-        
+
                         <div class="rightBlock">
                             <div class="rightBlock_block">
                                 <div class="searchform d-flex">
@@ -229,10 +229,6 @@
                             }
                         }
                     }
-
-                    if (document.getElementById('menu_toggle')) {
-                        document.getElementById('menu_toggle').checked = false;
-                    }
                 }).catch(error => {
                     if(error.response.status==401) {
                         this.message = 'login';
@@ -240,7 +236,25 @@
                         this.showLogin = true;
                         this.blur = 'blur_test';
                     }
+                }).finally(() => {
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
+                    }
                 });
+            },
+            toggleMenu() {
+                if (this.showLogin)
+                    return;
+                
+                if (document.getElementById('menu_toggle').checked && this.openedPost === -1) {
+                    this.blur = '';
+                    this.showPopup = false;
+                }
+                else {
+                    this.blur = 'blur_test';
+                    this.showPopup = true;
+                }
+                document.getElementById('menu_toggle').checked = !document.getElementById('menu_toggle').checked;
             },
             isShowing(id) {
                 if (this.openedPost === -1)
@@ -254,12 +268,17 @@
                 return post.isFavorite
             },
             back() {
-                router.push({query: ''});
-                if (this.openedPost != -1) {
-                    this.posts[this.openedPost].show = false;
-                    this.openedPost = -1;
-                    this.showPopup = false;
-                    this.blur = '';
+                if (document.getElementById('menu_toggle').checked) {
+                    this.toggleMenu();
+                }
+                else {
+                    router.push({query: ''});
+                    if (this.openedPost != -1) {
+                        this.posts[this.openedPost].show = false;
+                        this.openedPost = -1;
+                        this.showPopup = false;
+                        this.blur = '';
+                    }
                 }
             },
             create() {

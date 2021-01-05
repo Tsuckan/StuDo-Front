@@ -833,7 +833,7 @@ input:checked + .slider:before {
     }
     #menu_btn {
         display: flex;
-        z-index: 2000;
+        z-index: 2501;
     }
     .btnsMenu {
         display: block;
@@ -849,7 +849,7 @@ input:checked + .slider:before {
         background-color: var(--btnsMenu-background);
         box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
         transition-duration: .25s;
-        z-index: 1000;
+        z-index: 2500;
     }
     .btnMenuItems, .menuBarBut {
         display: block;
@@ -944,17 +944,17 @@ input:checked + .slider:before {
 
 .popup-enter-active, .popup-leave-active {
         transition: opacity .7s;
-    }
-    .popup-enter, .popup-leave-to {
-        opacity: 0;
-    }
-    .inFront {
-        z-index: 9900;
-        position: relative;
-    }
-    .blur-enter-active, .blur-leave-active {
-        transition: opacity .7s;
-    }
-    .blur-enter, .blur-leave-to {
-        opacity: 0;
-    }
+}
+.popup-enter, .popup-leave-to {
+    opacity: 0;
+}
+.inFront {
+    z-index: 2000;
+    position: relative;
+}
+.blur-enter-active, .blur-leave-active {
+    transition: opacity .7s;
+}
+.blur-enter, .blur-leave-to {
+    opacity: 0;
+}

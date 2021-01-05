@@ -5,7 +5,7 @@
             <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
                 <label id="menu_btn" for="menu_toggle">
-                    <span></span>   
+                    <span></span> 
                 </label>
                 <div class="btnsMenu">
                     <div class="menuBarBut">
@@ -71,13 +71,13 @@
                         <div class="fixedCol">
                             <div class="topMenu d-flex">
                                 <div class="topMenuItems active">
-                                    <router-link  to="/ads">Объявления</router-link>
+                                    <router-link to="/ads">Объявления</router-link>
                                 </div>
                                 <div class="topMenuItems">
-                                    <router-link  to="/resumes">Резюме</router-link>
+                                    <router-link to="/resumes">Резюме</router-link>
                                 </div>
                                 <div class="topMenuItems">
-                                    <router-link  to="/Profile">Профиль</router-link>
+                                    <router-link to="/Profile">Профиль</router-link>
                                 </div>
                             </div>
     

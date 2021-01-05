@@ -3,17 +3,17 @@
 <template>
     <div class="box">
         <transition name="popup">
-            <div v-if="showPopup" class="blur_layer" />
+            <div v-if="showPopup" class="blur_layer" @click="back" />
         </transition>
 
         <transition name="popup">
-            <popup v-if="showPopup" class="inFront" :viewName="message" @close="closePopup" />
+            <popup v-if="showPopup && !isChecked()" class="inFront" :viewName="message" @close="closePopup" />
         </transition>
 
         <div>
-            <div class="menu" :class="blur">
+            <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
-                <label id="menu_btn" for="menu_toggle">
+                <label id="menu_btn" @click="toggleMenu()">
                     <span></span>   
                 </label>
                 <div class="btnsMenu">
@@ -178,7 +178,33 @@
                         this.showPopup = true;
                         this.blur = 'blur_test';
                     }
+                }).finally(() => {
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
+                    }
                 });
+            },
+            toggleMenu() {
+                if (this.showPopup && !document.getElementById('menu_toggle').checked)
+                    return;
+                
+                if (document.getElementById('menu_toggle').checked) {
+                    this.blur = '';
+                    this.showPopup = false;
+                }
+                else {
+                    this.blur = 'blur_test';
+                    this.showPopup = true;
+                }
+                document.getElementById('menu_toggle').checked = !document.getElementById('menu_toggle').checked;
+            },
+            isChecked() {
+                return document.getElementById('menu_toggle').checked;
+            },
+            back() {
+                if (document.getElementById('menu_toggle').checked) {
+                    this.toggleMenu();
+                }
             },
             createResume() {
                 this.message = 'createResume';
