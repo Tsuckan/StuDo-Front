@@ -486,7 +486,7 @@ a.doubleLink {
     filter: blur(20px);
 }
 .blur_layer {
-    position: absolute;
+    position: fixed;
     filter: blur(20px);
     width: 100%;
     height: 100%;
