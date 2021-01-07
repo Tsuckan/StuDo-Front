@@ -64,13 +64,10 @@
                                 <div class="blockTopForLogo">
                                     <i class="fa fa-ambulance" aria-hidden="true"></i>
                                 </div>
-                                <div class="titleForPost">{{posts.data.name}}
-                                </div>
+                                <div class="titleForPost">{{posts.data.name}}</div>
                             </div>
                             <div class="postDownBlock">
-                                <div class="textblockForPost">
-                                {{posts.data.description}}
-                                </div>
+                                <div class="textblockForPost">{{posts.data.description}}</div>
                             </div>
                         </div>
                     </div>

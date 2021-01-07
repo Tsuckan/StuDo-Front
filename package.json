@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "*",
     "ciao-vue-popup": "*",
-    "core-js": "^3.6.5",
+    "core-js": "*",
     "v": "*",
     "vue": "*",
     "vue-cookies": "*",
@@ -20,13 +20,13 @@
     "vuex": "*"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-plugin-babel": "*",
+    "@vue/cli-plugin-eslint": "*",
     "@vue/cli-service": "*",
     "babel-eslint": "*",
-    "eslint": "^7.4.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "serialize-javascript": "^4.0.0",
+    "eslint": "*",
+    "eslint-plugin-vue": "*",
+    "serialize-javascript": "*",
     "vue-template-compiler": "*"
   },
   "eslintConfig": {
