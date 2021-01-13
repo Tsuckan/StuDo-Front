@@ -12,29 +12,40 @@ name: $(BuildID)
 pool:
   vmImage: "ubuntu-latest"
 
-steps:
-- task: file-creator@5
-  displayName: 'Env creation'
-  inputs:
-    fileoverwrite: true
-    filepath: '.env'
-    filecontent: |
-      NODE_ENV=production
-      VUE_APP_API=/api/
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: buildFront
+    steps:
+      - task: file-creator@5
+        displayName: 'Env creation'
+        inputs:
+          fileoverwrite: true
+          filepath: '.env'
+          filecontent: |
+            NODE_ENV=production
+            VUE_APP_API=/api/
 
-- task: Npm@1
-  displayName: npm ci
-  inputs:
-    command: 'ci'
+      - task: Npm@1
+        displayName: npm ci
+        inputs:
+          command: 'ci'
 
-- task: Npm@1
-  displayName: npm run build
-  inputs:
-    command: 'custom'
-    customCommand: 'run build'
+      - task: Npm@1
+        displayName: npm run build
+        inputs:
+          command: 'custom'
+          customCommand: 'run build'
 
-- task: PublishBuildArtifacts@1
-  displayName: publish build artifact studo-front-build
-  inputs:
-    PathtoPublish: 'dist'
-    ArtifactName: 'stu-do-front-build'
+      - publish: dist
+        artifact: studo-front-build
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'rtuitlab connection by admin'
+          repository: 'rtuitlab/studo-front'
+          command: 'buildAndPush'
+          Dockerfile: 'Dockerfile'
+          tags: |
+            $(Build.BuildId)
+            latest
