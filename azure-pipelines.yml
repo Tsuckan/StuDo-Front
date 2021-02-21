@@ -45,7 +45,6 @@ stages:
             NODE_ENV=production
             VUE_APP_API=/api/
             VUE_APP_FRONT=""
-
       - task: Npm@1
         displayName: npm ci
         inputs:
@@ -56,24 +55,29 @@ stages:
         inputs:
           command: 'custom'
           customCommand: 'run build'
-
-      - publish: dist
-        artifact: studo-front-build
+      - task: CopyFiles@2
+        displayName: copy dist to docker artifact
+        inputs:
+          SourceFolder: 'dist'
+          Contents: '**'
+          TargetFolder: 'Deploy/studo-front-build'
+      - publish: Deploy
+        artifact: studo-front-pack
 - stage:
   condition: ${{variables.buildImage}}
   jobs:
     - job:
       steps:
       - download: current
-        artifact: studo-front-build
-        displayName: Download studo-front-build
+        artifact: studo-front-pack
+        displayName: Download studo-front-pack
       - task: Docker@2
         inputs:
           containerRegistry: 'rtuitlab connection by admin'
           repository: 'rtuitlab/studo-front'
           command: 'buildAndPush'
-          Dockerfile: '$(Pipeline.Workspace)/studo-front-build/Dockerfile'
-          buildContext: '$(Pipeline.Workspace)/studo-front-build'
+          Dockerfile: '$(Pipeline.Workspace)/studo-front-pack/Dockerfile'
+          buildContext: '$(Pipeline.Workspace)/studo-front-pack'
           tags: ${{variables.imageTags}}
 - stage:
   condition: ${{variables.deployService}}
