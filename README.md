@@ -1,22 +1,11 @@
-# stu-do-front
-# labproject
+# StuDo-Front
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
+## How to start
+- Run `npm install`. It will install all the dependencies in "node_modules" folder.
+- Create "./.env" file. Fill it with the following:
+    ```
+    NODE_ENV=production
+    VUE_APP_API=http://localhost:5301/api/
+    VUE_APP_FRONT=http://localhost:5302/
+    ```
+- Use `npm start` to start app
