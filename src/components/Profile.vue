@@ -269,11 +269,8 @@
                     });
                 }
                 else axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'user/change/info',
+                    url: 'user/change/info',
                     data: {
                         id: this.$cookies.get("USER").id,
                         studentCardNumber: this.studentCardNumber,

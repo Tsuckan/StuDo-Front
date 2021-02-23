@@ -105,11 +105,8 @@
                     });
                 }
                 else axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'auth/register',
+                    url: 'auth/register',
                     data: {
                         "firstname": this.firstname,
                         "surname": this.surname,

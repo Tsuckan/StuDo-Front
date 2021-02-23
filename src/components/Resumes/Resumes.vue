@@ -146,20 +146,17 @@
                 this.mode = { all: false, my: false };
 
                 if (modeName === 'all' && localStorage.getItem('mode') !== 'my') {
-                    url = process.env.VUE_APP_API + 'resumes';
+                    url = 'resumes';
                     this.mode.all = true;
                 }
 
                 if (modeName === 'my' || localStorage.getItem('mode') === 'my') {
-                    url = process.env.VUE_APP_API + 'resumes/user/'+this.$cookies.get('USER').id;
+                    url = 'resumes/user/' + this.$cookies.get('USER').id;
                     this.mode.my = true;
                     localStorage.removeItem('mode');
                 }
 
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'get',
                     url: url,
                     data: {}

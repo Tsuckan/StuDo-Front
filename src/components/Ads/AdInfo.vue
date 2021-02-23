@@ -63,11 +63,8 @@
             handleSubmit(e) {
                 e.preventDefault()
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'ad/comment/' + this.postid,
+                    url: 'ad/comment/' + this.postid,
                     data: {
                         text: this.description
                     }
@@ -84,11 +81,8 @@
                         });
 
                         axios({
-                            headers: {
-                                'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                            },
                             method: 'get',
-                            url: process.env.VUE_APP_API + 'ad/' + this.postid,
+                            url: 'ad/' + this.postid,
                             data: {}
                         })
                             .then(data => {
@@ -114,11 +108,8 @@
             },
             Bookmark(a) {
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'delete',
-                    url: process.env.VUE_APP_API + 'ad/comment/' + this.postid + '/' + a,
+                    url: 'ad/comment/' + this.postid + '/' + a,
                     data: {}
                 }).then(data => {
                     if(data)
@@ -138,11 +129,8 @@
         },
         mounted() {
             axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
                 method: 'get',
-                url: process.env.VUE_APP_API + 'ad/' + this.postid,
+                url: 'ad/' + this.postid,
                 data: {}
             })
                 .then(data => {

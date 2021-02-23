@@ -55,10 +55,7 @@
                 }
                 else axios({
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'user/change/email',
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
+                    url: 'user/change/email',
                     data: {
                         id: this.$cookies.get("USER").id,
                         oldEmail: this.oldEmail,

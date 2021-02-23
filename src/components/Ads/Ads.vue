@@ -188,30 +188,29 @@
                 this.mode = { all: false, my: false, favorite: false };
 
                 if (modeName === 'all' && localStorage.getItem('mode') !== 'my' && localStorage.getItem('mode') !== 'favorite') {
-                    url = process.env.VUE_APP_API + 'ad';
+                    url = 'ad';
                     this.mode.all = true;
                 }
 
                 if (modeName === 'my' || localStorage.getItem('mode') === 'my') {
-                    url = process.env.VUE_APP_API + 'ad/user/'+this.$cookies.get("USER").id;
+                    url = 'ad/user/'+this.$cookies.get("USER").id;
                     this.mode.my = true;
                     localStorage.removeItem('mode');
                 }
 
                 if (modeName === 'favorite' || localStorage.getItem('mode') === 'favorite') {
-                    url = process.env.VUE_APP_API + 'ad/bookmarks';
+                    url = 'ad/bookmarks';
                     this.mode.favorite = true;
                     localStorage.removeItem('mode');
                 }
 
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'get',
                     url: url,
                     data: {}
                 }).then(data => {
+                    console.log('SUCCESS');
+                    console.log(data);
                     this.posts = data.data;
                     for (let i = 0; i < this.posts.length; i++) {
                         this.posts[i].show = false;
@@ -230,6 +229,8 @@
                         }
                     }
                 }).catch(error => {
+                    console.log('ERROR');
+                    console.log(error);
                     if(error.response.status==401) {
                         this.message = 'login';
                         this.showPopup = true;
@@ -301,11 +302,8 @@
             },
             Bookmark(a) {
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'ad/bookmarks/' + a,
+                    url: 'ad/bookmarks/' + a,
                     data: {}
                 }).then(() => {
                     let leftSection = document.getElementById(a);

@@ -70,7 +70,7 @@ methods : {
       }
       else axios({
       method: 'post',
-      url: process.env.VUE_APP_API + 'auth/login',
+      url: 'auth/login',
       data: {
         email: this.Email,
         password: this.Password

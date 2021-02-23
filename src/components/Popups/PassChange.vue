@@ -61,11 +61,8 @@
                     });
                 }
                 else axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'user/password/change',
+                    url: 'user/password/change',
                     data: {
                         id: this.$cookies.get("USER").id,
                         oldPassword: this.oldPassword,

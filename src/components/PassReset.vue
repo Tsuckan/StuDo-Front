@@ -167,7 +167,7 @@
                 e.preventDefault()
                 axios({
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'account/manage/resetPassword',
+                    url: 'account/manage/resetPassword',
                     data: {
                         "userId": $_GET(this.$route.fullPath,"userId"),
                         "token":rdy,

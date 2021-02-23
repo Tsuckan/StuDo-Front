@@ -59,7 +59,7 @@
                 }
                 else axios({
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'user/password/reset',
+                    url: 'user/password/reset',
                     data: {
                         email: this.Email
                     }

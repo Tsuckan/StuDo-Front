@@ -160,7 +160,7 @@
             var rdy=kav.split(' ').join('+');
             axios({
                 method: 'post',
-                url: process.env.VUE_APP_API + 'account/manage/confirmEmail',
+                url: 'account/manage/confirmEmail',
                 data: {
                     "userId": $_GET(this.$route.fullPath,"userId"),
                     "token":rdy

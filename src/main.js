@@ -1,18 +1,62 @@
 
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 import router from "@/router";
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import Vuex from 'vuex';
-import Notifications from 'vue-notification'
+import Notifications from 'vue-notification';
 
-Vue.use(VueRouter)
-Vue.use(axios)
-Vue.use(Vuex)
+Vue.use(VueRouter);
+Vue.use(Vuex);
 Vue.use(VueCookies);
-Vue.use(Notifications)
+Vue.use(Notifications);
+
+//  Axios configuration  //
+
+axios.defaults.baseURL = process.env.VUE_APP_API;
+
+axios.interceptors.request.use(
+  (config) => {
+    const token = Vue.$cookies.get('ACCESSTOKEN');
+    if (token) {
+      config.headers['Authorization'] = 'Bearer ' + token;
+    }
+
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    Promise.reject(error);
+  }
+)
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry;
+      return axios.post('auth/refresh', { refreshToken: Vue.$cookies.get('REFRESHTOKENTOKEN') })
+        .then((result) => {
+          if (result.status === 200) {
+            Vue.$cookies.set('ACCESSTOKEN', result.data.accessToken);
+            Vue.$cookies.set('REFRESHTOKENTOKEN', result.data.refreshToken);
+            return axios(originalRequest);
+          }
+        })
+        .catch(() => {
+          return Promise.reject(error);
+        });
+    }
+  }
+);
+
+Vue.use(axios)
 
 Vue.config.productionTip = false
 

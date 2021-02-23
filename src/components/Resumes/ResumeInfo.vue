@@ -164,11 +164,8 @@
         },
         mounted() {
             axios({
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                },
                 method: 'get',
-                url: process.env.VUE_APP_API + 'resumes/' + this.ids,
+                url: 'resumes/' + this.ids,
                 data: {}
             }).then(data => {
                 this.posts=data;

@@ -38,11 +38,8 @@
             handleSubmit(e){
                 e.preventDefault()
                 axios({
-                    headers: {
-                        'Authorization': "bearer " + this.$cookies.get("ACCESSTOKEN")
-                    },
                     method: 'post',
-                    url: process.env.VUE_APP_API + 'resumes',
+                    url: 'resumes',
                     data: {
                         "id": "",
                         "name": this.name,
