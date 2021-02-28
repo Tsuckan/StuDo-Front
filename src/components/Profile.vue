@@ -163,7 +163,7 @@
                                             {{getMembers(org.members.length)}}
                                         </div>
                                         <div v-if="isMember(org) === 'not-member'" class="act-btn" @click="enter(org)">Подать заявку</div>
-                                        <div v-else-if="org.isMember === 'member'" class="deact-btn">Покинуть</div>
+                                        <!--<div v-else-if="org.isMember === 'member'" class="deact-btn">Покинуть</div>-->
                                         <div v-else class="deact-btn">Заявка подана</div>
                                     </div>
                                 </div>
