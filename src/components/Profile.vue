@@ -15,10 +15,19 @@
                     <span></span>
                 </label>
                 <div class="btnsMenu">
+                    <div class="menuBarBut">
+                        <a href="javascript: void(0);" @click="createOrganization">Создать организацию</a>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div :class="mode.profile === true ? 'btnActiv' : 'btnPassiv'"></div>
+                        <div class="pointers">
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('profile')">Мои данные</div>
+                        </div>
+                    </div>
                     <div class="btnMenuItems d-flex">
                         <div class="btnPassiv"></div>
                         <div class="pointers">
-                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('ads')">Мои  объявления</div>
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('ads')">Мои объявления</div>
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
@@ -28,42 +37,75 @@
                         </div>
                     </div>
                     <div class="btnMenuItems d-flex">
-                        <div class="btnPassiv"></div>
+                        <div :class="mode.followed === true ? 'btnActiv' : 'btnPassiv'"></div>
                         <div class="pointers">
-                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('favorite')">Закладки</div>
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('followed')">Подписки</div>
+                        </div>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
+                        <div class="pointers">
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('my')">Мои организации</div>
+                        </div>
+                    </div>
+                    <div class="btnMenuItems d-flex">
+                        <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
+                        <div class="pointers">
+                            <div style="position: relative; color: white; opacity: 0.8;" @click="to('all')">Все организации</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row" :class="blur">
-                    <div class="col-4 firstCol">
-                        <div class="fixedCol">
-                            <div class="menuBar">
-                                <div class="btnsMenu">
-                                    <div class="btnMenuItems d-flex" @click="to('ads')">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
-                                        </div>
+                <div class="col-4 firstCol">
+                    <div class="fixedCol">
+                        <div class="menuBar">
+                            <div class="btnsMenu">
+                                <div class="menuBarBut">
+                                    <a href="javascript: void(0);" @click="createOrganization">Создать организацию</a>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('profile')">
+                                    <div :class="mode.profile === true ? 'btnActiv' : 'btnPassiv'"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои данные</div>
                                     </div>
-                                    <div class="btnMenuItems d-flex" @click="to('resumes')">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
-                                        </div>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('ads')">
+                                    <div class="btnPassiv"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои объявления</div>
                                     </div>
-                                    <div class="btnMenuItems d-flex" @click="to('favorite')">
-                                        <div class="btnPassiv"></div>
-                                        <div class="pointers">
-                                            <div style="position: relative; color: white; opacity: 0.8;">Закладки</div>
-                                        </div>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('resumes')">
+                                    <div class="btnPassiv"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои Резюме</div>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('followed')">
+                                    <div :class="mode.followed === true ? 'btnActiv' : 'btnPassiv'"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Подписки</div>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('my')">
+                                    <div :class="mode.my === true ? 'btnActiv' : 'btnPassiv'"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Мои организации</div>
+                                    </div>
+                                </div>
+                                <div class="btnMenuItems d-flex" @click="to('all')">
+                                    <div :class="mode.all === true ? 'btnActiv' : 'btnPassiv'"></div>
+                                    <div class="pointers">
+                                        <div style="position: relative; color: white; opacity: 0.8;">Все организации</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <div class="col-4 mainArea">
-                    <div class="postBlocks">
+                    <div v-if="mode.profile" class="postBlocks">
                         <div class="postBlock">
                             <div class="postTopBlock">
                                 <div class="blockTopForLogo">
@@ -105,6 +147,29 @@
                             </button>
                         </div>
                     </div>
+                    <div v-else>
+                        <div class="postBlocks" v-for="org in getFilteredOrgs()" :key="org.id">
+                            <div class="postBlock">
+                                <div class="postTopBlock">
+                                    <div class="titleForPost"><router-link :to="`/organization/${org.id}/ads`">{{org.name}}</router-link>
+                                    </div>
+                                </div>
+                                <div class="postDownBlock">
+                                    <div class="textblockForPost">
+                                        {{org.description}}
+                                    </div>
+                                    <div class="org-footer">
+                                        <div class="members">
+                                            {{getMembers(org.members.length)}}
+                                        </div>
+                                        <div v-if="isMember(org) === 'not-member'" class="act-btn" @click="enter(org)">Подать заявку</div>
+                                        <div v-else-if="org.isMember === 'member'" class="deact-btn">Покинуть</div>
+                                        <div v-else class="deact-btn">Заявка подана</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-4 thirdCol">
                     <div class="fixedCol">
@@ -122,7 +187,7 @@
 
                         <div class="rightBlock">
                             <div class="rightBlock_block">
-                                <div class="sortBlock">
+                                <div v-if="mode.profile" class="sortBlock">
                                     Настройки
                                     <div class="sortItems">
                                         <div class="sortItem d-flex">
@@ -132,6 +197,12 @@
                                                 <span class="slider round" @click="changeTheme"></span>
                                             </label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div v-else class="searchform d-flex">
+                                    <input type="text" class="searchInput" placeholder="Название организации" v-model="search">
+                                    <div class="searchLogo">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -154,12 +225,20 @@
         },
         data() {
             return {
+                mode: {
+                    organizations: [],
+                    profile: true,  // tab Профиль
+                    followed: false,// tab Подписки
+                    my: false,      // tab Мои организации
+                    all: false      // tab Все организации
+                },
                 firstname: '',
                 surname: '',
                 studentCardNumber: '',
                 rootMessage: '',
                 showPopup: false,
-                blur: 'blur_test'
+                blur: 'blur_test',
+                search: ''
             };
         },
         created: function () {
@@ -176,21 +255,127 @@
             }
         },
         methods: {
-            to(path) {
-                if (path === 'ads') {
+            isMember(org) {
+                console.log(this.organizations);
+                return org.isMember;
+            },
+            getFilteredOrgs() {
+                let organizations = this.organizations;
+
+                if (this.search) {
+                    organizations = this.searchOrgs();
+                }
+
+                if (this.mode.my)
+                    return organizations.filter((O) => O.creatorId === this.$cookies.get("USER").id);
+                else if (this.mode.all)
+                    return organizations;
+                else if (this.mode.followed)
+                    return organizations.filter((O) => {
+                        return !!O.members.find((M) => M.organizationRights.find((R) => R.rightName === 'Member') && M.user.id === this.$cookies.get("USER").id);
+                    });
+                return [];
+            },
+            to(modeName) {
+                const url = 'organization';
+                this.mode = { all: false, my: false, followed: false, profile: false };
+
+                if (modeName === 'ads') {
                     localStorage.setItem('mode', 'my');
                     router.push({ name: 'Ads' });
                 }
 
-                if (path === 'resumes') {
+                if (modeName === 'resumes') {
                     localStorage.setItem('mode', 'my');
                     router.push({ name: 'Resumes' });
                 }
-
-                if (path === 'favorite') {
-                    localStorage.setItem('mode', 'favorite');
-                    router.push({ name: 'Ads' });
+                
+                if (modeName === 'profile') {
+                    this.mode.profile = true;
+                    if (this.$cookies.get("USER")) {
+                        this.blur = '';
+                        this.firstname = this.$cookies.get("USER").firstname;
+                        this.surname = this.$cookies.get("USER").surname;
+                        this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
+                    } else {
+                        this.blur='blur_test';
+                        this.rootMessage = 'login';
+                        this.showPopup = true;
+                    }
                 }
+                
+                if (modeName === 'my') {
+                    this.mode.my = true;
+                    localStorage.removeItem('mode');
+                }
+                
+                if (modeName === 'all') {
+                    this.mode.all = true;
+                    localStorage.removeItem('mode');
+                }
+                
+                if (modeName === 'followed') {
+                    this.mode.followed = true;
+                    localStorage.removeItem('mode');
+                }
+
+                axios({
+                    method: 'get',
+                    url: url,
+                    data: {}
+                }).then(async (data) => {
+                    this.organizations = data.data;
+
+                    for (let org of this.organizations) {
+                        org.members = (await axios.get(`organization/members/${org.id}`)).data;
+                        let user = org.members.find((M) => M.user.id === this.$cookies.get("USER").id)
+
+                        if (user) {
+                            org.isMember = 'member';
+                        } else {
+                            let wishes = (await axios.get(`organization/wish/${org.id}`)).data;
+                            if (wishes.find((W) => W.user.id === this.$cookies.get("USER").id))
+                                org.isMember = 'whisher'
+                            else
+                                org.isMember = 'not-member';
+                        }
+
+                        console.log(org)
+                    }
+                }).catch(error => {
+                    console.log('ERROR');
+                    console.log(error);
+                    if(error.response.status==401) {
+                        this.rootMessage = 'login';
+                        this.showPopup = true;
+                        this.showLogin = true;
+                        this.blur = 'blur_test';
+                    }
+                }).finally(() => {
+                    if (document.getElementById('menu_toggle')) {
+                        document.getElementById('menu_toggle').checked = false;
+                    }
+                });
+            },
+            async enter(org) {
+                if ((await axios.post(`organization/wish/${org.id}`))) {
+                    this.organizations.map((O) => {
+                        if (O.id === org.id) {
+                            O.isMember = 'wisher';
+                        }
+                        return O;
+                    });
+                    this.$forceUpdate();
+                }
+            },
+            searchOrgs() {
+                let _orgs = this.organizations.filter((org) => {
+                    if (org.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+                        return true;
+                    return false;
+                });
+
+                return _orgs;
             },
             toggleMenu() {
                 if (this.showPopup && !document.getElementById('menu_toggle').checked)
@@ -205,6 +390,19 @@
                     this.showPopup = true;
                 }
                 document.getElementById('menu_toggle').checked = !document.getElementById('menu_toggle').checked;
+            },
+            getMembers(count) {
+                if (count === 1) {
+                    return '1 участник';
+                } else if (count < 5) {
+                    return `${count} участника`;
+                } else if (count < 1000) {
+                    return `${count} участников`;
+                } else if (count < 1000000) {
+                    return `${Math.floor(count / 1000)}K участников`
+                } else {
+                    return `${Math.floor(count / 1000000)}M участников`
+                }
             },
             isChecked() {
                 return document.getElementById('menu_toggle').checked;
@@ -300,16 +498,31 @@
                     }
                 });
             },
-            closePopup() {
-                this.showPopup=false;
-                this.blur='';
+            createOrganization() {
+                this.rootMessage = 'createOrganization';
+                this.showPopup = true;
+                this.blur = 'blur_test';
+            },
+            closePopup(e) {
+                if (e === 'unauthorized') {
+                    this.rootMessage = 'login';
+                    this.showPopup = true;
+                }
+                else {
+                    this.showPopup = false;
+                    this.blur = '';
 
-                this.firstname = this.$cookies.get("USER").firstname;
-                this.surname = this.$cookies.get("USER").surname;
-                this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
+                    this.firstname = this.$cookies.get("USER").firstname;
+                    this.surname = this.$cookies.get("USER").surname;
+                    this.studentCardNumber = this.$cookies.get("USER").studentCardNumber;
+
+                    if (this.rootMessage === 'login')
+                        router.go();
+                }
             }
         },
         mounted() {
+            this.to('profile')
             if (this.$cookies.get("THEME") === "LIGHT") {
                 var checkbox = document.getElementById('theme_check');
                 checkbox.checked = true;
@@ -319,5 +532,54 @@
 </script>
 
 <style scoped>
+.postTopBlock {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+}
 
+.org-footer {
+    display: block;
+    width: max-content;
+    margin: 5px 10px 0 auto;
+}
+
+.members {
+    display: inline-block;
+    height: 25px;
+    width: max-content;
+    color: var(--postdate-color);
+    border-radius: 13px;
+    background: var(--postdate-background);
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: center;
+    padding: 1px 10px;
+}
+
+.act-btn {
+    display: inline-block;
+    height: 25px;
+    width: max-content;
+    color: var(--postdate-color);
+    border-radius: 7px;
+    background: var(--btnActive-background);
+    font-size: 14px;
+    text-align: center;
+    padding: 1px 10px;
+    cursor: pointer;
+}
+
+.deact-btn {
+    display: inline-block;
+    height: 25px;
+    width: max-content;
+    color: #000000;
+    border-radius: 7px;
+    background: #ACACAC;
+    font-size: 14px;
+    text-align: center;
+    padding: 1px 10px;
+    cursor: pointer;
+}
 </style>

@@ -13,6 +13,7 @@
 	import passChange from './PassChange';
 	import emailChange from './EmailChange';
 	import createResume from '../Resumes/CreateResume';
+	import createOrganization from '../Organizations/CreateOrganization';
 	
 	export default {
 		name: 'popup',
@@ -27,7 +28,8 @@
 					createAd: createAd,
 					passChange: passChange,
 					emailChange: emailChange,
-					createResume: createResume
+					createResume: createResume,
+					createOrganization: createOrganization
 				},
 				currentView: login
 			}

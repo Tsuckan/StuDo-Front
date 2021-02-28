@@ -40,7 +40,7 @@
                 "shortDescription": "",
                 "beginTime": "",
                 "endTime": "",
-                "organizationId": ""
+                "organizationId": this.$route.params.orgId
             }
         },
         methods : {

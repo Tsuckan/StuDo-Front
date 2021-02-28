@@ -20,6 +20,7 @@ axios.defaults.baseURL = process.env.VUE_APP_API;
 axios.interceptors.request.use(
   (config) => {
     const token = Vue.$cookies.get('ACCESSTOKEN');
+    
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token;
     }
@@ -56,44 +57,41 @@ axios.interceptors.response.use(
   }
 );
 
-Vue.use(axios)
+Vue.use(axios);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state: {
-    user:{},
-    add:'',
-    accesstoken:"" },
+    user: {},
+    add: '',
+    accesstoken: '' },
     getters:
-        {
-          USER: state => {
-            return state.user;
-          },
-            ACCESSTOKEN: state => {
-                return state.accesstoken;
-            },
-            ADD: state => {
-                return state.add;
-            }
-        },
-    mutations:
-        {
-      SET_USER(state, content)
-      {
+    {
+      USER: state => {
+        return state.user;
+      },
+      ACCESSTOKEN: state => {
+        return state.accesstoken;
+      },
+      ADD: state => {
+        return state.add;
+      }
+    },
+    mutations: {
+      SET_USER(state, content) {
         state.user = content;
       },
-            SET_ACCESSTOKEN(state, content)
-            {
-                state.accesstoken = content;
-            },
-            SET_ADD(state, content)
-            {
-                state.add = content;
-            }
+      SET_ACCESSTOKEN(state, content) {
+        state.accesstoken = content;
+      },
+      SET_ADD(state, content) {
+        state.add = content;
+      }
     }
   }
-)
+);
+
 new Vue({
   store,
   router,
