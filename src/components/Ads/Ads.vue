@@ -215,8 +215,8 @@
                     for (let i = 0; i < this.posts.length; i++) {
                         this.posts[i].show = false;
                         this.comments.push(this.posts[i].lastComment);
-                        this.blur = '';
                     }
+                    this.blur = '';
 
                     if (this.id != '') {
                         for (let i = 0; i < this.posts.length; i++) {
