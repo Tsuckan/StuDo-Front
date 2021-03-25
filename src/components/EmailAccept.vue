@@ -1,6 +1,9 @@
 
 <template>
     <div class="main">
+        <transition name="popup">
+            <popup v-if="passwordChanging" class="inFront" :viewName="'passReset'" @close="closePopup" />
+        </transition>
         <div class="blur_test">
             <div class="menu">
                 <input id="menu_toggle" type="checkbox" />
@@ -108,6 +111,7 @@
             </div>
         </div>
         <div class="blur_layer"></div>
+        
         <div v-if="error" class="popupBlock">
             <div class="popupHeader">Произошла ошибка</div>
             <div class="popupFooter">
@@ -118,13 +122,22 @@
 </template>
 <script>
     import axios from 'axios';
+    import popup from './Popups/Popup';
     export default {
+        components: {
+            popup: popup
+        },
         data(){
             return {
-                error: ''
+                error: '',
+                passwordChanging: false
             }
         },
         methods: {
+            closePopup() {
+                this.passwordChanging = false;
+                this.error = 'Не удалось сменить пароль';
+            }
         },
         mounted() {
             if (!this.$route.query) {
@@ -133,22 +146,8 @@
                 this.$router.push('/ads');
             }
 
-            if (this.$route.query.NewPassword && this.$route.query.NewPasswordConfirm) {
-                axios.post('account/manage/resetPassword', {
-                    userId: this.$route.query.userId,
-                    token: this.$route.query.token,
-                    newPassword: this.$route.query.NewPassword,
-                    newPasswordConfirm: this.$route.query.NewPasswordConfirm
-                })
-                .then((r) => {
-                    if (!r) {
-                        this.error = 'Не удалось восстановить пароль.';
-                        console.log(this.error);
-                    } else {
-                        this.$router.push('/ads');
-                    }
-                })
-                .catch(() => this.error = 'Не удалось восстановить пароль.');
+            if (this.$route.query.password) {
+                this.passwordChanging = true;
             } else if (this.$route.query.NewEmail) {
                 axios.post('account/manage/confirmEmail', {
                     userId: this.$route.query.userId,

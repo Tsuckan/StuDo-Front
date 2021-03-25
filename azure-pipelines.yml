@@ -64,6 +64,7 @@ stages:
       - publish: Deploy
         artifact: studo-front-pack
 - stage:
+  displayName: Build Image
   condition: ${{variables.buildImage}}
   jobs:
     - job:

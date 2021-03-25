@@ -8,6 +8,7 @@
 	import login from './Authorization';
 	import registration from './Registration';
 	import passForget from './PassForget';
+	import passReset from './PassReset';
 	import adInfo from '../Ads/AdInfo';
 	import createAd from '../Ads/CreateAd';
 	import passChange from './PassChange';
@@ -27,6 +28,7 @@
 					adInfo: adInfo,
 					createAd: createAd,
 					passChange: passChange,
+					passReset: passReset,
 					emailChange: emailChange,
 					createResume: createResume,
 					createOrganization: createOrganization
