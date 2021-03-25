@@ -108,77 +108,79 @@
             </div>
         </div>
         <div class="blur_layer"></div>
-        <div class="popupBlock">
-            <div class="popupHeader">Подтверждение почты</div>
-            <div class="popupBody">
-                <label for="name">Произошла ошибка</label>
-            </div>
+        <div v-if="error" class="popupBlock">
+            <div class="popupHeader">Произошла ошибка</div>
             <div class="popupFooter">
-
+                <label style="color: var(--popupHeader-color)">{{error}}</label>
             </div>
         </div>
     </div>
 </template>
 <script>
-    function $_GET(kavo,key) {
-        var s = decodeURIComponent(kavo);
-        s = s.match(new RegExp(key + '=([^&=]+)'));
-        return s ? s[1] : false;
-    }
-    function $_GETT(kavo,key) {
-        var s = decodeURIComponent(kavo);
-        s = s.match(new RegExp(key + '=([^]+)'));
-        return s ? s[1] : false;
-    }
-
-    import router from "@/router";
     import axios from 'axios';
     export default {
-        name: 'HelloWorld',
         data(){
             return {
-                Email : "",
-                Password : ""
+                error: ''
             }
         },
         methods: {
-            to(path) {
-                if (path === 'my') {
-                    localStorage.setItem('mode', 'my');
-                }
-
-                if (path === 'favorite') {
-                    localStorage.setItem('mode', 'favorite');
-                }
-                
-                router.push({ name: 'Ads' });
-            },
         },
-        mounted()
-        {
-            var kav=$_GETT(this.$route.fullPath,"token");
-            var rdy=kav.split(' ').join('+');
-            axios({
-                method: 'post',
-                url: 'account/manage/confirmEmail',
-                data: {
-                    "userId": $_GET(this.$route.fullPath,"userId"),
-                    "token":rdy
-                }
-            })
-                .then(({ data }) => {
-                    if (data)
-                    {
-                        data=0;
+        mounted() {
+            if (!this.$route.query) {
+                this.$router.push('/ads');
+            } else if (this.$route.query.userId === '' || this.$route.query.token === '') {
+                this.$router.push('/ads');
+            }
+
+            if (this.$route.query.NewPassword && this.$route.query.NewPasswordConfirm) {
+                axios.post('account/manage/resetPassword', {
+                    userId: this.$route.query.userId,
+                    token: this.$route.query.token,
+                    newPassword: this.$route.query.NewPassword,
+                    newPasswordConfirm: this.$route.query.NewPasswordConfirm
+                })
+                .then((r) => {
+                    if (!r) {
+                        this.error = 'Не удалось восстановить пароль.';
+                        console.log(this.error);
+                    } else {
+                        this.$router.push('/ads');
                     }
-                        router.push({ name: 'Login', params: { IsNotify: true } })
-                }).catch(error => {
-                if(error)
-                {
-                    alert('Error')
-                }
-            });
+                })
+                .catch(() => this.error = 'Не удалось восстановить пароль.');
+            } else if (this.$route.query.NewEmail) {
+                axios.post('account/manage/confirmEmail', {
+                    userId: this.$route.query.userId,
+                    token: this.$route.query.token,
+                    newEmail: this.$route.query.NewEmail
+                })
+                .then((r) => {
+                    if (!r) {
+                        this.error = 'Не удалось изменить почту.';
+                        console.log(this.error);
+                    } else {
+                        this.$router.push('/ads');
+                    }
+                })
+                .catch(() => this.error = 'Не удалось восстановить пароль.');
+            } else {
+                axios.post('account/manage/confirmEmail', {
+                    userId: this.$route.query.userId,
+                    token: this.$route.query.token
+                })
+                .then((r) => {
+                    if (!r) {
+                        this.error = 'Не удалось подтвердить почту.';
+                        console.log(this.error);
+                    } else {
+                        this.$router.push('/ads');
+                    }
+                })
+                .catch(() => this.error = 'Не удалось подтвердить почту.');
+            }
         }
+            
     }
 </script>
 

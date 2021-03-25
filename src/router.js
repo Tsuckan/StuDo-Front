@@ -12,6 +12,7 @@ import Members from "./components/Organizations/Members";
 import nf from "./components/nf";
 
 export default new VueRouter({
+    mode: 'history',
     routes: [
         {
             path: '/resumes',
@@ -60,7 +61,7 @@ export default new VueRouter({
         },
         {
             path: '/Acceptation',
-            component: EmailAccept,
+            component: EmailAccept
         }
     ],
 })

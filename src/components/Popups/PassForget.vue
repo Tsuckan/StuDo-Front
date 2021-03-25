@@ -6,8 +6,6 @@
             <div class="popupBody">
                 <label for="Email">Email</label>
                 <input placeholder="" required id="Email" v-model="Email" name="Email" type="text">
-                <label for="Password">Новый пароль</label>
-                <input placeholder="Не менее 6 символов" id="Password" required v-model="Password" name="Password" type="password">
             </div>
             <div class="popupFooter">
                 <div class="halfBlock leftAlign">
@@ -41,20 +39,6 @@
                         group: 'foo',
                         title: 'Ошибка',
                         text: 'Поле Почта незаполнено'
-                    });
-                }
-                else if (this.Password === '' || this.Password === undefined) {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'Ошибка',
-                        text: 'Поле Новый пароль незаполнено'
-                    });
-                }
-                else if (this.Password.length < 6) {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'Ошибка',
-                        text: 'Пароль меньше 6 символов'
                     });
                 }
                 else axios({
