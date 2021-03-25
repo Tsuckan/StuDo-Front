@@ -148,11 +148,11 @@
 
             if (this.$route.query.password) {
                 this.passwordChanging = true;
-            } else if (this.$route.query.NewEmail) {
+            } else if (this.$route.query.newEmail) {
                 axios.post('account/manage/confirmEmail', {
                     userId: this.$route.query.userId,
                     token: this.$route.query.token,
-                    newEmail: this.$route.query.NewEmail
+                    newEmail: this.$route.query.newEmail
                 })
                 .then((r) => {
                     if (!r) {

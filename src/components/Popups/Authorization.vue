@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="popupBlock">
+        <div class="popupBlock" @keyup.enter="handleSubmit">
             <div class="popupHeader">Авторизация</div>
             <div class="popupBody">
                 <label for="Email">Email</label>
@@ -98,17 +98,6 @@ methods : {
   }
 }
 }
-
-    document.onkeyup = function (e) {
-        e = e || window.event;
-        if (e.keyCode === 13) {
-            var elems = document.getElementsByClassName("Login_BTN");
-            elems[0].click();
-
-        }
-        // Отменяем действие браузера
-        return false;
-    }
 
 </script>
 
