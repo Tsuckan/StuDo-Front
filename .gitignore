@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+Deploy/studo-front-build
+Deploy/*.zip
+Deploy/*.7z
+Deploy/*.rar
