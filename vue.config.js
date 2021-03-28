@@ -1,5 +1,5 @@
 const path = require('path');
 
 module.exports = {
-  outputDir: path.resolve(__dirname, './deploy/studo-front-build')
+  outputDir: path.resolve(__dirname, './Deploy/studo-front-build')
 };
