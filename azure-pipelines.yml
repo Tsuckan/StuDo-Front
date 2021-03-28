@@ -55,12 +55,6 @@ stages:
         inputs:
           command: 'custom'
           customCommand: 'run build'
-      - task: CopyFiles@2
-        displayName: copy dist to docker artifact
-        inputs:
-          SourceFolder: 'dist'
-          Contents: '**'
-          TargetFolder: 'Deploy/studo-front-build'
       - publish: Deploy
         artifact: studo-front-pack
 - stage:
